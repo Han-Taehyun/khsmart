@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ultarischool.usercode">
+
+	<select id="selectAllCode"
+		parameterType="com.ultarischool.usercode.UsercodeExample"
+		resultType="com.ultarischool.usercode.UsercodeVO">
+		SELECT id,code,codename,code1,code2,code3 FROM usercode
+		<if test="code2 != null and code2 !=''">
+			WHERE code2 like concat('%',#{code2,jdbcType=VARCHAR},'%')
+		</if>
+		LIMIT ${rowStart-1}, 10
+	</select>
+
+	<select id="selectByCode3" parameterType="java.lang.String"
+		resultType="com.ultarischool.usercode.UsercodeVO">
+		SELECT id,code,codename,code1,code2,code3 FROM usercode WHERE code3 =
+		#{code3,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 관리자 대분류 가져오기 -->
+	<select id="selectListCode2"
+		parameterType="com.ultarischool.usercode.UsercodeExample"
+		resultType="com.ultarischool.usercode.UsercodeVO">
+		SELECT distinct code2 FROM usercode
+		<if test="code1 != null and code1 !=''">
+			WHERE code1 = #{code1}
+		</if>
+		
+	</select>
+
+	<select id="countAllCode"
+		parameterType="com.ultarischool.usercode.UsercodeExample"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM usercode
+		<if test="code2 != null and code2 !=''">
+			WHERE code2 like 
+			
+			concat('%',#{code2,jdbcType=VARCHAR},'%')
+		</if>
+		
+	</select>
+
+	<!-- 강사 분야 가져오기 -->
+	<select id="selectFieldSep"
+		resultType="com.ultarischool.usercode.Separation">
+		SELECT ut.sn as usertsn, ut.fieldtypeid AS id, uc.code2 AS
+		large,
+		uc.code3 AS medium, uc.codename as small FROM usert AS ut JOIN
+		usercode AS uc ON ut.fieldtypeid = uc.id
+		WHERE ut.usertypeid = 19;
+	</select>
+
+</mapper>

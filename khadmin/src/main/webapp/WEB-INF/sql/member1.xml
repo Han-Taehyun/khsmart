@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="khsmart.kr">
+
+	<insert id="insertPermi" parameterType="com.khsmart.kr.Member1VO">
+		insert into tuserpermi (
+		progname,usertype,wdate )
+		values ( #{progname}
+		, #{usertype}
+		,current_timestamp)
+	</insert>
+
+
+	<select id="selectMemberPermiOne"
+		parameterType="edumgt.common.util.SearchVO" resultType="String">
+		SELECT
+		ifnull(progname,'') progname FROM tuserpermi WHERE usertype =
+		#{usertype} AND progname = #{progname}
+	</select>
+
+	<select id="selectMemberPermiList"
+		parameterType="edumgt.common.util.SearchVO"
+		resultType="com.khsmart.kr.Member1VO">
+		SELECT pg.progname,progmemo,ifnull(usertype,'-')
+		usertype,ifnull(sn,0) sn
+		FROM (SELECT * from tuserpermi where
+		usertype=#{srchusertype}) pm
+		right outer JOIN tuserprog pg ON
+		pm.progname = pg.progname
+		ORDER BY pg.progmemo
+
+	</select>
+
+	
+
+
+	<insert id="addMemberPermiAdd"
+		parameterType="edumgt.common.util.SearchVO">
+		insert into tuserpermi (
+		progname,usertype,wdate )
+		values
+		( #{progname}
+		, #{srchusertype}
+		,current_timestamp)
+	</insert>
+
+	<delete id="delMemberPermiDel"
+		parameterType="edumgt.common.util.SearchVO">
+		delete from tuserpermi where sn = #{sn}
+	</delete>
+
+	
+
+
+
+</mapper>
+

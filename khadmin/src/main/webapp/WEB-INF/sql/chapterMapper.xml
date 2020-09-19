@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ultarischool.chapter">
+
+
+	<select id="selectChapterOne" parameterType="java.lang.Integer"
+		resultType="com.ultarischool.chapter.ChapterVO">
+		select
+		coid,
+		ord,
+		title,
+		memo,
+		runtime,
+		chpimg1,
+		chpimg2,
+		prv,
+		mp4url
+		from
+		chapter
+		where sn =
+		#{sn,jdbcType=INTEGER}
+
+	</select>
+
+	<insert id="insertChapter"
+		parameterType="com.ultarischool.chapter.ChapterVO">
+		INSERT INTO chapter(
+		coid,
+		ord,
+		title,
+		memo,
+		runtime,
+		chpimg1,
+		chpimg2,
+		prv,
+		mp4url
+		)
+		VALUES (
+		#{coid},
+		#{ord},
+		#{title},
+		#{memo},
+		#{runtime},
+		#{chpimg1},
+		#{chpimg2},
+		#{prv},
+		#{mp4url}
+		)
+
+	</insert>
+
+	<update id="updateChapter"
+		parameterType="com.ultarischool.chapter.ChapterVO">
+		update chapter
+
+		<set>
+			<if test="coid != null">
+				coid = #{coid},
+			</if>
+			<if test="ord != null">
+				ord = #{ord},
+			</if>
+			<if test="title != null">
+				title = #{title},
+			</if>
+			<if test="memo != null">
+				memo = #{memo},
+			</if>
+			<if test="runtime != null">
+				runtime = #{runtime},
+			</if>
+
+			<if test="chpimg1 != null">
+				chpimg1 = #{chpimg1},
+			</if>
+			<if test="chpimg2 != null">
+				chpimg2 = #{chpimg2},
+			</if>
+
+			<if test="prv != null">
+				prv = #{prv},
+			</if>
+			<if test="mp4url != null">
+				mp4url = #{mp4url},
+			</if>
+
+
+
+		</set>
+		where sn = #{sn,jdbcType=INTEGER}
+
+	</update>
+
+	<select id="selCourseTitle"
+		resultType="com.ultarischool.chapter.ChapterVO"
+		parameterType="java.lang.Integer">
+		SELECT sn,title FROM course WHERE sn = #{sn}
+	</select>
+
+	<select id="selListCourse"
+
+		resultType="com.ultarischool.chapter.ChapterVO">
+		SELECT sn cosn,title cotitle FROM course
+	</select>
+
+	<select id="selectAllChapter"
+		parameterType="com.ultarischool.chapter.ChapterExample"
+		resultType="com.ultarischool.chapter.ChapterVO">
+		SELECT ch.sn, co.sn coid, ch.title AS chaptitle, co.title AS
+		cotitle,
+		ch.ord, ch.runtime,prv,mp4url
+		FROM chapter AS ch
+		JOIN course AS co
+		ON
+		ch.coid =
+		co.sn
+		<if test="cosn != null and cosn !=''">
+			WHERE co.sn = #{cosn}
+		</if>
+		LIMIT ${rowStart-1}, 10
+	</select>
+	<select id="countAllChapter"
+		parameterType="com.ultarischool.chapter.ChapterExample"
+		resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM
+		chapter AS ch
+		JOIN course AS co
+		ON ch.coid
+		= co.sn
+
+		<if test="cosn != null and cosn !=''">
+			WHERE co.sn = #{cosn}
+		</if>
+
+	</select>
+</mapper>

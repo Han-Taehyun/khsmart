@@ -1,0 +1,35 @@
+<Context crossContext="true" sessionCookiePath="/">  
+<Resource 
+	auth="Container" 
+	driverClassName="com.mysql.jdbc.Driver" 
+	
+	maxIdle="30" 
+	
+	name="jdbc/mdvsds"
+	username="root"
+	password="khsmart9741!" 
+	type="javax.sql.DataSource" 
+	
+    removeAbandonedTimeout="60"
+    logAbandoned="true"
+	factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+	url="jdbc:mysql://13.125.124.240/khsmart" 
+	/> 
+	
+<Resource 
+	auth="Container" 
+	driverClassName="com.mysql.jdbc.Driver" 
+	
+	maxIdle="30" 
+	
+	name="jdbc/mdvsds2"
+	username="root"
+	password="khsmart9741!" 
+	type="javax.sql.DataSource" 
+	
+    removeAbandonedTimeout="60"
+    logAbandoned="true"
+	factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+	url="jdbc:mysql://13.125.124.240/khsmart" 
+	/> 
+</Context> 
