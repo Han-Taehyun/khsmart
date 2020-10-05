@@ -78,15 +78,15 @@
 
 
 
-											<th style="width: 10%">작성자</th>
+											<th style="width: 15%">작성자</th>
 
-											<th style="width: 5%">하트수</th>
+											<th style="width: 8%">하트수</th>
 
 
 											<th style="width: *">내용</th>
 
 
-											<th style="width: 20%">날짜</th>
+											<th style="width: 15%">날짜</th>
 
 
 
@@ -104,7 +104,7 @@
 												</td>
 
 
-												<td><a href="javascript:fn_readGo('${listview.sn}')">${listview.title}</a></td>
+												<td>${listview.title}</td>
 
 												<td>${listview.userid}(${listview.username})</td>
 

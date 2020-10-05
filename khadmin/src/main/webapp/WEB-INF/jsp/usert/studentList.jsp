@@ -5,8 +5,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="/WEB-INF/jsp/common/userinfo.jsp" />
 <jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
-<form id="form1" name="form1" method="post" action="staffList">
-	<!-- START CONTENT -->
+<form id="form1" name="form1" method="post" action="studentList">
+
+	<input type="hidden" name="orderKeyword" id="orderKeyword"
+		value="${searchVO.orderKeyword}" /> <input type="hidden" name="sn"
+		id="sn" value="" /> <input type="hidden" name="srch" id="srch"
+		value="SRCH" />
+
 	<section id="main-content" class=" ">
 		<section class="wrapper"
 			style='margin-top: 60px; display: inline-block; width: 100%; padding: 15px 0 0 15px;'>
@@ -45,15 +50,22 @@
 										<tr>
 											<th>#</th>
 											<th>아이디</th>
-											<th>이름</th>
+											<th>이름&nbsp; <a href="javascript:fn_orderKey('1')">▲</a>
+												<a href="javascript:fn_orderKey('2')">▼</a>
+											</th>
 
-											<th>가입일</th>
-											
-											<th>이메일</th>
-											<th>전화</th>
+											<th>가입일&nbsp; <a href="javascript:fn_orderKey('3')">▲</a>
+												<a href="javascript:fn_orderKey('4')">▼</a></th>
 
-											<th>수강강좌수</th>
-											<th>찜강좌수</th>
+											<th>이메일&nbsp; <a href="javascript:fn_orderKey('5')">▲</a>
+												<a href="javascript:fn_orderKey('6')">▼</a></th>
+											<th>전화&nbsp; <a href="javascript:fn_orderKey('7')">▲</a>
+												<a href="javascript:fn_orderKey('8')">▼</a></th>
+
+											<th>수강강좌수&nbsp; <a href="javascript:fn_orderKey('9')">▲</a>
+												<a href="javascript:fn_orderKey('10')">▼</a></th>
+											<th>찜강좌수 &nbsp; <a href="javascript:fn_orderKey('11')">▲</a>
+												<a href="javascript:fn_orderKey('12')">▼</a></th>
 											<th>최근접속일</th>
 										</tr>
 									</thead>
@@ -67,7 +79,7 @@
 												<td><c:out value="${list.username}" /></td>
 
 												<td><c:out value="${list.regdate}" /></td>
-												
+
 												<td><c:out value="${list.email}" /></td>
 												<td><c:out value="${list.mobile}" /></td>
 
@@ -98,5 +110,14 @@
     document.form1.submit();
   }
 </script>
+
+<script>
+	function fn_orderKey(_a) {
+		document.form1.action = "studentList";
+		document.form1.orderKeyword.value = _a;
+		document.form1.submit();
+	}
+</script>
+
 <!-- START CONTENT -->
 <jsp:include page="/WEB-INF/jsp/common/footer.jsp" />

@@ -22,9 +22,7 @@
 					<header class="panel_header">
 						<h2 class="title pull-left">공지사항 입력</h2>
 						<div class="actions panel_actions pull-right">
-							<i class="box_toggle fa fa-chevron-down"></i> <i
-								class="box_setting fa fa-cog" data-toggle="modal"
-								href="#section-settings"></i> <i class="box_close fa fa-times"></i>
+							
 						</div>
 					</header>
 					<div class="content-body">
@@ -74,7 +72,7 @@
 
 												<td class="tdl" style="width: 15%">메모</td>
 
-												<td style="width: 85%"><input rows=5 name="memo"
+												<td style="width: 85%"><input name="memo"
 													type="text" value="${posts1Info.memo}" class="form-control"></td>
 
 
@@ -103,7 +101,7 @@
 												</c:forEach>
 
 
-												<input type="file" name="uploadfile" multiple="" />
+												<input type="file" name="uploadfile"  />
 											</div>
 										</div>
 

@@ -4,32 +4,39 @@
 	<select id="selectAllCourseUser"
 		parameterType="com.ultarischool.course.CourseExample"
 		resultType="com.ultarischool.course.CourseVO">
-		SELECT cu.sn,courseid,cu.userid,billtype,wdate,
-		cs.price orgprice,
-		cu.price,tx,username, title
-		FROM cosuser cu JOIN usert ut ON ut.userid
-		= cu.userid
-		JOIN course cs ON cs.sn = cu.courseid
+		SELECT
+		sn,courseid,userid,billtype,wdate,price,orgprice,tx,username,title
+		FROM vwcosuser
+
+		where 1=1
+
+		<if test="code2 != null and code2 != ''">
+			and courseid = #{code2,jdbcType=VARCHAR}
+		</if>
+
+
 		<if test="searchKeyword != null and searchKeyword != ''">
-			WHERE c.${searchType} LIKE
+			and ${searchType} LIKE
 			CONCAT('%',#{searchKeyword},'%')
 		</if>
+
+
 		LIMIT ${rowStart-1}, 10;
 	</select>
 
 	<select id="countAllCourseUser"
 		parameterType="com.ultarischool.course.CourseExample"
 		resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM
+		SELECT count(*)
+		FROM vwcosuser
+		where 1=1
 
-		(SELECT cu.sn,courseid,cu.userid,billtype,wdate,
-		cs.price orgprice, cu.price,tx,username, title
-		FROM cosuser cu JOIN
-		usert ut ON ut.userid = cu.userid
-		JOIN course cs ON cs.sn =
-		cu.courseid) z
+		<if test="code2 != null and code2 != ''">
+			and courseid = #{code2,jdbcType=VARCHAR}
+		</if>
+
 		<if test="searchKeyword != null and searchKeyword != ''">
-			WHERE c.${searchType} LIKE
+			and ${searchType} LIKE
 			CONCAT('%',#{searchKeyword},'%')
 		</if>
 
@@ -38,13 +45,16 @@
 	<select id="selectAllPkgUser"
 		parameterType="com.ultarischool.course.CourseExample"
 		resultType="com.ultarischool.course.CourseVO">
+		
 		SELECT pu.sn,pkgid,pu.userid,wdate,price,billtype,username,pkgtitle
 		FROM pkguser pu JOIN usert ut ON ut.userid = pu.userid JOIN package pk
 		ON pk.sn = pu.pkgid
+		
 		<if test="searchKeyword != null and searchKeyword != ''">
-			WHERE c.${searchType} LIKE
+			WHERE ${searchType} LIKE
 			CONCAT('%',#{searchKeyword},'%')
 		</if>
+		
 		LIMIT ${rowStart-1}, 10;
 	</select>
 
@@ -70,10 +80,13 @@
 		parameterType="com.ultarischool.course.CourseExample"
 		resultType="com.ultarischool.course.CourseVO">
 		SELECT pg.sn,pg.coid,usid,chapid,studtime,pg.runtime,username,cs.title
-		, cp.title cptitle, cp.runtime cpruntime,(ROUND(studtime / pg.runtime,1) * 100) rate
-		FROM progress pg JOIN course cs ON cs.sn = pg.coid
+		, cp.title cptitle, cp.runtime cpruntime,(ROUND(studtime /
+		pg.runtime,1) * 100) rate
+		FROM progress pg JOIN course cs ON cs.sn =
+		pg.coid
 		JOIN usert ut ON ut.userid = pg.usid
-		JOIN chapter cp ON cp.coid = cs.sn AND pg.chapid = cp.sn
+		JOIN chapter cp ON cp.coid
+		= cs.sn AND pg.chapid = cp.sn
 		<if test="searchKeyword != null and searchKeyword != ''">
 			WHERE c.${searchType} LIKE
 			CONCAT('%',#{searchKeyword},'%')
@@ -89,13 +102,27 @@
 		(SELECT
 		pg.sn,pg.coid,usid,chapid,studtime,pg.runtime,username,cs.title ,
 		cp.title cptitle, cp.runtime cpruntime
-		FROM progress pg JOIN course cs ON cs.sn = pg.coid
+		FROM progress pg JOIN course cs
+		ON cs.sn = pg.coid
 		JOIN usert ut ON ut.userid = pg.usid
-		JOIN chapter cp ON cp.coid = cs.sn AND pg.chapid = cp.sn) z
+		JOIN chapter cp
+		ON cp.coid = cs.sn AND pg.chapid = cp.sn) z
 		<if test="searchKeyword != null and searchKeyword != ''">
 			WHERE c.${searchType} LIKE
 			CONCAT('%',#{searchKeyword},'%')
 		</if>
 
 	</select>
+
+
+	<insert id="insCosUserAdmin" parameterType="com.ultarischool.course.CourseVO">
+		INSERT cosuser ( courseid, userid, billtype, wdate, price, tx, adminid )
+
+		VALUES ( #{courseid}, #{userid}, 'FREE' , current_timestamp,
+		'0','-','')
+	</insert>
+
+
+
+
 </mapper>

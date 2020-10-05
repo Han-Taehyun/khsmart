@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ultarischool.course">
 
+	
+	
+	
 	<select id="selectAllCourseForPck"
 
 		resultType="com.ultarischool.course.CourseVO">
@@ -44,7 +47,7 @@
 
 		img1,
 		img2,
-		img3
+		img3, porgprice, pdcr
 
 
 		)
@@ -59,7 +62,7 @@
 
 		#{img1},
 		#{img2},
-		#{img3}
+		#{img3}, #{porgprice} , #{pdcr}
 		)
 
 	</insert>
@@ -105,6 +108,13 @@
 				img3 = #{img3,jdbcType=VARCHAR},
 			</if>
 
+			<if test="porgprice != null">
+				porgprice = #{porgprice,jdbcType=VARCHAR},
+			</if>
+			<if test="pdcr != null">
+				pdcr = #{pdcr,jdbcType=VARCHAR},
+			</if>
+
 
 		</set>
 		where sn = #{sn,jdbcType=INTEGER}
@@ -118,7 +128,10 @@
 		title,
 		tottime,
 		typecode,
+
+		( SELECT  ifnull(hnum ,0 ) FROM vwcosheart  WHERE vwcosheart.coid = course.sn )
 		totheartnum,
+
 		intro,
 		tutorid,
 		price,
@@ -131,8 +144,10 @@
 		wdate,
 
 		cotag1,cotag2,cotag3,
-		cotarget1,cotarget2,cotarget3
-		from course where sn
+		cotarget1,cotarget2,cotarget3,mp4url,dcr,openstatus,orgprice
+		from
+		course
+		where sn
 		= #{sn}
 	</select>
 
@@ -151,7 +166,7 @@
 
 		img1,
 		img2,
-		img3
+		img3, porgprice, pdcr
 		from package where sn
 		= #{sn}
 	</select>
@@ -161,9 +176,6 @@
 		SELECT ifnull(MAX(sn),0) sn
 		FROM course
 	</select>
-
-
-
 
 	<update id="updateCourse"
 		parameterType="com.ultarischool.course.CourseVO">
@@ -235,6 +247,22 @@
 				cotarget3 = #{cotarget3,jdbcType=VARCHAR},
 			</if>
 
+			<if test="mp4url != null">
+				mp4url = #{mp4url,jdbcType=VARCHAR},
+			</if>
+
+			<if test="dcr != null">
+				dcr = #{dcr,jdbcType=VARCHAR},
+			</if>
+
+			<if test="openstatus != null">
+				openstatus = #{openstatus,jdbcType=VARCHAR},
+			</if>
+
+			<if test="orgprice != null">
+				orgprice = #{orgprice,jdbcType=VARCHAR},
+			</if>
+
 		</set>
 		where sn = #{sn,jdbcType=INTEGER}
 
@@ -246,7 +274,8 @@
 		title,
 		tottime,
 		typecode,
-		totheartnum,
+
+
 		intro,
 		tutorid,
 		price,
@@ -258,14 +287,15 @@
 		cosimg3,
 		wdate,
 		cotag1,cotag2,cotag3,
-		cotarget1,cotarget2,cotarget3
+		cotarget1,cotarget2,cotarget3,mp4url,dcr,orgprice,openstatus
 
 		)
 		VALUES (
 		#{title},
 		#{tottime},
 		#{typecode},
-		#{totheartnum},
+
+
 		#{intro},
 		#{tutorid},
 		#{price},
@@ -278,6 +308,7 @@
 		CURRENT_TIMESTAMP,
 		#{cotag1},#{cotag2},#{cotag3},
 		#{cotarget1},#{cotarget2},#{cotarget3}
+		,#{mp4url},#{dcr},#{orgprice},#{openstatus}
 		)
 
 	</insert>
@@ -331,29 +362,99 @@
 		c.typecode,
 		uc.code2 as large
 
-		,cucnt,cpcnt
+		,ifnull(cucnt,'0') cucnt
+		,ifnull(cpcnt,'0') cpcnt,
+		
+		substring(c.wdate,1,10) wdate,
+		
+		openstatus,orgprice,dcr
 
-		FROM course AS c
-		JOIN usercode AS uc
+		FROM
+		course AS c
+		JOIN
+		usercode AS
+		uc
 		ON
 		c.typecode =
 		uc.code
 
 		LEFT OUTER JOIN
-		( SELECT courseid,COUNT(*) cucnt
+		(
+		SELECT
+		courseid,COUNT(*) cucnt
 		FROM cosuser GROUP BY courseid ) cu ON
 		cu.courseid = c.sn
 
 		LEFT OUTER
 		JOIN
-		( SELECT coid,COUNT(*) cpcnt FROM chapter GROUP BY coid ) cp ON
+		( SELECT coid,COUNT(*) cpcnt FROM
+		chapter GROUP BY coid ) cp ON
 		cp.coid
 		= c.sn
+
 
 		<if test="searchKeyword != null and searchKeyword != ''">
 			WHERE c.${searchType} LIKE
 			CONCAT('%',#{searchKeyword},'%')
 		</if>
+
+
+		<if test="orderKeyword == null or orderKeyword == ''">
+			ORDER BY wdate desc
+		</if>
+
+
+
+		<if test='orderKeyword=="1"'>
+			ORDER BY c.title asc
+		</if>
+		<if test='orderKeyword=="2"'>
+			ORDER BY c.title desc
+		</if>
+
+		<if test='orderKeyword=="3"'>
+			ORDER BY wdate asc
+		</if>
+		<if test='orderKeyword=="4"'>
+			ORDER BY wdate desc
+		</if>
+
+		<if test='orderKeyword=="5"'>
+			ORDER BY large asc
+		</if>
+		<if test='orderKeyword=="6"'>
+			ORDER BY large desc
+		</if>
+		
+		<if test='orderKeyword=="7"'>
+			ORDER BY cpcnt asc
+		</if>
+		<if test='orderKeyword=="8"'>
+			ORDER BY cpcnt desc
+		</if>
+		
+		<if test='orderKeyword=="9"'>
+			ORDER BY cucnt asc
+		</if>
+		<if test='orderKeyword=="10"'>
+			ORDER BY cucnt desc
+		</if>
+		
+		<if test='orderKeyword=="11"'>
+			ORDER BY openstatus asc
+		</if>
+		<if test='orderKeyword=="12"'>
+			ORDER BY openstatus desc
+		</if>
+		
+		<if test='orderKeyword=="13"'>
+			ORDER BY cast(price AS DECIMAL) asc
+		</if>
+		<if test='orderKeyword=="14"'>
+			ORDER BY cast(price AS DECIMAL) desc
+		</if>
+
+
 		LIMIT ${rowStart-1}, 10;
 	</select>
 
@@ -369,6 +470,8 @@
 			CONCAT('%',#{searchKeyword},'%')
 		</if>
 
+
+
 	</select>
 
 	<select id="selectAllCoursePkg"
@@ -379,36 +482,55 @@
 		c.typecode,
 		uc.code2 as large
 
-		,cucnt,cpcnt, pkgcos.ord,pkgcos.pkgid, pkgcos.sn pkgcosn
+		,ifnull(cucnt,'0') cucnt
+		,ifnull(cpcnt,'0') cpcnt
+
+		,pkgcos.ord,pkgcos.pkgid, pkgcos.sn
+		pkgcosn
 
 		FROM course AS c
-		JOIN usercode AS uc
+		JOIN
+		usercode AS uc
 		ON
 		c.typecode =
 		uc.code
 
-		LEFT OUTER JOIN
-		( SELECT courseid,COUNT(*) cucnt
-		FROM cosuser GROUP BY courseid ) cu ON
+		LEFT
+		OUTER JOIN
+		( SELECT
+		courseid,COUNT(*) cucnt
+		FROM cosuser GROUP BY
+		courseid ) cu ON
 		cu.courseid = c.sn
 
 		LEFT OUTER
 		JOIN
-		( SELECT coid,COUNT(*) cpcnt FROM chapter GROUP BY coid ) cp ON
+		( SELECT coid,COUNT(*)
+		cpcnt FROM
+		chapter GROUP BY coid ) cp ON
 		cp.coid
 		= c.sn
-		
-		JOIN pkgcos ON pkgcos.cosid = c.sn
+
+		JOIN pkgcos ON
+		pkgcos.cosid =
+		c.sn
 
 		where 1=1
 
-		and c.sn IN ( SELECT cosid FROM pkgcos WHERE pkgid
-		= #{pkgid} )
+		and c.sn IN ( SELECT cosid FROM
+		pkgcos
+		WHERE pkgid
+		=
+		#{pkgid} )
 
 		<if test="searchKeyword != null and searchKeyword != ''">
 			and c.${searchType} LIKE
 			CONCAT('%',#{searchKeyword},'%')
 		</if>
+
+
+		ORDER BY pkgcos.ord
+
 		LIMIT ${rowStart-1}, 10;
 	</select>
 
@@ -436,14 +558,18 @@
 	<select id="selectAllPackage"
 		parameterType="com.ultarischool.course.CourseExample"
 		resultType="com.ultarischool.course.CourseVO">
-		SELECT sn,pkgprice,pkgmemo,pkgtitle , cscnt, pzcnt, pucnt
+		SELECT sn,pkgprice,pkgmemo,pkgtitle ,
+
+		ifnull(cscnt,'0') cscnt, ifnull(pzcnt,'0') pzcnt, ifnull(pucnt,'0') pucnt,
+
+		porgprice, pdcr
 
 		FROM
-		package
-		pkg
+		package pkg
 
 		left outer JOIN
-		(SELECT pkgid,COUNT(*) cscnt FROM pkgcos
+		(SELECT pkgid,COUNT(*) cscnt FROM
+		pkgcos
 		GROUP BY
 		pkgid)
 		pkc
@@ -475,17 +601,18 @@
 	<select id="countAllPackage"
 		parameterType="com.ultarischool.course.CourseExample"
 		resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM ( SELECT sn,pkgtitle ,pkgmemo,
-		cscnt
+		SELECT COUNT(*) FROM ( SELECT sn,pkgtitle , cscnt
 
 		FROM package
 		pkg
-		left outer JOIN
+		left
+		outer JOIN
 		(SELECT pkgid,COUNT(*) cscnt FROM
 		pkgcos GROUP BY
 		pkgid)
 		pkc
-		ON pkg.sn = pkc.pkgid ) z
+		ON
+		pkg.sn = pkc.pkgid ) z
 
 		<if test="searchKeyword != null and searchKeyword != ''">
 			WHERE z.${searchType} LIKE

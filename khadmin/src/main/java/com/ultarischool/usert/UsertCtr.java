@@ -30,6 +30,7 @@ import com.ultarischool.usercode.UsercodeVO;
 
 import edumgt.common.util.FileUtil;
 
+@SuppressWarnings("unused")
 @Controller
 public class UsertCtr {
 
@@ -42,6 +43,20 @@ public class UsertCtr {
 	@Autowired
 	private EtcgoSvc etcgoSvc;
 
+	@RequestMapping(value = "/userStSrch")
+	public String userStSrch(HttpServletRequest request, usertExample userExample, 
+			ModelMap modelMap, UsercodeExample codeExample) {
+
+		
+		
+		
+		List<UsertVO> ulist = usertSvc.selectUserStSrch(request.getParameter("username"));
+		modelMap.addAttribute("ulist", ulist);
+
+		return "course/vwpopupuser2";
+	}
+	
+	
 	@RequestMapping(value = "/tutorList")
 	public String tutorList(usertExample userExample, ModelMap modelMap, UsercodeExample codeExample) {
 
@@ -62,6 +77,7 @@ public class UsertCtr {
 
 	@RequestMapping(value = "/studentList")
 	public String studentList(usertExample userExample, ModelMap modelMap) {
+		
 		userExample.setUsertypecode("ST");
 		userExample.pageCalculate(usertSvc.selectCountByUsertypecode(userExample));
 
@@ -157,15 +173,15 @@ public class UsertCtr {
 	@RequestMapping(value = "/tutorRead")
 	public String tutorRead(HttpServletRequest request, usert usert, ModelMap modelMap) {
 
-		
-
 		String sn = "";
 		if (request.getParameter("sn") != null) {
 			sn = request.getParameter("sn");
 		}
 		usert = usertSvc.selectByPrimaryKey(Integer.parseInt(sn));
 
-		
+		List<?> listview = usertSvc.selTtLecList(usert.getUserid());
+
+		modelMap.addAttribute("listview", listview);
 
 		modelMap.addAttribute("cvo", usert);
 
@@ -182,7 +198,14 @@ public class UsertCtr {
 
 		usert = usertSvc.selectByPrimaryKey(Integer.parseInt(sn));
 
+		List<?> listview = usertSvc.selUserLike(usert.getUserid());
 		
+		
+		List<?> suclist = usertSvc.selVwcosinfo(usert.getUserid());
+
+		modelMap.addAttribute("listview", listview);
+		
+		modelMap.addAttribute("suclist", suclist);
 
 		modelMap.addAttribute("cvo", usert);
 
@@ -375,15 +398,15 @@ public class UsertCtr {
 				session.setAttribute("USERTYPE", getuser.getUsertypecode());
 				System.out.println(" # USERTYPE # " + session.getAttribute("USERTYPE"));
 
-				// return "redirect:/staffList";
+				
 				return "redirect:/statdash";
 
 			} else {
-				System.out.println("Login Usertype Fail");
+				
 				return "usert/login";
 			}
 		} else {
-			System.out.println("Login DB Data Fail");
+			
 			return "usert/login";
 		}
 

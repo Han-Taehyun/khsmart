@@ -4,6 +4,44 @@ public class hpenv {
 
 	private String cmsbigid;
 	
+	private String cscnt;
+	
+	public String getCscnt() {
+		return cscnt;
+	}
+
+	public void setCscnt(String cscnt) {
+		this.cscnt = cscnt;
+	}
+
+	private Integer cmsbid2;
+	public Integer getCmsbid2() {
+		return cmsbid2;
+	}
+
+	public void setCmsbid2(Integer cmsbid2) {
+		this.cmsbid2 = cmsbid2;
+	}
+
+	public Integer getCosid2() {
+		return cosid2;
+	}
+
+	public void setCosid2(Integer cosid2) {
+		this.cosid2 = cosid2;
+	}
+
+	public Integer getOrd2() {
+		return ord2;
+	}
+
+	public void setOrd2(Integer ord2) {
+		this.ord2 = ord2;
+	}
+
+	private Integer cosid2;
+	private Integer ord2;
+	
 	public String getCmstypename() {
 		return cmstypename;
 	}
@@ -60,6 +98,26 @@ public class hpenv {
 	}
 
 	private String courseid;
+	
+	private Integer cmsbigid2;
+
+	private Integer courseid2;
+
+	public Integer getCourseid2() {
+		return courseid2;
+	}
+
+	public void setCourseid2(Integer courseid2) {
+		this.courseid2 = courseid2;
+	}
+
+	public Integer getCmsbigid2() {
+		return cmsbigid2;
+	}
+
+	public void setCmsbigid2(Integer cmsbigid2) {
+		this.cmsbigid2 = cmsbigid2;
+	}
 
 	private String cmstype;
 

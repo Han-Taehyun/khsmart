@@ -22,11 +22,7 @@
 				<section class="box ">
 					<header class="panel_header">
 						<h2 class="title pull-left">패키지 입력</h2>
-						<div class="actions panel_actions pull-right">
-							<i class="box_toggle fa fa-chevron-down"></i> <i
-								class="box_setting fa fa-cog" data-toggle="modal"
-								href="#section-settings"></i> <i class="box_close fa fa-times"></i>
-						</div>
+						<div class="actions panel_actions pull-right"></div>
 					</header>
 					<div class="content-body">
 						<div class="row">
@@ -77,19 +73,30 @@
 
 											</tr>
 
-
-
-
-
 											<tr>
 
+												<td class="tdl" style="width: 15%">원가(하이픈)</td>
+												<td style="width: 35%"><input name="porgprice"
+													type="text" value="${cvo.porgprice}" class="form-control"
+													style="width: 120px" maxlength="8"
+													onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"></td>
 
+												<td class="tdl" style="width: 15%">할인율</td>
+
+												<td style="width: 35%"><input name="pdcr" type="text"
+													value="${cvo.pdcr}" class="form-control"
+													style="width: 120px" maxlength="3"
+													onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+
+											</tr>
+
+											<tr>
 												<td class="tdl" style="width: 15%">태그</td>
 
 												<td style="width: 85%" colspan="3"><select
 													name="cotag1"
 													style="width: 200px; height: 35px; padding: 5px; padding-bottom: 10px; font-size: 13px">
-														<option value="">::선택::</option>
+														<option value="XXX">::선택::</option>
 														<c:forEach var="seltag1" items="${seltag1}"
 															varStatus="status">
 															<option value="${seltag1.tgcode}"
@@ -98,7 +105,7 @@
 
 												</select> <select name="cotag2"
 													style="width: 200px; height: 35px; padding: 5px; padding-bottom: 10px; font-size: 13px">
-														<option value="">::선택::</option>
+														<option value="XXXX">::선택::</option>
 														<c:forEach var="seltag2" items="${seltag2}"
 															varStatus="status">
 															<option value="${seltag2.tgcode}"
@@ -107,7 +114,7 @@
 
 												</select> <select name="cotag3"
 													style="width: 200px; height: 35px; padding: 5px; padding-bottom: 10px; font-size: 13px">
-														<option value="">::선택::</option>
+														<option value="XXXXX">::선택::</option>
 														<c:forEach var="seltag3" items="${seltag3}"
 															varStatus="status">
 															<option value="${seltag3.tgcode}"

@@ -24,6 +24,12 @@ public class Posts1Svc {
 	public Posts1VO selectPosts1One(String param) {
 		return sqlSession.selectOne("selectPosts1One", param);
 	}
+	
+	public String selectElsName(Integer etcgoid) {
+		return sqlSession.selectOne("selectElsName", etcgoid);
+	}
+	
+	
 
 	public calendar selectCalOne(String param) {
 		return sqlSession.selectOne("selectCalOne", param);
@@ -69,6 +75,10 @@ public class Posts1Svc {
 		return sqlSession.selectList("selectCalList");
 	}
 
+	public List<Posts1VO> selListB2B() {
+		return sqlSession.selectList("selListB2B");
+	}
+
 	public void insertPosts1One(Posts1VO param) {
 		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
 		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
@@ -105,6 +115,15 @@ public class Posts1Svc {
 		}
 	}
 
+	public void insertB2BBoard(Posts1VO param) {
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		
+
+		sqlSession.insert("insertB2BBoard", param);
+
+	}
+
 	public void updatePosts1(Posts1VO param, List<FileVO> filelist, String[] fileno) {
 		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
 		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
@@ -139,6 +158,15 @@ public class Posts1Svc {
 	public List<?> selectPosts1List(SearchVO param) {
 
 		return sqlSession.selectList("selectPosts1List", param);
+	}
+
+	public Integer selectB2BBoardCount(SearchVO param) {
+		return sqlSession.selectOne("selectB2BBoardCount", param);
+	}
+
+	public List<?> selectB2BBoardList(SearchVO param) {
+
+		return sqlSession.selectList("selectB2BBoardList", param);
 	}
 
 	public Integer selectStudyPosts1Count(SearchVO param) {

@@ -2,7 +2,16 @@ package com.ultarischool.career;
 
 public class career {
     
+	private String ordno;
 	
+	public String getOrdno() {
+		return ordno;
+	}
+
+	public void setOrdno(String ordno) {
+		this.ordno = ordno;
+	}
+
 	private String faqhdr;
 	public String getFaqhdr() {
 		return faqhdr;

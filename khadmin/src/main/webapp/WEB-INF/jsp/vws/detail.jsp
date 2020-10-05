@@ -25,8 +25,7 @@
 						<h2 class="title pull-left">설문 상세</h2>
 						<div class="actions panel_actions pull-right">
 							<i class="box_toggle fa fa-chevron-down"></i> <i
-								class="box_setting fa fa-cog" data-toggle="modal"
-								href="#section-settings"></i> <i class="box_close fa fa-times"></i>
+								class="box_setting fa fa-cog" data-toggle="modal"></i> <i class="box_close fa fa-times"></i>
 						</div>
 					</header>
 					<div class="content-body">
@@ -80,8 +79,7 @@
 						<div class="form-group" style="margin-top: 20px">
 
 							<button type="button" class="btn btn-gray" onclick="fn_formRtn()">목록</button>
-							
-							
+
 							<button type="button" class="btn btn-purple" onclick="fn_formDel()">삭제</button>
 							
 							<button type="button" class="btn btn-orange" onclick="fn_formSv()">저장</button>

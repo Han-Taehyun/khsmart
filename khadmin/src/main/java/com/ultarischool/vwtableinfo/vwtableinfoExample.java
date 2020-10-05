@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edumgt.common.util.PageVO;
 
+@SuppressWarnings("unused")
 public class vwtableinfoExample extends  PageVO{
 	
 	

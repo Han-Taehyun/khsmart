@@ -2,7 +2,7 @@ package com.khsmart.kr;
 
 
 public class calendar {
-	private String price = ""; 
+	private String price = "";
 	
 	private String idx = "";
 	

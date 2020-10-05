@@ -16,8 +16,6 @@
 		<section class="wrapper"
 			style='margin-top: 60px; display: inline-block; width: 100%; padding: 15px 0 0 15px;'>
 
-
-
 			<div class="col-lg-12">
 				<section class="box ">
 					<header class="panel_header">
@@ -29,14 +27,14 @@
 									<select class="form-control" name="svtype" id="svtype"
 									style="width: 250px">
 
-										<option value="0">::설문 분류 선택::</option>
+										<option value="">::설문 분류 선택::</option>
 
-										<c:forEach var="listrel3" items="${listrel3}"
+										<c:forEach var="code" items="${usercodeList}"
 											varStatus="status">
 
-											<option value="${listrel3.svtype}"
-												<c:if test="${ param.svtype eq listrel3.svtype}">selected</c:if>>
-												${listrel3.svytypename}</option>
+											<option value="${code.code}"
+												<c:if test="${surveyExample.svtype eq code.code}">selected</c:if>>
+												${code.codename}</option>
 
 										</c:forEach>
 
@@ -69,28 +67,25 @@
 											<th style="width: *">설문내용</th>
 
 											<th style="width: 10">문항(질문) 수</th>
-
-
+											<th>미리보기</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="listview" items="${listview}"
+										<c:forEach var="survey" items="${surveyList}"
 											varStatus="status">
 
 
 											<tr>
 												<td><c:out
-														value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}" />
+														value="${surveyExample.totRow-((surveyExample.page-1)*surveyExample.displayRowCount + status.index)}" />
 												</td>
 
-												<td><c:out value="${listview.svytypename}" /></td>
-												<td><a href="surveyRead?sn=${listview.sn}">${listview.svname}</a></td>
-												<td><c:out value="${listview.svmemo}" /></td>
+												<td><c:out value="${survey.svtypename}" /></td>
+												<td><a href="surveyRead?sn=${survey.sn}&uuid=${uuid}">${survey.svname}</a></td>
+												<td><c:out value="${survey.svmemo}" /></td>
 
-												<td><c:out value="${listview.smcnt}" /></td>
-
-
-
+												<td><c:out value="${survey.svcnt}" /></td>
+												<td><a href="prev?svyno=${survey.sn}&uuid=${uuid}" target="_new">PREVIEW</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>

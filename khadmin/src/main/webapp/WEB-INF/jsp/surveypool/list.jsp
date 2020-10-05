@@ -8,8 +8,8 @@
 
 <form id="form1" name="form1" method="post" action="surveypoolList">
 	<input type="hidden" name="orderKeyword" id="orderKeyword"
-		value="${searchVO.orderKeyword}" />  <input type="hidden" name="srch" id="srch"
-		value="SRCH" />
+		value="${searchVO.orderKeyword}" /> <input type="hidden" name="srch"
+		id="srch" value="SRCH" />
 
 	<!-- START CONTENT -->
 	<section id="main-content" class=" ">
@@ -29,14 +29,14 @@
 									<select class="form-control" name="svyno" id="svyno"
 									style="width: 250px">
 
-										<option value="0">::설문지 선택::</option>
+										<option value="">::설문지 선택::</option>
 
-										<c:forEach var="listrel3" items="${listrel3}"
+										<c:forEach var="surveyList" items="${surveyList}"
 											varStatus="status">
 
-											<option value="${listrel3.sn}"
-												<c:if test="${ param.svyno eq listrel3.sn}">selected</c:if>>
-												${listrel3.svname}</option>
+											<option value="${surveyList.sn}"
+												<c:if test="${ param.svyno eq surveyList.sn}">selected</c:if>>
+												${surveyList.svname}</option>
 
 										</c:forEach>
 
@@ -63,20 +63,10 @@
 								<table class="table">
 									<thead>
 										<tr>
-											<th style="width:5%">#</th>
-											<th style="width:*">문항</th>
-											
-											<th style="width:8%">유형</th>
-											
-											
-											<th style="width:5%">문항순서</th>
-											
-											<th style="width:10%">보기1</th>
-											<th style="width:10%">보기2</th>
-											<th style="width:10%">보기3</th>
-											<th style="width:10%">보기4</th>
-											<th style="width:10%">보기5</th>
-											
+											<th>#</th>
+											<th>문항</th>
+											<th>유형</th>
+											<th>문항순서</th>
 
 										</tr>
 									</thead>
@@ -86,35 +76,33 @@
 
 
 											<tr>
-												<td><c:out
-														value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}" />
-												</td>
+												<td><c:out value="${status.index + 1}" /></td>
 
 												<td><a href="surveypoolRead?sn=${listview.sn}">${listview.title}</a></td>
-												
+
 												<td>${listview.type1}</td>
-												
+
 												<td>${listview.odrno}</td>
-												
+
 												<c:if test="${listview.type1 == '객관식'}">
-												
-												<td><c:out value="${listview.bogi1}" /></td>
-												<td><c:out value="${listview.bogi2}" /></td>
-												<td><c:out value="${listview.bogi3}" /></td>
-												<td><c:out value="${listview.bogi4}" /></td>
-												<td><c:out value="${listview.bogi5}" /></td>
-												
+
+													<td><c:out value="${listview.bogi1}" /></td>
+													<td><c:out value="${listview.bogi2}" /></td>
+													<td><c:out value="${listview.bogi3}" /></td>
+													<td><c:out value="${listview.bogi4}" /></td>
+													<td><c:out value="${listview.bogi5}" /></td>
+
 												</c:if>
-												
+
 												<c:if test="${listview.type1 == '주관식'}">
-												
-												
-												<td colspan=5>${listview.bogi1}</td>
-												
-												
+
+
+													<td colspan=5>${listview.bogi1}</td>
+
+
 												</c:if>
-												
-												
+
+
 
 											</tr>
 										</c:forEach>
@@ -146,9 +134,9 @@
 </form>
 
 <script>
-function fn_formSubmit() {
-	document.form1.action = "surveypoolList";
-	document.form1.submit();
+	function fn_formSubmit() {
+		document.form1.action = "surveypoolList";
+		document.form1.submit();
 	}
 </script>
 

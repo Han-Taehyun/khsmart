@@ -8,8 +8,9 @@ import com.ultarischool.cotag.CotagVO;
 import com.ultarischool.cotarget.CotargetVO;
 
 public class CourseVO {
-	
+
 	private MultipartFile img1file;
+
 	public MultipartFile getImg1file() {
 		return img1file;
 	}
@@ -36,11 +37,63 @@ public class CourseVO {
 
 	private MultipartFile img2file;
 	private MultipartFile img3file;
-	
+
 	private String img1;
+
+	private String dcr;
 	
+	
+	
+	private String adminid;
+	
+	public String getAdminid() {
+		return adminid;
+	}
+
+	public void setAdminid(String adminid) {
+		this.adminid = adminid;
+	}
+
+	private Integer cmbid2;
+
+	public Integer getCmbid2() {
+		return cmbid2;
+	}
+
+	public void setCmbid2(Integer cmbid2) {
+		this.cmbid2 = cmbid2;
+	}
+
+	private String openstatus;
+
+	public String getOpenstatus() {
+		return openstatus;
+	}
+
+	public void setOpenstatus(String openstatus) {
+		this.openstatus = openstatus;
+	}
+
+	public String getDcr() {
+		return dcr;
+	}
+
+	public void setDcr(String dcr) {
+		this.dcr = dcr;
+	}
+
+	private String mp4url;
+
+	public String getMp4url() {
+		return mp4url;
+	}
+
+	public void setMp4url(String mp4url) {
+		this.mp4url = mp4url;
+	}
+
 	private Integer pkgcosn;
-	
+
 	public Integer getPkgcosn() {
 		return pkgcosn;
 	}
@@ -50,6 +103,7 @@ public class CourseVO {
 	}
 
 	private Integer cosid2;
+
 	public Integer getCosid2() {
 		return cosid2;
 	}
@@ -76,10 +130,10 @@ public class CourseVO {
 
 	private Integer pkgid2;
 	private Integer ord2;
-	
+
 	private String cosid;
 	private String ord;
-	
+
 	public String getOrd() {
 		return ord;
 	}
@@ -122,8 +176,9 @@ public class CourseVO {
 
 	private String img2;
 	private String img3;
-	
+
 	private String cotag1;
+
 	public String getCotag1() {
 		return cotag1;
 	}
@@ -177,9 +232,9 @@ public class CourseVO {
 	private String cotarget1;
 	private String cotarget2;
 	private String cotarget3;
-	
-	
+
 	private String cont;
+
 	public String getCont() {
 		return cont;
 	}
@@ -197,9 +252,10 @@ public class CourseVO {
 	}
 
 	private String target;
-	
+
 	private String pkgtag;
 	private String tutorid;
+
 	public String getTutorid() {
 		return tutorid;
 	}
@@ -209,6 +265,7 @@ public class CourseVO {
 	}
 
 	private String ctcode;
+
 	public String getCtcode() {
 		return ctcode;
 	}
@@ -218,7 +275,7 @@ public class CourseVO {
 	}
 
 	private String ttname;
-	
+
 	public String getTtname() {
 		return ttname;
 	}
@@ -228,6 +285,7 @@ public class CourseVO {
 	}
 
 	private String code;
+
 	public String getCode() {
 		return code;
 	}
@@ -245,10 +303,9 @@ public class CourseVO {
 	}
 
 	private String codename;
-	
+
 	private String pucnt;
-	
-	
+
 	public String getPucnt() {
 		return pucnt;
 	}
@@ -299,7 +356,7 @@ public class CourseVO {
 
 	private String pkgprice;
 	private String pkgmemo;
-	
+
 	private String cscnt;
 	private String pzcnt;
 
@@ -365,6 +422,7 @@ public class CourseVO {
 	}
 
 	private String cptitle;
+
 	public String getCptitle() {
 		return cptitle;
 	}
@@ -382,9 +440,9 @@ public class CourseVO {
 	}
 
 	private String cpruntime;
-	
+
 	private String rate;
-	
+
 	public String getRate() {
 		return rate;
 	}
@@ -444,6 +502,9 @@ public class CourseVO {
 		this.billtype = billtype;
 	}
 
+	private String porgprice;
+	private String pdcr;
+	
 	public String getWdate() {
 		return wdate;
 	}
@@ -477,8 +538,29 @@ public class CourseVO {
 	}
 
 	private String userid;
+
 	
+
+	public String getPorgprice() {
+		return porgprice;
+	}
+
+	public void setPorgprice(String porgprice) {
+		this.porgprice = porgprice;
+	}
+
+	public String getPdcr() {
+		return pdcr;
+	}
+
+	public void setPdcr(String pdcr) {
+		this.pdcr = pdcr;
+	}
+
+	
+
 	private String cosimg1;
+
 	public String getCosimg1() {
 		return cosimg1;
 	}
@@ -505,9 +587,10 @@ public class CourseVO {
 
 	private String cosimg2;
 	private String cosimg3;
-	
+
 	private MultipartFile cosimg1file;
 	private MultipartFile cosimg2file;
+
 	public MultipartFile getCosimg2file() {
 		return cosimg2file;
 	}
@@ -525,7 +608,7 @@ public class CourseVO {
 	}
 
 	private MultipartFile cosimg3file;
-	
+
 	public MultipartFile getCosimg1file() {
 		return cosimg1file;
 	}
@@ -547,8 +630,9 @@ public class CourseVO {
 	private String tottime;
 	private String typecode;
 	private String totheartnum;
-	
+
 	private String tgcode;
+
 	public String getTgcode() {
 		return tgcode;
 	}
@@ -566,7 +650,7 @@ public class CourseVO {
 	}
 
 	private String tgname;
-	
+
 	private String intro;
 	private String price;
 	private String curriculum;

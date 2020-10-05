@@ -7,36 +7,66 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 
-import com.ultarischool.usert.UsertVO;
+
 
 @Service
 public class UsercodeSvc {
-  @Autowired
-  private SqlSessionTemplate sqlSession;
-  @Autowired
-  private DataSourceTransactionManager txManager;
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+	@SuppressWarnings("unused")
+	@Autowired
+	private DataSourceTransactionManager txManager;
 
-  public List<UsercodeVO> selectByCode3(String code3) {
-    return sqlSession.selectList("selectByCode3", code3);
-  }
+	public int insertCodet(UsercodeVO record) {
+		sqlSession.insert("insertCodet", record);
+		return 0;
+	}
+	
+	public int updateCodet(UsercodeVO record) {
+		sqlSession.update("updateCodet", record);
+		return 0;
+	}
 
-  public List<UsercodeVO> selectListCode2(UsercodeExample example) {
-    return sqlSession.selectList("selectListCode2", example);
-  }
+	
+	public List<UsercodeVO> selectByCode1() {
+		return sqlSession.selectList("selectByCode1");
+	}
 
-  public List<UsercodeVO> selectAll(UsercodeExample example) {
-    return sqlSession.selectList("selectAllCode", example);
-  }
+	public UsercodeVO selectByPrimaryKey(Integer id) {
+		return sqlSession.selectOne("selectCodeOne", id);
+	}
+	
+	public String selectByCodeUni(String code) {
+		return sqlSession.selectOne("selectByCodeUni", code);
+	}
+	
+	
 
-  public int countAll(UsercodeExample example) {
-    return sqlSession.selectOne("countAllCode", example);
-  }
+	public List<UsercodeVO> selectByCode3(String code3) {
+		return sqlSession.selectList("selectByCode3", code3);
+	}
 
-  public List<Separation> selectFieldSep() {
-    return sqlSession.selectList("selectFieldSep");
-  }
+	public List<UsercodeVO> selectListCode2(UsercodeExample example) {
+		return sqlSession.selectList("selectListCode2", example);
+	}
 
-  public List<Separation> selectTutorSep() {
-    return sqlSession.selectList("selectTutorSep");
-  }
+	public List<UsercodeVO> selectAll(UsercodeExample example) {
+		return sqlSession.selectList("selectAllCode", example);
+	}
+
+	public int countAll(UsercodeExample example) {
+		return sqlSession.selectOne("countAllCode", example);
+	}
+
+	public List<Separation> selectFieldSep() {
+		return sqlSession.selectList("selectFieldSep");
+	}
+
+	public List<Separation> selectTutorSep() {
+		return sqlSession.selectList("selectTutorSep");
+	}
+	
+	public List<UsercodeVO> getUsercodeListByCode2(UsercodeExample example){
+		  return sqlSession.selectList("getUsercodeListByCode2", example);
+	  }
 }

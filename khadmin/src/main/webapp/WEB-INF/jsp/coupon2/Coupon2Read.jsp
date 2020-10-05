@@ -172,7 +172,7 @@
 										</c:forEach>
 
 
-										<input type="file" name="uploadfile" multiple="" />
+										<input type="file" name="uploadfile"  />
 									</div>
 								</div>
 

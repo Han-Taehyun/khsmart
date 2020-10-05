@@ -1,520 +1,552 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ultarischool.etcgo">
-  <resultMap id="BaseResultMap" type="com.ultarischool.etcgo.etcgo">
-  
-    <id column="sn" jdbcType="INTEGER" property="sn" />
-    
-    <result column="elsname" jdbcType="VARCHAR" property="elsname" />
-    
-    <result column="elsjiaddr" jdbcType="VARCHAR" property="elsjiaddr" />
-    <result column="elsroaddr" jdbcType="VARCHAR" property="elsroaddr" />
-    
-    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
-    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
-    <result column="comregno" jdbcType="VARCHAR" property="comregno" />
-    
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="email2" jdbcType="VARCHAR" property="email2" />
-    <result column="chief" jdbcType="VARCHAR" property="chief" />
-    
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    
-    <result column="zipcode" jdbcType="VARCHAR" property="zipcode" />
-    
-    <result column="ddphone" jdbcType="VARCHAR" property="ddphone" />
-    <result column="ddname" jdbcType="VARCHAR" property="ddname" />
-    
-    <result column="regimg" jdbcType="VARCHAR" property="regimg" />
-    <result column="zipcode" jdbcType="VARCHAR" property="zipcode" />
-    
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
+	<resultMap id="BaseResultMap"
+		type="com.ultarischool.etcgo.etcgo">
 
-    sn,  elsname, elsjiaddr, elsroaddr,  latitude, longitude, comregno, email, chief, email2, phone,ddname,ddphone,zipcode,regimg
-  </sql>
-  
-  <select id="selectByExampleEtcgo" 
-  parameterType="com.ultarischool.etcgo.etcgoExample" 
-  resultMap="BaseResultMap">
-    
-    select
-    
-    <include refid="Base_Column_List" />
-    from etcgo
-    
-    where 1 = 1
-    
-    
-    
-    <if test='elsname != ""'>
-        and elsname like concat('%',#{elsname,jdbcType=VARCHAR},'%')
-    </if>
-    
-    
-   
-    order by elsname asc
-    
-    LIMIT ${rowStart-1}, 10
-  </select>
-  
-  
-  
-  <select id="countByExampleEtcgo" 
-  parameterType="com.ultarischool.etcgo.etcgoExample" 
-  resultType="java.lang.Integer">
-    
-    select count(*) from etcgo where 1 = 1
-    
-    
-    
-    <if test='elsname != ""'>
-        and elsname like concat('%',#{elsname,jdbcType=VARCHAR},'%')
-    </if>
+		<id column="sn" jdbcType="INTEGER" property="sn" />
 
-    
-  </select>
-  
-  <select id="selectEtcgoAll"  resultType="com.ultarischool.etcgo.etcgo">
-  
-  select 
-    <include refid="Base_Column_List" />
-   FROM etcgo ORDER BY elsname
-    
-  </select>
-  
-  <select id="selectByPrimaryKeyEtcgo" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    
-    select 
-    <include refid="Base_Column_List" />
-    from etcgo
-    where sn = #{sn,jdbcType=INTEGER}
-  </select>
-  
-  <delete id="deleteByPrimaryKeyEtcgo" parameterType="java.lang.Integer">
-    
-    delete from etcgo
-    where sn = #{sn,jdbcType=INTEGER}
-  </delete>
-  
-  <delete id="deleteByExampleEtcgo" parameterType="com.ultarischool.etcgo.etcgo">
-    
-    delete from etcgo
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insertEtcgo" parameterType="com.ultarischool.etcgo.etcgo">
+		<result column="elsname" jdbcType="VARCHAR" property="elsname" />
 
-    insert into etcgo (  elsname, 
-      
-      elsjiaddr, elsroaddr, 
-      
-      latitude, longitude, comregno, chief, email, email2, phone,ddname,ddphone,zipcode,regimg
-      )
-    values (  #{elsname,jdbcType=VARCHAR}, 
-      
-      #{elsjiaddr,jdbcType=VARCHAR}, #{elsroaddr,jdbcType=VARCHAR}, 
-      #{latitude,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, #{comregno,jdbcType=VARCHAR}
-      
-      
-      , #{chief,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{email2,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}
-      
-      , #{ddname,jdbcType=VARCHAR}
-      , #{ddphone,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR}, #{regimg,jdbcType=VARCHAR}
-      
-      
-      )
-  </insert>
-  <insert id="insertSelectiveEtcgo" parameterType="com.ultarischool.etcgo.etcgo">
-    
-    insert into etcgo
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="sn != null">
-        sn,
-      </if>
-      
-      <if test="elsname != null">
-        elsname,
-      </if>
-      
-      <if test="elsjiaddr != null">
-        elsjiaddr,
-      </if>
-      <if test="elsroaddr != null">
-        elsroaddr,
-      </if>
-      
-      <if test="latitude != null">
-        latitude,
-      </if>
-      <if test="longitude != null">
-        longitude,
-      </if>
-      <if test="comregno != null">
-        comregno,
-      </if>
-      
-      <if test="email != null">
-        email,
-      </if>
-      
-      <if test="chief != null">
-        chief,
-      </if>
-      
-      <if test="email2 != null">
-        email2,
-      </if>
-      
-      <if test="phone != null">
-        phone,
-      </if>
-      
-      <if test="ddphone != null">
-        ddphone,
-      </if>
-      <if test="ddname != null">
-        ddname,
-      </if>
-      
-      <if test="zipcode != null">
-        zipcode,
-      </if>
-      
-      <if test="regimg != null">
-        regimg,
-      </if>
-      
-      
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="sn != null">
-        #{sn,jdbcType=INTEGER},
-      </if>
-      
-      <if test="elsname != null">
-        #{elsname,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="elsjiaddr != null">
-        #{elsjiaddr,jdbcType=VARCHAR},
-      </if>
-      <if test="elsroaddr != null">
-        #{elsroaddr,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="latitude != null">
-        #{latitude,jdbcType=VARCHAR},
-      </if>
-      <if test="longitude != null">
-        #{longitude,jdbcType=VARCHAR},
-      </if>
-      <if test="comregno != null">
-        #{comregno,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
-      </if>
-      
-      
-      
-      <if test="chief != null">
-        #{chief,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="email2 != null">
-        #{email2,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="ddphone != null">
-        #{ddphone,jdbcType=VARCHAR},
-      </if>
-      <if test="ddname != null">
-        #{ddname,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="zipcode != null">
-        #{zipcode,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="regimg != null">
-        #{regimg,jdbcType=VARCHAR},
-      </if>
-      
-      
-    </trim>
-  </insert>
-  
-  
-  <update id="updateByExampleSelectiveEtcgo" parameterType="map">
-    
-    update etcgo
-    <set>
-      <if test="record.sn != null">
-        sn = #{record.sn,jdbcType=INTEGER},
-      </if>
-     
-      <if test="record.elsname != null">
-        elsname = #{record.elsname,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="record.elsjiaddr != null">
-        elsjiaddr = #{record.elsjiaddr,jdbcType=VARCHAR},
-      </if>
-      <if test="record.elsroaddr != null">
-        elsroaddr = #{record.elsroaddr,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="record.latitude != null">
-        latitude = #{record.latitude,jdbcType=VARCHAR},
-      </if>
-      <if test="record.longitude != null">
-        longitude = #{record.longitude,jdbcType=VARCHAR},
-      </if>
-      <if test="record.comregno != null">
-        comregno = #{record.comregno,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="record.email2 != null">
-        email2 = #{record.email2,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="record.chief != null">
-        chief = #{record.chiefo,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="record.phone != null">
-        phone = #{record.phone,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="record.ddphone != null">
-        ddphone = #{record.ddphone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.ddname != null">
-        ddname = #{record.ddname,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="record.zipcode != null">
-        zipcode = #{record.zipcode,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="record.regimg != null">
-        regimg = #{record.regimg,jdbcType=VARCHAR},
-      </if>
-      
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleEtcgo" parameterType="map">
-    
-    update etcgo
-    set sn = #{record.sn,jdbcType=INTEGER},
-      
-      elsname = #{record.elsname,jdbcType=VARCHAR},
-      
-      elsjiaddr = #{record.elsjiaddr,jdbcType=VARCHAR},
-      elsroaddr = #{record.elsroaddr,jdbcType=VARCHAR},
-      
-      latitude = #{record.latitude,jdbcType=VARCHAR},
-      longitude = #{record.longitude,jdbcType=VARCHAR},
-      comregno = #{record.comregno,jdbcType=VARCHAR},
-      
-      chief = #{record.chief,jdbcType=VARCHAR},
-      
-      email2 = #{record.email2,jdbcType=VARCHAR},
-      
-      phone = #{record.phone,jdbcType=VARCHAR},
-      
-      ddphone = #{record.ddphone,jdbcType=VARCHAR},
-      ddname = #{record.ddname,jdbcType=VARCHAR},
-      
-      zipcode = #{record.zipcode,jdbcType=VARCHAR},
-      
-      regimg = #{record.regimg,jdbcType=VARCHAR},
-      
-      email = #{record.email,jdbcType=VARCHAR}
-      
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelectiveEtcgo" parameterType="com.ultarischool.etcgo.etcgo">
-   
-    update etcgo
-    <set>
-      
-      <if test="elsname != null">
-        elsname = #{elsname,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="elsjiaddr != null">
-        elsjiaddr = #{elsjiaddr,jdbcType=VARCHAR},
-      </if>
-      <if test="elsroaddr != null">
-        elsroaddr = #{elsroaddr,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="latitude != null">
-        latitude = #{latitude,jdbcType=VARCHAR},
-      </if>
-      <if test="longitude != null">
-        longitude = #{longitude,jdbcType=VARCHAR},
-      </if>
-      <if test="comregno != null">
-        comregno = #{comregno,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="chief != null">
-        chief = #{chief,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="email2 != null">
-        email2 = #{email2,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="ddphone != null">
-        ddphone = #{ddphone,jdbcType=VARCHAR},
-      </if>
-      <if test="ddname != null">
-        ddname = #{ddname,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="zipcode != null">
-        zipcode = #{zipcode,jdbcType=VARCHAR},
-      </if>
-      
-      <if test="regimg != null">
-        regimg = #{regimg,jdbcType=VARCHAR},
-      </if>
-      
-      
-    </set>
-    where sn = #{sn,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyEtcgo" parameterType="com.ultarischool.etcgo.etcgo">
+		<result column="elsjiaddr" jdbcType="VARCHAR"
+			property="elsjiaddr" />
+		<result column="elsroaddr" jdbcType="VARCHAR"
+			property="elsroaddr" />
 
-    update etcgo
-    set
-      elsname = #{elsname,jdbcType=VARCHAR},
-      
-      elsjiaddr = #{elsjiaddr,jdbcType=VARCHAR},
-      elsroaddr = #{elsroaddr,jdbcType=VARCHAR},
-      
-      latitude = #{latitude,jdbcType=VARCHAR},
-      longitude = #{longitude,jdbcType=VARCHAR},
-      comregno = #{comregno,jdbcType=VARCHAR},
-      
-      email = #{email,jdbcType=VARCHAR},
-      
-      email2 = #{email2,jdbcType=VARCHAR},
-      
-      ddname = #{ddname,jdbcType=VARCHAR},
-      ddphone = #{ddphone,jdbcType=VARCHAR},
-      
-      phone = #{phone,jdbcType=VARCHAR},
-      
-      zipcode = #{zipcode,jdbcType=VARCHAR},
-      
-      regimg = #{regimg,jdbcType=VARCHAR},
-      
-      
-      chief = #{chief,jdbcType=VARCHAR}
-      
-    where sn = #{sn,jdbcType=INTEGER}
-  </update>
-  
-  <select id="selectEtcgoByName" 
-  parameterType="com.ultarischool.etcgo.etcgo" 
-  resultType="com.ultarischool.etcgo.etcgo">
-    
-    select
-    
-    sn,  elsname, elsjiaddr, elsroaddr,  latitude, longitude, comregno, email, chief, email2, phone,ddname,ddphone,zipcode,regimg
-    
-    from etcgo
-    
-    where elsname like concat('',#{elsname,jdbcType=VARCHAR},'%')
-    order by elsname asc
+		<result column="latitude" jdbcType="VARCHAR"
+			property="latitude" />
+		<result column="longitude" jdbcType="VARCHAR"
+			property="longitude" />
+		<result column="comregno" jdbcType="VARCHAR"
+			property="comregno" />
 
-  </select>
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="email2" jdbcType="VARCHAR" property="email2" />
+		<result column="chief" jdbcType="VARCHAR" property="chief" />
+
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+
+		<result column="zipcode" jdbcType="VARCHAR" property="zipcode" />
+
+		<result column="ddphone" jdbcType="VARCHAR" property="ddphone" />
+		<result column="ddname" jdbcType="VARCHAR" property="ddname" />
+
+		<result column="regimg" jdbcType="VARCHAR" property="regimg" />
+		<result column="zipcode" jdbcType="VARCHAR" property="zipcode" />
+
+	</resultMap>
+	<sql id="Example_Where_Clause">
+
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+
+		sn, elsname, elsjiaddr, elsroaddr, latitude, longitude, comregno, email,
+		chief, email2, phone,ddname,ddphone,zipcode,regimg
+	</sql>
+
+	<select id="selectByExampleEtcgo"
+		parameterType="com.ultarischool.etcgo.etcgoExample"
+		resultMap="BaseResultMap">
+
+		select
+
+		<include refid="Base_Column_List" />
+		from etcgo
+
+		where 1 = 1
+
+
+
+		<if test='elsname != ""'>
+			and elsname like concat('%',#{elsname,jdbcType=VARCHAR},'%')
+		</if>
+
+
+
+		order by elsname asc
+
+		LIMIT ${rowStart-1}, 10
+	</select>
+
+
+
+	<select id="countByExampleEtcgo"
+		parameterType="com.ultarischool.etcgo.etcgoExample"
+		resultType="java.lang.Integer">
+
+		select count(*) from etcgo where 1 = 1
+
+
+
+		<if test='elsname != ""'>
+			and elsname like concat('%',#{elsname,jdbcType=VARCHAR},'%')
+		</if>
+
+
+	</select>
+
+	<select id="selectEtcgoAll"
+		resultType="com.ultarischool.etcgo.etcgo">
+
+		select
+		<include refid="Base_Column_List" />
+		FROM etcgo ORDER BY elsname
+
+	</select>
+
+	<select id="selectByPrimaryKeyEtcgo"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+		select
+		<include refid="Base_Column_List" />
+		from etcgo
+		where sn = #{sn,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKeyEtcgo"
+		parameterType="java.lang.Integer">
+
+		delete from etcgo
+		where sn = #{sn,jdbcType=INTEGER}
+	</delete>
+
+	<delete id="deleteByExampleEtcgo"
+		parameterType="com.ultarischool.etcgo.etcgo">
+
+		delete from etcgo
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insertEtcgo"
+		parameterType="com.ultarischool.etcgo.etcgo">
+
+		insert into etcgo ( elsname,
+
+		elsjiaddr, elsroaddr,
+
+		latitude, longitude, comregno, chief, email, email2,
+		phone,ddname,ddphone,zipcode,regimg
+		)
+		values ( #{elsname,jdbcType=VARCHAR},
+
+		#{elsjiaddr,jdbcType=VARCHAR}, #{elsroaddr,jdbcType=VARCHAR},
+		#{latitude,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, #{comregno,jdbcType=VARCHAR}
+
+
+		, #{chief,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+		#{email2,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}
+
+		, #{ddname,jdbcType=VARCHAR}
+		, #{ddphone,jdbcType=VARCHAR}, #{zipcode,jdbcType=VARCHAR},
+		#{regimg,jdbcType=VARCHAR}
+
+
+		)
+	</insert>
+	<insert id="insertSelectiveEtcgo"
+		parameterType="com.ultarischool.etcgo.etcgo">
+
+		insert into etcgo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sn != null">
+				sn,
+			</if>
+
+			<if test="elsname != null">
+				elsname,
+			</if>
+
+			<if test="elsjiaddr != null">
+				elsjiaddr,
+			</if>
+			<if test="elsroaddr != null">
+				elsroaddr,
+			</if>
+
+			<if test="latitude != null">
+				latitude,
+			</if>
+			<if test="longitude != null">
+				longitude,
+			</if>
+			<if test="comregno != null">
+				comregno,
+			</if>
+
+			<if test="email != null">
+				email,
+			</if>
+
+			<if test="chief != null">
+				chief,
+			</if>
+
+			<if test="email2 != null">
+				email2,
+			</if>
+
+			<if test="phone != null">
+				phone,
+			</if>
+
+			<if test="ddphone != null">
+				ddphone,
+			</if>
+			<if test="ddname != null">
+				ddname,
+			</if>
+
+			<if test="zipcode != null">
+				zipcode,
+			</if>
+
+			<if test="regimg != null">
+				regimg,
+			</if>
+
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sn != null">
+				#{sn,jdbcType=INTEGER},
+			</if>
+
+			<if test="elsname != null">
+				#{elsname,jdbcType=VARCHAR},
+			</if>
+
+			<if test="elsjiaddr != null">
+				#{elsjiaddr,jdbcType=VARCHAR},
+			</if>
+			<if test="elsroaddr != null">
+				#{elsroaddr,jdbcType=VARCHAR},
+			</if>
+
+			<if test="latitude != null">
+				#{latitude,jdbcType=VARCHAR},
+			</if>
+			<if test="longitude != null">
+				#{longitude,jdbcType=VARCHAR},
+			</if>
+			<if test="comregno != null">
+				#{comregno,jdbcType=VARCHAR},
+			</if>
+
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+
+
+
+			<if test="chief != null">
+				#{chief,jdbcType=VARCHAR},
+			</if>
+
+			<if test="email2 != null">
+				#{email2,jdbcType=VARCHAR},
+			</if>
+
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+
+			<if test="ddphone != null">
+				#{ddphone,jdbcType=VARCHAR},
+			</if>
+			<if test="ddname != null">
+				#{ddname,jdbcType=VARCHAR},
+			</if>
+
+			<if test="zipcode != null">
+				#{zipcode,jdbcType=VARCHAR},
+			</if>
+
+			<if test="regimg != null">
+				#{regimg,jdbcType=VARCHAR},
+			</if>
+
+
+		</trim>
+	</insert>
+
+
+	<update id="updateByExampleSelectiveEtcgo" parameterType="map">
+
+		update etcgo
+		<set>
+			<if test="record.sn != null">
+				sn = #{record.sn,jdbcType=INTEGER},
+			</if>
+
+			<if test="record.elsname != null">
+				elsname = #{record.elsname,jdbcType=VARCHAR},
+			</if>
+
+			<if test="record.elsjiaddr != null">
+				elsjiaddr = #{record.elsjiaddr,jdbcType=VARCHAR},
+			</if>
+			<if test="record.elsroaddr != null">
+				elsroaddr = #{record.elsroaddr,jdbcType=VARCHAR},
+			</if>
+
+			<if test="record.latitude != null">
+				latitude = #{record.latitude,jdbcType=VARCHAR},
+			</if>
+			<if test="record.longitude != null">
+				longitude = #{record.longitude,jdbcType=VARCHAR},
+			</if>
+			<if test="record.comregno != null">
+				comregno = #{record.comregno,jdbcType=VARCHAR},
+			</if>
+
+			<if test="record.email != null">
+				email = #{record.email,jdbcType=VARCHAR},
+			</if>
+
+			<if test="record.email2 != null">
+				email2 = #{record.email2,jdbcType=VARCHAR},
+			</if>
+
+			<if test="record.chief != null">
+				chief = #{record.chiefo,jdbcType=VARCHAR},
+			</if>
+
+			<if test="record.phone != null">
+				phone = #{record.phone,jdbcType=VARCHAR},
+			</if>
+
+			<if test="record.ddphone != null">
+				ddphone = #{record.ddphone,jdbcType=VARCHAR},
+			</if>
+			<if test="record.ddname != null">
+				ddname = #{record.ddname,jdbcType=VARCHAR},
+			</if>
+
+			<if test="record.zipcode != null">
+				zipcode = #{record.zipcode,jdbcType=VARCHAR},
+			</if>
+
+			<if test="record.regimg != null">
+				regimg = #{record.regimg,jdbcType=VARCHAR},
+			</if>
+
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExampleEtcgo" parameterType="map">
+
+		update etcgo
+		set sn = #{record.sn,jdbcType=INTEGER},
+
+		elsname = #{record.elsname,jdbcType=VARCHAR},
+
+		elsjiaddr = #{record.elsjiaddr,jdbcType=VARCHAR},
+		elsroaddr = #{record.elsroaddr,jdbcType=VARCHAR},
+
+		latitude = #{record.latitude,jdbcType=VARCHAR},
+		longitude = #{record.longitude,jdbcType=VARCHAR},
+		comregno = #{record.comregno,jdbcType=VARCHAR},
+
+		chief = #{record.chief,jdbcType=VARCHAR},
+
+		email2 = #{record.email2,jdbcType=VARCHAR},
+
+		phone = #{record.phone,jdbcType=VARCHAR},
+
+		ddphone = #{record.ddphone,jdbcType=VARCHAR},
+		ddname = #{record.ddname,jdbcType=VARCHAR},
+
+		zipcode = #{record.zipcode,jdbcType=VARCHAR},
+
+		regimg = #{record.regimg,jdbcType=VARCHAR},
+
+		email = #{record.email,jdbcType=VARCHAR}
+
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelectiveEtcgo"
+		parameterType="com.ultarischool.etcgo.etcgo">
+
+		update etcgo
+		<set>
+
+			<if test="elsname != null">
+				elsname = #{elsname,jdbcType=VARCHAR},
+			</if>
+
+			<if test="elsjiaddr != null">
+				elsjiaddr = #{elsjiaddr,jdbcType=VARCHAR},
+			</if>
+			<if test="elsroaddr != null">
+				elsroaddr = #{elsroaddr,jdbcType=VARCHAR},
+			</if>
+
+			<if test="latitude != null">
+				latitude = #{latitude,jdbcType=VARCHAR},
+			</if>
+			<if test="longitude != null">
+				longitude = #{longitude,jdbcType=VARCHAR},
+			</if>
+			<if test="comregno != null">
+				comregno = #{comregno,jdbcType=VARCHAR},
+			</if>
+
+			<if test="chief != null">
+				chief = #{chief,jdbcType=VARCHAR},
+			</if>
+
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+
+			<if test="email2 != null">
+				email2 = #{email2,jdbcType=VARCHAR},
+			</if>
+
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+
+			<if test="ddphone != null">
+				ddphone = #{ddphone,jdbcType=VARCHAR},
+			</if>
+			<if test="ddname != null">
+				ddname = #{ddname,jdbcType=VARCHAR},
+			</if>
+
+			<if test="zipcode != null">
+				zipcode = #{zipcode,jdbcType=VARCHAR},
+			</if>
+
+			<if test="regimg != null">
+				regimg = #{regimg,jdbcType=VARCHAR},
+			</if>
+
+
+		</set>
+		where sn = #{sn,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyEtcgo"
+		parameterType="com.ultarischool.etcgo.etcgo">
+
+		update etcgo
+		set
+		elsname = #{elsname,jdbcType=VARCHAR},
+
+		elsjiaddr = #{elsjiaddr,jdbcType=VARCHAR},
+		elsroaddr = #{elsroaddr,jdbcType=VARCHAR},
+
+		latitude = #{latitude,jdbcType=VARCHAR},
+		longitude = #{longitude,jdbcType=VARCHAR},
+		comregno = #{comregno,jdbcType=VARCHAR},
+
+		email = #{email,jdbcType=VARCHAR},
+
+		email2 = #{email2,jdbcType=VARCHAR},
+
+		ddname = #{ddname,jdbcType=VARCHAR},
+		ddphone = #{ddphone,jdbcType=VARCHAR},
+
+		phone = #{phone,jdbcType=VARCHAR},
+
+		zipcode = #{zipcode,jdbcType=VARCHAR},
+
+		regimg = #{regimg,jdbcType=VARCHAR},
+
+
+		chief = #{chief,jdbcType=VARCHAR}
+
+		where sn = #{sn,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectElsName" parameterType="java.lang.Integer"
+		resultType="java.lang.String">
+		select elsname
+		from etcgo where sn = #{sn}
+	</select>
+
+
+	<select id="selectEtcgoByName"
+		parameterType="com.ultarischool.etcgo.etcgo"
+		resultType="com.ultarischool.etcgo.etcgo">
+
+		select
+
+		sn, elsname, elsjiaddr, elsroaddr, latitude, longitude, comregno, email,
+		chief, email2, phone,ddname,ddphone,zipcode,regimg
+
+		from etcgo
+
+		where elsname like concat('',#{elsname,jdbcType=VARCHAR},'%')
+		order by elsname asc
+
+	</select>
 </mapper>

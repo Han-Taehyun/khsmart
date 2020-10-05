@@ -9,8 +9,8 @@
 <form name="form1" action="tutorSave" method="post"
 	enctype="multipart/form-data">
 
-	<input name="sn" type="hidden" value="${cvo.sn}">
-	<input name="usertypecode" type="hidden" value="ST">
+	<input name="sn" type="hidden" value="${cvo.sn}"> <input
+		name="usertypecode" type="hidden" value="ST">
 
 
 	<section id="main-content" class=" ">
@@ -23,11 +23,7 @@
 				<section class="box ">
 					<header class="panel_header">
 						<h2 class="title pull-left">수강생 입력</h2>
-						<div class="actions panel_actions pull-right">
-							<i class="box_toggle fa fa-chevron-down"></i> <i
-								class="box_setting fa fa-cog" data-toggle="modal"
-								></i> <i class="box_close fa fa-times"></i>
-						</div>
+						<div class="actions panel_actions pull-right"></div>
 					</header>
 					<div class="content-body">
 						<div class="row">
@@ -52,10 +48,8 @@
 
 												<td style="width: 35%"><input name="mobile" type="text"
 													value="${cvo.mobile}" class="form-control"
-													style="width: 180px"
-													maxlength="11"
-													onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
-													></td>
+													style="width: 180px" maxlength="11"
+													onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"></td>
 											</tr>
 											<tr>
 
@@ -63,9 +57,7 @@
 												<td style="width: 35%"><input name="userid" type="text"
 													value="${cvo.userid}" class="form-control"
 													style="width: 180px"
-													<c:if test="${ empty cvo.userid }">readonly</c:if>
-													
-													></td>
+													<c:if test="${ empty cvo.userid }">readonly</c:if>></td>
 
 												<td class="tdl" style="width: 15%">비번</td>
 
@@ -74,7 +66,7 @@
 													style="width: 180px"></td>
 
 											</tr>
-											
+
 											<tr>
 
 												<td class="tdl" style="width: 15%">이메일</td>
@@ -84,26 +76,47 @@
 
 												<td class="tdl" style="width: 15%">생년월일(YYYYMMDD)</td>
 
-												<td style="width: 35%"><input name="birthyyyymmdd" type="text"
-													value="${cvo.birthyyyymmdd}" class="form-control"
-													style="width: 180px"
-													maxlength="8"
+												<td style="width: 35%"><input name="birthyyyymmdd"
+													type="text" value="${cvo.birthyyyymmdd}"
+													class="form-control" style="width: 180px" maxlength="8"
 													onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+
+											</tr>
+
+
+											<tr>
+
+												<td class="tdl" style="width: 15%">닉네임</td>
+												<td style="width: 35%"><input name="nickname"
+													type="text" value="${cvo.nickname}" class="form-control"
+													style="width: 180px"></td>
+
+												<td class="tdl" style="width: 15%">프로필이미지</td>
+												<td style="width: 35%"></td>
+
+											</tr>
+
+
+
+
+											<tr>
+
+												<td class="tdl" style="width: 15%">관심분야</td>
+												<td style="width: 85%" colspan="3"><c:forEach
+														var="listview" items="${listview}" varStatus="status">
+${listview.ucodeid} / ${listview.code1} / ${listview.code2} / ${listview.code3} / ${listview.codename} <br>
+										</c:forEach></td>
 
 											</tr>
 											
 											
 											<tr>
 
-												<td class="tdl" style="width: 15%">닉네임</td>
-												<td style="width: 35%"><input name="nickname" type="text"
-													value="${cvo.nickname}" class="form-control"
-													style="width: 180px"></td>
-
-												<td class="tdl" style="width: 15%">프로필이미지</td>
-												<td style="width: 35%">
-												
-												</td>
+												<td class="tdl" style="width: 15%">수강과정</td>
+												<td style="width: 85%" colspan="3"><c:forEach
+														var="suclist" items="${suclist}" varStatus="status">
+${suclist.title} / ${suclist.wdate} <br>
+										</c:forEach></td>
 
 											</tr>
 

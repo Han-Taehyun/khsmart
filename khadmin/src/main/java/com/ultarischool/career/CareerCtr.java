@@ -9,9 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ultarischool.etcgo.etcgo;
-import com.ultarischool.usercode.UsercodeVO;
-import com.ultarischool.usert.UsertVO;
+
 
 @Controller
 public class CareerCtr {
@@ -56,10 +54,27 @@ public class CareerCtr {
 	public String careerSave(HttpServletRequest request, career faqinfo, ModelMap modelMap) {
 
 		
-		careerSvc.insert(faqinfo);
+		if (faqinfo.getSn() == null || "".equals(faqinfo.getSn())) {
+			careerSvc.insert(faqinfo);
+		}else {
+			careerSvc.update(faqinfo);
+		}
 		
 
 		return "redirect:careerList";
 	}
+	
+	@RequestMapping(value = "/careerDelete")
+	public String careerDelete(HttpServletRequest request, career faqinfo, ModelMap modelMap) {
+
+		
+		
+			careerSvc.delete(faqinfo);
+		
+
+		return "redirect:careerList";
+	}
+	
+	
 
 }

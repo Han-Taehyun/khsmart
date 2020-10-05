@@ -16,6 +16,7 @@
 				value="<c:out value="${fn:trim(searchVO.orderKeyword)}" />" /> <input
 				type="hidden" name="sn" id="id" value="" /> <input type="hidden"
 				name="coid" id="coid" value="" />
+			
 			<div class="col-lg-12">
 				<section class="box ">
 					<header class="panel_header">
@@ -90,44 +91,45 @@
 		</form>
 
 		<script>
-          function fn_formSubmit() {
-            document.form1.submit();
-          }
-        </script>
+			function fn_formSubmit() {
+				document.form1.submit();
+			}
+		</script>
 		<script>
-          function fn_orderKey(_a) {
-            document.form1.orderKeyword.value = _a;
-            document.form1.submit();
-          }
-        </script>
+			function fn_orderKey(_a) {
+				document.form1.orderKeyword.value = _a;
+				document.form1.submit();
+			}
+		</script>
 		<script>
-          function fn_formGo() {
-            document.form1.coid.value = document.getElementById("selectlcode").value;
-            document.form1.action = "chapterForm";
-            if (document.form1.coid.value == "") {
-              alert("강좌를 선택하세요");
-              document.getElementById("selectlcode").focus();
-            } else {
-              document.form1.submit();
-            }
+			function fn_formGo() {
+				document.form1.coid.value = document
+						.getElementById("selectlcode").value;
+				document.form1.action = "chapterForm";
+				if (document.form1.coid.value == "") {
+					alert("강좌를 선택하세요");
+					document.getElementById("selectlcode").focus();
+				} else {
+					document.form1.submit();
+				}
 
-          }
-        </script>
+			}
+		</script>
 		<script>
-          function fn_readGo(_a, _b) {
-            document.form1.coid.value = _b;
-            document.form1.action = "chapterRead";
+			function fn_readGo(_a, _b) {
+				document.form1.coid.value = _b;
+				document.form1.action = "chapterRead";
 
-            document.form1.sn.value = _a;
+				document.form1.sn.value = _a;
 
-            if (document.form1.coid.value == "") {
-              alert("과목코드를 선택하세요");
-              document.getElementById("selectlcode").focus();
-            } else {
-              document.form1.submit();
-            }
-          }
-        </script>
+				if (document.form1.coid.value == "") {
+					alert("과목코드를 선택하세요");
+					document.getElementById("selectlcode").focus();
+				} else {
+					document.form1.submit();
+				}
+			}
+		</script>
 		</div>
 		</div>
 	</section>

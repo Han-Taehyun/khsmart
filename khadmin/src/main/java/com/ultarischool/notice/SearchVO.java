@@ -4,7 +4,15 @@ import edumgt.common.util.PageVO;
 
 public class SearchVO extends  PageVO  {
 	
-	
+	private String code2 = "";
+	public String getCode2() {
+		return code2;
+	}
+
+	public void setCode2(String code2) {
+		this.code2 = code2;
+	}
+
 	private String bottomtext = "";
 	public String getBottomtext() {
 		return bottomtext;
@@ -138,6 +146,7 @@ public class SearchVO extends  PageVO  {
 
 	private String searchKeyword = "";         
 	private String searchType = "";            
+	@SuppressWarnings("unused")
 	private String[] searchTypeArr;            
 
 	public String getBgno() {

@@ -35,10 +35,7 @@
 									<button type="button" class="btn btn-primary "
 										onclick="fn_formSubmit()">검색</button>
 									<button type="button" class="btn btn-orange"
-										onclick="fn_formGo()">신규</button> <img
-									src="images/excel.png" width="27px"
-									style="cursor: pointer; border: 3px solid #11ee33; margin-left: 10px"
-									onclick="fn_formExSubmit()">
+										onclick="fn_formGo()">신규</button>
 								</li>
 							</ul>
 						</div>

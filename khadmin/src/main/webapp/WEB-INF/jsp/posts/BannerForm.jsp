@@ -9,24 +9,20 @@
 <form name="form1" action="BannerSave" method="post"
 	enctype="multipart/form-data">
 
-	<input name="sn" type="hidden" value="${bannerInfo.sn}">
-	<input name="btype" type="hidden" value="1">
+	<input name="sn" type="hidden" value="${bannerInfo.sn}"> <input
+		name="btype" type="hidden" value="1">
 
 	<section id="main-content" class=" ">
 		<section class="wrapper"
 			style='margin-top: 60px; display: inline-block; width: 100%; padding: 15px 0 0 15px;'>
 
-			
+
 
 			<div class="col-lg-12">
 				<section class="box ">
 					<header class="panel_header">
 						<h2 class="title pull-left">배너 입력</h2>
-						<div class="actions panel_actions pull-right">
-							<i class="box_toggle fa fa-chevron-down"></i> <i
-								class="box_setting fa fa-cog" data-toggle="modal"
-								href="#section-settings"></i> <i class="box_close fa fa-times"></i>
-						</div>
+						<div class="actions panel_actions pull-right"></div>
 					</header>
 					<div class="content-body">
 						<div class="row">
@@ -64,7 +60,6 @@
 												<td class="tdl" style="width: 15%">내용</td>
 
 												<td style="width: 85%"><textarea name="post"
-														
 														style="width: 100%; height: 180px; font-size: 13px; line-height: 20px; padding: 5px;">${bannerInfo.post}</textarea>
 
 												</td>
@@ -75,11 +70,8 @@
 
 												<td class="tdl" style="width: 15%">링크</td>
 
-												<td style="width: 85%"><input name="alink"
-													type="text" value="${bannerInfo.alink}" class="form-control"></td>
-
-
-
+												<td style="width: 85%"><input name="alink" type="text"
+													value="${bannerInfo.alink}" class="form-control"></td>
 
 											</tr>
 
@@ -88,9 +80,9 @@
 
 
 										<div class="form-group" style="display: block">
-											
+
 											<div class="controls">
-											<label class="form-label" for="field-1">첨부파일</label>
+												<label class="form-label" for="field-1">첨부파일</label>
 												<c:forEach var="listview" items="${listview}"
 													varStatus="status">
 													<input type="checkbox" name="fileno"
@@ -104,7 +96,7 @@
 												</c:forEach>
 
 
-												<input type="file" name="uploadfile" multiple="" />
+												<input type="file" name="uploadfile" />
 											</div>
 										</div>
 

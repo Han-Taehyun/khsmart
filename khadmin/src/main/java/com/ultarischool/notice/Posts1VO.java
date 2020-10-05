@@ -5,6 +5,76 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Posts1VO {
+	
+	
+	
+	private String etcgoid;
+	
+	private String elsname;
+	
+	public String getElsname() {
+		return elsname;
+	}
+
+	public void setElsname(String elsname) {
+		this.elsname = elsname;
+	}
+
+	public String getEtcgoid() {
+		return etcgoid;
+	}
+
+	public void setEtcgoid(String etcgoid) {
+		this.etcgoid = etcgoid;
+	}
+
+	public String getWrid() {
+		return wrid;
+	}
+
+	public void setWrid(String wrid) {
+		this.wrid = wrid;
+	}
+
+	public String getBtype() {
+		return btype;
+	}
+
+	public void setBtype(String btype) {
+		this.btype = btype;
+	}
+
+	public String getFileup() {
+		return fileup;
+	}
+
+	public void setFileup(String fileup) {
+		this.fileup = fileup;
+	}
+
+	public String getBtypename() {
+		return btypename;
+	}
+
+	public void setBtypename(String btypename) {
+		this.btypename = btypename;
+	}
+
+	public String getEtcgonam() {
+		return etcgonam;
+	}
+
+	public void setEtcgonam(String etcgonam) {
+		this.etcgonam = etcgonam;
+	}
+
+	private String wrid;
+	private String btype;
+	
+	private String fileup;
+	
+	private String btypename;
+	private String etcgonam;
 
 	private String spsn;
 

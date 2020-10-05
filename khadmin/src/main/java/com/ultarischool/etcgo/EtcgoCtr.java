@@ -9,9 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ultarischool.utprogram.utpdetail;
-import com.ultarischool.utprogram.utpdetailExample;
-import com.ultarischool.utprogram.utprogram;
+
 
 @Controller
 public class EtcgoCtr {

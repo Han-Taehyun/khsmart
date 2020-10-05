@@ -185,6 +185,7 @@ public class SearchVO extends  PageVO  {
 
 	private String searchKeyword = "";         
 	private String searchType = "";            
+	@SuppressWarnings("unused")
 	private String[] searchTypeArr;            
 
 	public String getBgno() {

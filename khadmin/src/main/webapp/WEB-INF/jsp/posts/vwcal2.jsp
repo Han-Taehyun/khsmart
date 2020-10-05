@@ -19,27 +19,7 @@
 <!-- CORE CSS TEMPLATE - START -->
 <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
 
-
-</head>
-
-<body style="padding: 5px">
-
-	<c:if test="${mvo.status eq '삭제'}">
-		<script>
-			function closeW() {
-
-				opener.location.reload();
-				window.close();
-
-			}
-			closeW();
-		</script>
-	</c:if>
-
-
-	<div id="login_div" class="main-div" style="padding: 8px">
-
-		<style>
+<style>
 .td {
 	text-align: center;
 	height: 40px;
@@ -64,8 +44,24 @@ td {
 	font-size: 14px
 }
 </style>
+</head>
+
+<body style="padding: 5px">
+
+	<c:if test="${mvo.status eq '삭제'}">
+		<script>
+			function closeW() {
+
+				opener.location.reload();
+				window.close();
+
+			}
+			closeW();
+		</script>
+	</c:if>
 
 
+	<div id="login_div" class="main-div" style="padding: 8px">
 
 		<input name="sn" type="hidden" value="${mvo.sn}">
 
@@ -91,46 +87,46 @@ td {
 				<td width="30%"><select name="yyyy"
 					style="width: 120px; padding: 5px">
 						<%
-								for (int i = 2020; i < 2023; i++) {
-							%>
+							for (int i = 2020; i < 2023; i++) {
+						%>
 						<c:set var="yyyy">0<%=i%></c:set>
 						<option value="<%= i %>"
 							<c:if test="${mvo.yyyy eq yyyy}">selected</c:if>><%=i%>
 							년도
 						</option>
 						<%
-								}
-							%>
+							}
+						%>
 				</select></td>
 
 				<td width="20%">월</td>
 				<td width="30%"><select name="mm"
 					style="width: 120px; padding: 5px">
 						<%
-								for (int i = 1; i < 13; i++) {
-							%>
+							for (int i = 1; i < 13; i++) {
+						%>
 
 						<%
-								if (i < 10) {
-							%>
+							if (i < 10) {
+						%>
 						<c:set var="mm">0<%=i%></c:set>
 						<option value="0<%= i %>"
 							<c:if test="${mvo.mm eq mm}">selected</c:if>>0<%=i%> 월
 						</option>
 						<%
-								} else {
-							%>
+							} else {
+						%>
 						<c:set var="mm"><%=i%></c:set>
 						<option value="<%= i %>"
 							<c:if test="${mvo.mm eq mm}">selected</c:if>><%=i%> 월
 						</option>
 						<%
-								}
-							%>
+							}
+						%>
 
 						<%
-								}
-							%>
+							}
+						%>
 				</select></td>
 			</tr>
 
@@ -139,31 +135,31 @@ td {
 				<td width="30%"><select name="dd"
 					style="width: 120px; padding: 5px">
 						<%
-								for (int i = 1; i < 32; i++) {
-							%>
+							for (int i = 1; i < 32; i++) {
+						%>
 
 
 						<%
-								if (i < 10) {
-							%>
+							if (i < 10) {
+						%>
 						<c:set var="dd">0<%=i%></c:set>
 						<option value="0<%= i %>"
 							<c:if test="${mvo.dd eq dd}">selected</c:if>>0<%=i%> 일
 						</option>
 						<%
-								} else {
-							%>
+							} else {
+						%>
 						<c:set var="dd"><%=i%></c:set>
 						<option value="<%= i %>"
 							<c:if test="${mvo.dd eq dd}">selected</c:if>><%=i%> 일
 						</option>
 						<%
-								}
-							%>
+							}
+						%>
 
 						<%
-								}
-							%>
+							}
+						%>
 				</select></td>
 
 				<td width="20%">시간대</td>
@@ -171,30 +167,30 @@ td {
 					style="width: 120px; padding: 5px">
 
 						<%
-								for (int i = 10; i < 21; i++) {
-							%>
+							for (int i = 10; i < 21; i++) {
+						%>
 						<c:set var="hh"><%=i%></c:set>
 
 
 						<%
-								if (i < 10) {
-							%>
+							if (i < 10) {
+						%>
 						<option value="0<%= i %>"
 							<c:if test="${mvo.hh eq hh}">selected</c:if>>0<%=i%> 시
 						</option>
 						<%
-								} else {
-							%>
+							} else {
+						%>
 						<option value="<%= i %>"
 							<c:if test="${mvo.hh eq hh}">selected</c:if>><%=i%> 시
 						</option>
 						<%
-								}
-							%>
+							}
+						%>
 
 						<%
-								}
-							%>
+							}
+						%>
 				</select></td>
 			</tr>
 

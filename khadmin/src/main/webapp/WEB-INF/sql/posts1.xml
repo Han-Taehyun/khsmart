@@ -212,7 +212,33 @@
 
 		LIMIT ${rowStart-1}, 10
 	</select>
+	
+	
+	<select id="selectB2BBoardCount" resultType="Integer"
+		parameterType="com.ultarischool.notice.SearchVO">
+		SELECT COUNT(*) FROM b2bboard
+		where etcgoid = #{code2}
+	</select>
 
+	<select id="selectB2BBoardList"
+		resultType="com.ultarischool.notice.Posts1VO"
+		parameterType="com.ultarischool.notice.SearchVO">
+		SELECT sn,etcgoid,wrid,btype,title,memo,vcnt,fileup,wdate from b2bboard
+		
+		
+		where etcgoid = #{code2}
+
+		LIMIT ${rowStart-1}, 10
+	</select>
+	
+	<select id="selListB2B"
+		resultType="com.ultarischool.notice.Posts1VO"
+		parameterType="com.ultarischool.notice.SearchVO">
+		SELECT sn , elsname FROM etcgo
+
+	</select>
+	
+	
 
 	<select id="selectStudyPosts1Count" resultType="Integer"
 		parameterType="com.ultarischool.notice.SearchVO">

@@ -2,24 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <jsp:include page="/WEB-INF/jsp/common/userinfo.jsp" />
 <jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
-
 <form id="form1" name="form1" method="post" action="bbsList">
-
 	<input type="hidden" name="orderKeyword" id="orderKeyword"
 		value="${searchVO.orderKeyword}" /> <input type="hidden" name="srch"
 		id="srch" value="SRCH" /> <input type="hidden" name="sn" id="sn"
 		value="" />
 
-	<!-- START CONTENT -->
 	<section id="main-content" class=" ">
 		<section class="wrapper"
 			style='margin-top: 60px; display: inline-block; width: 100%; padding: 15px 0 0 15px;'>
-
-
-
 			<div class="col-lg-12">
 				<section class="box ">
 					<header class="panel_header">
@@ -43,13 +36,7 @@
 								<li style="float: left;">&nbsp;&nbsp;
 									<button type="button" class="btn btn-primary "
 										onclick="fn_formSubmit()">검색</button>
-									<button type="button" class="btn btn-orange"
-										onclick="fn_formGo()">신규</button>
-
 								</li>
-
-
-
 
 							</ul>
 						</div>
@@ -62,19 +49,12 @@
 									<thead>
 										<tr>
 											<th style="width: 5%">#</th>
-											<th style="width: 25%">제목</th>
+											<th style="width: *">제목</th>
 											<th style="width: 10%">날짜</th>
 											<th style="width: 10%">작성인</th>
-
 											<th style="width: 12%">이메일</th>
 											<th style="width: 12%">연락처</th>
-											<th style="width: *">회사</th>
-											<th style="width: 5%">제안종류</th>
-
-
-											<th style="width: 5%">답변여부</th>
-
-
+											<th style="width: 15%">답변여부</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -86,70 +66,42 @@
 												<td><c:out
 														value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}" />
 												</td>
-
 												<td><a href="javascript:fn_readGo('${listview.sn}')">${listview.title}</a></td>
 												<td>${listview.wdate}</td>
-												<td><c:out value="${listview.userid}" /></td>
-
-												<td><c:out value="${listview.email}" /></td>
-												<td><c:out value="${listview.mobile}" /></td>
-												<td><c:out value="${listview.company}" /></td>
-												<td><c:out value="${listview.memo2}" /></td>
-
-
+												<td>${listview.userid}</td>
+												<td>${listview.email}</td>
+												<td>${listview.mobile}</td>
 												<td>${fn:substring(listview.ansyn,0,5)}...</td>
-
-
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
-
 							</div>
-
-
 							<jsp:include page="/WEB-INF/jsp/common/pagingforSubmit.jsp" />
-
-
-
-
-
 						</div>
 					</div>
 				</section>
 			</div>
 
-
-
-
-
 		</section>
 	</section>
-	<!-- END CONTENT -->
-
 </form>
 
 <script>
-function fn_formSubmit() {
-	document.form1.action = "bbsList";
-	document.form1.submit();
+	function fn_formSubmit() {
+		document.form1.action = "bbsList";
+		document.form1.submit();
 	}
-</script>
-
-<script>
 	function fn_readGo(_a) {
 		document.form1.sn.value = _a;
 		document.form1.action = "bbsRead";
 		document.form1.submit();
 	}
 	function fn_formGo() {
-        
-        document.form1.action = "bbsForm";
-        document.form1.submit();
-        
 
-      }
+		document.form1.action = "bbsForm";
+		document.form1.submit();
+
+	}
 </script>
-
-<!-- START CONTENT -->
 <jsp:include page="/WEB-INF/jsp/common/footer.jsp" />

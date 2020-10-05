@@ -9,8 +9,8 @@
 <form name="form1" action="tutorSave" method="post"
 	enctype="multipart/form-data">
 
-	<input name="sn" type="hidden" value="${cvo.sn}">
-	<input name="usertypecode" type="hidden" value="TT">
+	<input name="sn" type="hidden" value="${cvo.sn}"> <input
+		name="usertypecode" type="hidden" value="TT">
 
 
 	<section id="main-content" class=" ">
@@ -24,9 +24,7 @@
 					<header class="panel_header">
 						<h2 class="title pull-left">강사 입력</h2>
 						<div class="actions panel_actions pull-right">
-							<i class="box_toggle fa fa-chevron-down"></i> <i
-								class="box_setting fa fa-cog" data-toggle="modal"
-								></i> <i class="box_close fa fa-times"></i>
+							
 						</div>
 					</header>
 					<div class="content-body">
@@ -52,10 +50,8 @@
 
 												<td style="width: 35%"><input name="mobile" type="text"
 													value="${cvo.mobile}" class="form-control"
-													style="width: 180px"
-													maxlength="11"
-													onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
-													></td>
+													style="width: 180px" maxlength="11"
+													onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"></td>
 											</tr>
 											<tr>
 
@@ -63,9 +59,7 @@
 												<td style="width: 35%"><input name="userid" type="text"
 													value="${cvo.userid}" class="form-control"
 													style="width: 180px"
-													<c:if test="${ empty cvo.userid }">readonly</c:if>
-													
-													></td>
+													<c:if test="${ !empty cvo.userid }">readonly</c:if>></td>
 
 												<td class="tdl" style="width: 15%">비번</td>
 
@@ -74,7 +68,7 @@
 													style="width: 180px"></td>
 
 											</tr>
-											
+
 											<tr>
 
 												<td class="tdl" style="width: 15%">이메일</td>
@@ -84,25 +78,23 @@
 
 												<td class="tdl" style="width: 15%">생년월일(YYYYMMDD)</td>
 
-												<td style="width: 35%"><input name="birthyyyymmdd" type="text"
-													value="${cvo.birthyyyymmdd}" class="form-control"
-													style="width: 180px"
-													maxlength="8"
+												<td style="width: 35%"><input name="birthyyyymmdd"
+													type="text" value="${cvo.birthyyyymmdd}"
+													class="form-control" style="width: 180px" maxlength="8"
 													onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"></td>
 
 											</tr>
 
 
+											<tr>
 
-
-
+												<td class="tdl" style="width: 15%">이메일</td>
+												<td colspan="3" style="width: 85%"><c:forEach
+														var="listview" items="${listview}" varStatus="status">
+${listview.typecode} / ${listview.title} / ${listview.price}원 <br>
+													</c:forEach></td>
+											</tr>
 										</table>
-
-
-
-
-
-
 
 
 
@@ -145,7 +137,7 @@
 		} else {
 
 			if (document.form1.mobile.value == '') {
-				alert('강좌분류를 입력하세요');
+				alert('mobile 입력하세요');
 				document.form1.mobile.focus();
 			} else {
 				if (document.form1.userid.value == '') {

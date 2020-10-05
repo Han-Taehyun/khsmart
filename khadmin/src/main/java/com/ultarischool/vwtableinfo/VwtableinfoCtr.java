@@ -38,6 +38,7 @@ import javax.servlet.http.HttpSession;
 
 
 
+@SuppressWarnings("unused")
 @Controller 
 public class VwtableinfoCtr  {
 

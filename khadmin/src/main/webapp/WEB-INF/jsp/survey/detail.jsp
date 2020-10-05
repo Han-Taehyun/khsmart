@@ -10,7 +10,7 @@
 <form name="form1" action="surveySave" method="post"
 	enctype="multipart/form-data">
 
-	<input type="hidden" name="sn" value="${surveypool.sn}">
+	<input type="hidden" name="sn" value="${survey.sn}">
 
 
 	<section id="main-content" class=" ">
@@ -43,11 +43,11 @@
 
 										<td class="tdl" style="width: 15%">설문 분류</td>
 
-										<td style="width: 35%"><input name="svtype" type="text"
-											class="form-control" value="${surveypool.svtype}"
-											style="width: 100%"></td>
+										<td style="width: 35%"><input name="svtypename"
+											type="text" class="form-control" value="${survey.svtypename}"
+											style="width: 100%" readonly></td>
 
-
+										<!-- 
 										<td class="tdl" style="width: 15%">설문배정</td>
 										<td style="width: 35%"><select class="form-control"
 											name="ctudsn" id="ctudsn" style="width: 100%">
@@ -63,7 +63,7 @@
 
 												</c:forEach>
 
-										</select></td>
+										</select></td> -->
 									</tr>
 
 									<tr>
@@ -71,7 +71,8 @@
 
 										<td class="tdl" style="width: 15%">설문제목</td>
 										<td style="width: *" colspan="3"><input name="svname"
-											value="${surveypool.svname}" type="text" class="form-control"></td>
+											value="${survey.svname}" type="text" class="form-control"
+											required></td>
 
 									</tr>
 
@@ -80,7 +81,8 @@
 
 										<td class="tdl" style="width: 15%">설문설명</td>
 										<td style="width: *" colspan="3"><input name="svmemo"
-											value="${surveypool.svmemo}" type="text" class="form-control"></td>
+											value="${survey.svmemo}" type="text" class="form-control"
+											required></td>
 
 									</tr>
 								</table>
@@ -93,14 +95,14 @@
 
 						<div class="form-group" style="margin-top: 20px">
 
-							<button type="button" class="btn btn-gray" onclick="fn_formRtn()">목록</button>
+							<button type="button" class="btn btn-gray"
+								onclick="confirmToList()">목록</button>
 
 
 							<button type="button" class="btn btn-purple"
 								onclick="fn_formDel()">삭제</button>
 
-							<button type="button" class="btn btn-orange"
-								onclick="fn_formSv()">저장</button>
+							<button type="submit" class="btn btn-orange">저장</button>
 						</div>
 
 
@@ -119,42 +121,20 @@
 	<!-- END CONTENT -->
 </form>
 <script>
-	function fn_formSv() {
-		if (document.form1.svtype.value == '') {
-			alert("분류 입력 정확히 해주세요.");
-			document.form1.svtype.focus();
-		} else {
-			if (document.form1.svname.value == '') {
-				alert("정보 입력 정확히 해주세요.");
-				document.form1.svname.focus();
-			} else {
-				document.form1.submit();
-			}
+	function confirmToList() {
+		var confirmVal = confirm("수정한 내용은 저장되지 않습니다.\n나가시겠습니까?");
+		if (confirmVal) {
+			location.href = "surveyList";
 		}
-
-	}
-	function fn_formRtn() {
-		document.formList.submit();
-
 	}
 	function fn_formDel() {
-		document.form1.action = "surveyDelete";
-		document.form1.submit();
-
+		var isDel = confirm('정말 삭제하시겠습니까?');
+		if (isDel) {
+			document.form1.action = "surveyDelete";
+			document.form1.submit();
+		}
 	}
 </script>
-
-<form name="formList" action="surveyList" method="post">
-
-	<input type="hidden" name="svtype" value="${surveypool.svtype}">
-	<input type="hidden" name="searchType"
-		value="<c:out value="${searchVO.searchType}"/>"> <input
-		type="hidden" name="searchKeyword"
-		value="<c:out value="${searchVO.searchKeyword}"/>"> <input
-		type="hidden" name="orderKeyword"
-		value="<c:out value="${fn:trim(searchVO.orderKeyword)}"/>"> <input
-		type="hidden" name="page" value="<c:out value="${pageVO.page}"/>">
-</form>
 <!-- START CONTENT -->
 <jsp:include page="/WEB-INF/jsp/common/footer.jsp" />
 

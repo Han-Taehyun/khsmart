@@ -15,6 +15,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 
 
+@SuppressWarnings("unused")
 @Service
 public class VwsSvc implements com.ultarischool.vwsvyresult.vwsvyresultMapper{
 

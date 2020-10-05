@@ -22,11 +22,7 @@
 				<section class="box ">
 					<header class="panel_header">
 						<h2 class="title pull-left">강좌 입력</h2>
-						<div class="actions panel_actions pull-right">
-							<i class="box_toggle fa fa-chevron-down"></i> <i
-								class="box_setting fa fa-cog" data-toggle="modal"
-								href="#section-settings"></i> <i class="box_close fa fa-times"></i>
-						</div>
+						<div class="actions panel_actions pull-right"></div>
 					</header>
 					<div class="content-body">
 						<div class="row">
@@ -41,8 +37,18 @@
 											<tr>
 												<td class="tdl" style="width: 15%">타이틀</td>
 
-												<td style="width: 85%" colspan="3"><input name="title"
+												<td style="width: 35%"><input name="title"
 													type="text" value="${cvo.title}" class="form-control"></td>
+													
+												<td class="tdl" style="width: 15%">노출(오픈)</td>
+
+												<td style="width: 35%">
+												<select name="openstatus">
+												<option value="">::선택::</option>
+												<option value="YY" <c:if test="${cvo.openstatus eq 'YY'}">selected</c:if>>오픈(노출)</option>
+												<option value="NN" <c:if test="${cvo.openstatus eq 'NN'}">selected</c:if>>비노출</option>
+												</select>
+												</td>
 											</tr>
 
 
@@ -120,8 +126,7 @@
 
 												<td style="width: 35%"><input name="totheartnum"
 													type="text" value="${cvo.totheartnum}" class="form-control"
-													style="width: 120px" maxlength="3"
-													onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+													style="width: 120px" maxlength="3" readonly></td>
 											</tr>
 											<tr>
 
@@ -139,6 +144,31 @@
 													onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"></td>
 
 											</tr>
+											
+											<tr>
+
+												<td class="tdl" style="width: 15%">원가격(하이픈)</td>
+												<td style="width: 35%"><input name="orgprice" type="text"
+													value="${cvo.orgprice}" class="form-control"
+													style="width: 120px" maxlength="8"
+													onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+
+												<td class="tdl" style="width: 15%">할인율</td>
+
+												<td style="width: 35%"><input name="dcr" type="text"
+													value="${cvo.dcr}" class="form-control"
+													style="width: 120px" maxlength="3"
+													onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"></td>
+
+											</tr>
+
+
+											<tr>
+												<td class="tdl" style="width: 15%">Mp4URL(소개영상경로)</td>
+
+												<td style="width: 85%" colspan="3"><input name="mp4url"
+													type="text" value="${cvo.mp4url}" class="form-control"></td>
+											</tr>
 
 
 
@@ -150,7 +180,7 @@
 												<td style="width: 85%" colspan="3"><select
 													name="cotarget1"
 													style="width: 200px; height: 35px; padding: 5px; padding-bottom: 10px; font-size: 13px">
-														<option value="">::선택::</option>
+														<option value="XXX">::선택::</option>
 														<c:forEach var="seltgc1" items="${seltgc1}"
 															varStatus="status">
 															<option value="${seltgc1.tgcode}"
@@ -159,7 +189,7 @@
 
 												</select> <select name="cotarget2"
 													style="width: 200px; height: 35px; padding: 5px; padding-bottom: 10px; font-size: 13px">
-														<option value="">::선택::</option>
+														<option value="XXXX">::선택::</option>
 														<c:forEach var="seltgc2" items="${seltgc2}"
 															varStatus="status">
 															<option value="${seltgc2.tgcode}"
@@ -168,7 +198,7 @@
 
 												</select> <select name="cotarget3"
 													style="width: 200px; height: 35px; padding: 5px; padding-bottom: 10px; font-size: 13px">
-														<option value="">::선택::</option>
+														<option value="XXXXX">::선택::</option>
 														<c:forEach var="seltgc3" items="${seltgc3}"
 															varStatus="status">
 															<option value="${seltgc3.tgcode}"
@@ -186,7 +216,7 @@
 												<td style="width: 85%" colspan="3"><select
 													name="cotag1"
 													style="width: 200px; height: 35px; padding: 5px; padding-bottom: 10px; font-size: 13px">
-														<option value="">::선택::</option>
+														<option value="XXX">::선택::</option>
 														<c:forEach var="seltag1" items="${seltag1}"
 															varStatus="status">
 															<option value="${seltag1.tgcode}"
@@ -195,7 +225,7 @@
 
 												</select> <select name="cotag2"
 													style="width: 200px; height: 35px; padding: 5px; padding-bottom: 10px; font-size: 13px">
-														<option value="">::선택::</option>
+														<option value="XXXX">::선택::</option>
 														<c:forEach var="seltag2" items="${seltag2}"
 															varStatus="status">
 															<option value="${seltag2.tgcode}"
@@ -204,7 +234,7 @@
 
 												</select> <select name="cotag3"
 													style="width: 200px; height: 35px; padding: 5px; padding-bottom: 10px; font-size: 13px">
-														<option value="">::선택::</option>
+														<option value="XXXXX">::선택::</option>
 														<c:forEach var="seltag3" items="${seltag3}"
 															varStatus="status">
 															<option value="${seltag3.tgcode}"
@@ -220,34 +250,23 @@
 
 												<td class="tdl" style="width: 15%">배너이미지</td>
 
-												<td style="width: 85%" colspan="3">
-												
-													이미지1 : <input
-													type="file" name="cosimg1file" /> 
-													
-													<c:if test="${ !empty cvo.cosimg1 }"><img src="images/${cvo.cosimg1}" style="width:50px"></c:if>
-													
-													이미지2 : <input
-													type="file" name="cosimg2file" /> 
-													
-													<c:if test="${ !empty cvo.cosimg2 }"><img src="images/${cvo.cosimg2}" style="width:50px"></c:if>
-													
-													이미지3 : <input
-													type="file" name="cosimg3file" />
-													
-													<c:if test="${ !empty cvo.cosimg3 }"><img src="images/${cvo.cosimg3}" style="width:50px"></c:if>
-													
-													
+												<td style="width: 85%" colspan="3">이미지1 : <input
+													type="file" name="cosimg1file" /> <c:if
+														test="${ !empty cvo.cosimg1 }">
+														<img src="images/${cvo.cosimg1}" style="width: 50px">
+													</c:if> 이미지2 : <input type="file" name="cosimg2file" /> <c:if
+														test="${ !empty cvo.cosimg2 }">
+														<img src="images/${cvo.cosimg2}" style="width: 50px">
+													</c:if> 이미지3 : <input type="file" name="cosimg3file" /> <c:if
+														test="${ !empty cvo.cosimg3 }">
+														<img src="images/${cvo.cosimg3}" style="width: 50px">
+													</c:if>
+
+
 												</td>
 											</tr>
 
 										</table>
-
-
-
-
-
-
 
 
 
@@ -325,12 +344,16 @@
 												alert('태그를 최소 1종을 선택하세요');
 												document.form1.cotag1.focus();
 											} else {
+												
 												if (document.form1.cotag1.value == document.form1.cotag2.value
 														|| document.form1.cotag1.value == document.form1.cotag3.value
 														|| document.form1.cotag2.value == document.form1.cotag3.value) {
+													
 													alert('태그는 중복되지 않게 선택하세요');
-													document.form1.cotag2
-															.focus();
+													document.form1.cotag2.focus();
+												
+												
+												
 												} else {
 
 													if (document.form1.cotarget1.value == document.form1.cotarget2.value

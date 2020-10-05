@@ -57,6 +57,7 @@ public class Coupon2Ctr {
 			orderKeyword = request.getParameter("orderKeyword");
 		}
 		
+		@SuppressWarnings("unused")
 		String page = "1";
 		if ( request.getParameter("page") != null ) {
 		page = request.getParameter("page");} else {}
@@ -90,6 +91,7 @@ public class Coupon2Ctr {
 		String searchKeyword = request.getParameter("searchKeyword");
 		String orderKeyword = request.getParameter("orderKeyword");
 		
+		@SuppressWarnings("unused")
 		String page = "1";
 		if ( request.getParameter("page") != null ) {
 		page = request.getParameter("page");} else {}

@@ -91,4 +91,8 @@ public interface surveypoolMapper {
      * @mbg.generated Tue Dec 17 11:09:48 KST 2019
      */
     int updateByPrimaryKey(surveypool record);
+    
+    int updateBySn(surveypool surveypool);
+    
+    List<surveypool> getSurveypoolListBySvyno(int svyno);
 }

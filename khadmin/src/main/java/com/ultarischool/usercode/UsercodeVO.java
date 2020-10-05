@@ -6,8 +6,15 @@ public class UsercodeVO {
   private String codename;
   private String code1;
   private String code2;
+  private String code3;
   
-  public Integer getId() {
+  public String getCode3() {
+	return code3;
+}
+public void setCode3(String code3) {
+	this.code3 = code3;
+}
+public Integer getId() {
     return id;
   }
   public void setId(Integer id) {

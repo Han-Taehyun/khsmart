@@ -13,6 +13,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 
 
+@SuppressWarnings("unused")
 @Service
 public class CareerSvc implements com.ultarischool.career.careerMapper{
 
@@ -89,7 +90,16 @@ public class CareerSvc implements com.ultarischool.career.careerMapper{
 	}
 	
 
-
+	public int update(career record) {
+		sqlSession.insert("updateFaq",record);
+		return 0;
+	}
+	
+	public int delete(career record) {
+		sqlSession.delete("deleteFaq",record);
+		return 0;
+	}
+	
 	
 	
 }

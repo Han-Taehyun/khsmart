@@ -3,6 +3,7 @@ package edumgt.common.util;
 public class PageVO {
 	
 	
+	@SuppressWarnings("unused")
 	private String[] searchTypeArr;
 	public String[] getSearchTypeArr() {
 		return searchType.split(",");

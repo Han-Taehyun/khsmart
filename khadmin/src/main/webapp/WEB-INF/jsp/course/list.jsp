@@ -49,16 +49,43 @@
 										<tr>
 											<th>#</th>
 
-											<th>분류명</th>
-											<th>강좌명</th>
-											<th>기준단가</th>
+											<th>분류명 &nbsp; <a href="javascript:fn_orderKey('5')">▲</a>
+												<a href="javascript:fn_orderKey('6')">▼</a>
+
+											</th>
+											<th>강좌명 &nbsp; <a href="javascript:fn_orderKey('1')">▲</a>
+												<a href="javascript:fn_orderKey('2')">▼</a>
+
+											</th>
+											<th>기준단가&nbsp;
 											
+												<a href="javascript:fn_orderKey('13')">▲</a>
+												<a href="javascript:fn_orderKey('14')">▼</a>
 											
-											
-											<th>등록강의수</th>
+											</th>
+
+											<th>등록일자 &nbsp; <a href="javascript:fn_orderKey('3')">▲</a>
+												<a href="javascript:fn_orderKey('4')">▼</a>
+											</th>
+
+											<th>노출(오픈여부)&nbsp;
+												
+												<a href="javascript:fn_orderKey('11')">▲</a>
+												<a href="javascript:fn_orderKey('12')">▼</a>
+												
+											</th>
 
 
-											<th>수강생수</th>
+											<th>등록강의수 &nbsp; <a href="javascript:fn_orderKey('7')">▲</a>
+												<a href="javascript:fn_orderKey('8')">▼</a>
+
+											</th>
+
+
+											<th>수강생수 &nbsp; <a href="javascript:fn_orderKey('9')">▲</a>
+												<a href="javascript:fn_orderKey('10')">▼</a>
+
+											</th>
 
 										</tr>
 									</thead>
@@ -69,17 +96,18 @@
 														value="${searchVO.totRow-((searchVO.page-1)*searchVO.displayRowCount + status.index)}" /></td>
 
 												<td><c:out value="${list.large}" /></td>
-												<td><a href="courseRead?sn=${list.sn}"><c:out
-															value="${list.title}" /></a></td>
+												<td><a href="courseRead?sn=${list.sn}">${list.title}</a></td>
 												<td><fmt:formatNumber value="${list.price}"
 														pattern="\#,###" /></td>
-												
-												
-												
-												
-												<td>${list.cpcnt}</td>
 
-												<td>${list.cucnt}</td>
+
+												<td>${list.wdate}</td>
+
+												<td>${list.openstatus}</td>
+
+												<td><a href="chapterList?code2=${list.sn}">${list.cpcnt}</a></td>
+
+												<td><a href="CosUserList?code2=${list.sn}">${list.cucnt}</a></td>
 
 											</tr>
 										</c:forEach>
@@ -105,6 +133,14 @@
     document.form1.action = "courseForm";
     document.form1.submit();
   }
+</script>
+
+<script>
+	function fn_orderKey(_a) {
+		document.form1.action = "courseList";
+		document.form1.orderKeyword.value = _a;
+		document.form1.submit();
+	}
 </script>
 <!-- END CONTENT -->
 <!-- START CONTENT -->

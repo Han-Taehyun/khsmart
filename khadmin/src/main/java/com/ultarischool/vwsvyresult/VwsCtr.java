@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ultarischool.codet.codet;
-import com.ultarischool.codet.codetExample;
 
+
+@SuppressWarnings("unused")
 @Controller
 public class VwsCtr {
 
 	@Autowired
 	private VwsSvc vwsSvc;
 
-	@RequestMapping(value = "/vwsList")
+	@RequestMapping(value = "/vwsListNML")
 	public String surveyList(HttpServletRequest request, vwsvyresultExample example, ModelMap modelMap) {
 
 		List<?> listrel3 = vwsSvc.selListSvyRsltSv();

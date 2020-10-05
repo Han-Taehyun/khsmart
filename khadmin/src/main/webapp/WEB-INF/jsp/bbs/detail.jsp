@@ -17,16 +17,10 @@
 				<header class="panel_header">
 					<h2 class="title pull-left">문의 상세</h2>
 					<div class="actions panel_actions pull-right">
-						<i class="box_toggle fa fa-chevron-down"></i> <i
-							class="box_setting fa fa-cog" data-toggle="modal"
-							href="#section-settings"></i> <i class="box_close fa fa-times"></i>
+						
 					</div>
 				</header>
 				<div class="content-body">
-
-
-
-
 
 					<form name="form1" action="bbsSave" method="post"
 						enctype="multipart/form-data">
@@ -67,13 +61,14 @@
 									<tr>
 
 
-										<td class="tdl" style="width: 15%">회사</td>
-										<td style="width: 35%"><input name="company"
-											type="text" class="form-control" value="${bbs.company}"></td>
+										
 											
 										<td class="tdl" style="width: 15%">작성일자</td>
 										<td style="width: 35%"><input name="wdate"
 											type="text" class="form-control" value="${bbs.wdate}"></td>
+											
+										<td class="tdl" style="width: 15%">-</td>
+										<td style="width: 35%">-</td>
 
 									</tr>
 

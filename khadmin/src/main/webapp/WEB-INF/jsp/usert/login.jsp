@@ -14,29 +14,29 @@
 
 
 <!-- CORE CSS FRAMEWORK - START -->
-<link href="/khadmin/assets/plugins/pace/pace-theme-flash.css" rel="stylesheet"
+<link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet"
 	type="text/css" media="screen" />
-<link href="/khadmin/assets/plugins/bootstrap/css/bootstrap.min.css"
+<link href="assets/plugins/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
-<link href="/khadmin/assets/plugins/bootstrap/css/bootstrap-theme.min.css"
+<link href="assets/plugins/bootstrap/css/bootstrap-theme.min.css"
 	rel="stylesheet" type="text/css" />
-<link href="/khadmin/assets/fonts/font-awesome/css/font-awesome.css"
+<link href="assets/fonts/font-awesome/css/font-awesome.css"
 	rel="stylesheet" type="text/css" />
-<link href="/khadmin/assets/css/animate.min.css" rel="stylesheet"
+<link href="assets/css/animate.min.css" rel="stylesheet"
 	type="text/css" />
-<link href="/khadmin/assets/plugins/perfect-scrollbar/perfect-scrollbar.css"
+<link href="assets/plugins/perfect-scrollbar/perfect-scrollbar.css"
 	rel="stylesheet" type="text/css" />
 <!-- CORE CSS FRAMEWORK - END -->
 
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-<link href="/khadmin/assets/plugins/icheck/skins/square/orange.css"
+<link href="assets/plugins/icheck/skins/square/orange.css"
 	rel="stylesheet" type="text/css" media="screen" />
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 
 
 <!-- CORE CSS TEMPLATE - START -->
-<link href="/khadmin/assets/css/style.css" rel="stylesheet" type="text/css" />
-<link href="/khadmin/assets/css/responsive.css" rel="stylesheet" type="text/css" />
+<link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+<link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
 <!-- CORE CSS TEMPLATE - END -->
 </head>
 <!-- END HEAD -->
@@ -53,7 +53,7 @@
 			>
 
 			<div style="width: 100%; text-align: center; padding: 20px">
-				<img src="/khadmin/images/logo.png" style="width:100%">
+				<img src="images/logo.png" style="width:100%">
 			</div>
 			
 			<form name="loginform" id="loginform" action="login" method="post">
@@ -106,33 +106,33 @@
 
 
 	<!-- CORE JS FRAMEWORK - START -->
-	<script src="/khadmin/assets/js/jquery-1.11.2.min.js" type="text/javascript"></script>
-	<script src="/khadmin/assets/js/jquery.easing.min.js" type="text/javascript"></script>
-	<script src="/khadmin/assets/plugins/bootstrap/js/bootstrap.min.js"
+	<script src="assets/js/jquery-1.11.2.min.js" type="text/javascript"></script>
+	<script src="assets/js/jquery.easing.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"
 		type="text/javascript"></script>
-	<script src="/khadmin/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+	<script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
 	<script
-		src="/khadmin/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
+		src="assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
 		type="text/javascript"></script>
-	<script src="/khadmin/assets/plugins/viewport/viewportchecker.js"
+	<script src="assets/plugins/viewport/viewportchecker.js"
 		type="text/javascript"></script>
 	<!-- CORE JS FRAMEWORK - END -->
 
 
 	<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-	<script src="/khadmin/assets/plugins/icheck/icheck.min.js"
+	<script src="assets/plugins/icheck/icheck.min.js"
 		type="text/javascript"></script>
 	<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 
 
 	<!-- CORE TEMPLATE JS - START -->
-	<script src="/khadmin/assets/js/scripts.js" type="text/javascript"></script>
+	<script src="assets/js/scripts.js" type="text/javascript"></script>
 	<!-- END CORE TEMPLATE JS - END -->
 
 	<!-- Sidebar Graph - START -->
-	<script src="/khadmin/assets/plugins/sparkline-chart/jquery.sparkline.min.js"
+	<script src="assets/plugins/sparkline-chart/jquery.sparkline.min.js"
 		type="text/javascript"></script>
-	<script src="/khadmin/assets/js/chart-sparkline.js" type="text/javascript"></script>
+	<script src="assets/js/chart-sparkline.js" type="text/javascript"></script>
 	<!-- Sidebar Graph - END -->
 
 </body>

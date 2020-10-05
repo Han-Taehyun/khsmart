@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class HTMLTagFilter implements Filter{
 
+	@SuppressWarnings("unused")
 	private FilterConfig config;
 
 	@Override

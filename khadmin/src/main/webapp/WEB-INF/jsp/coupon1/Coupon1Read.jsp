@@ -56,10 +56,7 @@
 										<select class="form-control" name="cu_opt2">
 										
 										<option value="">전체</option>
-										<option value="1" <c:if test="${couponInfo.cu_opt2 eq '1'}">selected</c:if>>1학점</option>
-										<option value="2" <c:if test="${couponInfo.cu_opt2 eq '2'}">selected</c:if>>2학점</option>
-										<option value="3" <c:if test="${couponInfo.cu_opt2 eq '3'}">selected</c:if>>3학점</option>
-										<option value="4" <c:if test="${couponInfo.cu_opt2 eq '4'}">selected</c:if>>4학점</option>
+										
 										
 										
 										

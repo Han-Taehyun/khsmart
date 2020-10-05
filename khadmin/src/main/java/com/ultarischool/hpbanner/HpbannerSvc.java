@@ -13,6 +13,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 
 
+@SuppressWarnings("unused")
 @Service
 public class HpbannerSvc implements com.ultarischool.hpbanner.hpbannerMapper{
 

@@ -9,7 +9,8 @@
 
 <!-- START CONTENT -->
 <section id="main-content" class=" ">
-	<section class="wrapper" style='margin-top: 40px; display: inline-block; width: 100%; '>
+	<section class="wrapper"
+		style='margin-top: 60px; display: inline-block; width: 100%; padding: 15px 0 0 15px;'>
 		<form id="form1" name="form1" method="post">
 			<input type="hidden" name="orderKeyword" id="orderKeyword" 
 			value="<c:out value="${fn:trim(searchVO.orderKeyword)}" />" />

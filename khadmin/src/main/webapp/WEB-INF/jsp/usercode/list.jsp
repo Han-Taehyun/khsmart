@@ -21,10 +21,10 @@
 									style="float: left; display: inline-block; vertical-align: middle; padding-top: 10px"><select
 									class="form-control" name="code2" id="code2"
 									style="width: 250px">
-										<option value="">::코드 분류 선택::</option>
+										<option value="">::코드 중 분류 선택::</option>
 										<c:forEach var="list" items="${code2List}" varStatus="status">
 											<option value="${list.code2}"
-												<c:if test="${list.code2 eq searchVO.code2}">selected</c:if>>${list.code2}</option>
+												<c:if test="${list.code2 eq searchVO.code2}">selected</c:if>>${list.codename}</option>
 										</c:forEach>
 								</select>&nbsp;&nbsp;</li>
 								<li style="float: left;"></li>
@@ -32,10 +32,7 @@
 									<button type="button" class="btn btn-primary "
 										onclick="fn_formSubmit()">검색</button>
 									<button type="button" class="btn btn-orange"
-										onclick="fn_formGo()">신규</button> <!--  img
-                  src="images/excel.png" width="27px"
-                  style="cursor: pointer; border: 3px solid #11ee33; margin-left: 10px" onclick="fn_formExSubmit()" -->
-
+										onclick="fn_formGo()">신규</button>
 								</li>
 							</ul>
 						</div>
@@ -48,8 +45,10 @@
 										<tr>
 											<th style="width: 5%">#</th>
 											<th style="width: 15%">코드</th>
-											<th style="width: 20%">코드명</th>
-											<th style="width: 20%">분류</th>
+											<th style="width: *">코드명</th>
+											<th style="width: 20%">대분류</th>
+											<th style="width: 20%">중분류</th>
+											<th style="width: 20%">소분류</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -64,7 +63,10 @@
 												<td><a href="usercodeRead?id=${list.id}"><c:out
 															value="${list.code}" /></a></td>
 												<td>${list.codename}</td>
+												<td>${list.code1}</td>
 												<td>${list.code2}</td>
+												<td>${list.code3}</td>
+												
 											</tr>
 										</c:forEach>
 									</tbody>

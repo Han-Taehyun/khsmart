@@ -1,6 +1,10 @@
 package com.ultarischool.surveypool;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,228 +15,192 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ultarischool.codet.codet;
-import com.ultarischool.codet.codetExample;
+import com.khsmart.survey.Survey;
+import com.khsmart.survey.SurveySvc;
 
+import com.ultarischool.usercode.UsercodeExample;
+import com.ultarischool.usercode.UsercodeSvc;
+import com.ultarischool.usercode.UsercodeVO;
 
-
-@Controller 
+@Controller
 public class SurveypoolCtr {
 
 	@Autowired
 	private SurveypoolSvc surveypoolSvc;
+
+	@Autowired
+	private SurveySvc surveySvc;
+
+	@Autowired
+	private UsercodeSvc usercodeSvc;
 	
-
-	@RequestMapping(value = "/surveyList")
-	public String surveyList(HttpServletRequest request, surveypoolExample example, ModelMap modelMap) {
-
+	@RequestMapping(value = "/prev")
+	public String prev(HttpServletRequest request, surveypoolExample example, ModelMap modelMap) {
 		
-		List<?> listrel3  = surveypoolSvc.selectListSvType();
-		modelMap.addAttribute("listrel3", listrel3);
-
-		String svtype = "";
-		if ( request.getParameter("svtype") != null ) { 
-			svtype = request.getParameter("svtype");
-			example.setSvtype(svtype);
-
+		
+		String svyno = request.getParameter("svyno");
+		modelMap.addAttribute("svyno", svyno);
+		
+		String uuid = request.getParameter("uuid");
+		modelMap.addAttribute("uuid", uuid);
+		
+		example.setIsvyno(Integer.parseInt(svyno));
+		example.setUuid(uuid);
+		
+		int count = 0;
+		count = surveypoolSvc.getSvynoUuid(example);
+		
+		if ( count > 0) {
+			uuid = UUID.randomUUID().toString().replace("-","");
+			modelMap.addAttribute("uuid", uuid);
 		}
 		
 		
-		example.pageCalculate( surveypoolSvc.countByExample2(example) ); 
-
-		List<?> listview  = surveypoolSvc.selectByExample2(example);
-
-		modelMap.addAttribute("listview", listview);
-		modelMap.addAttribute("searchVO", example);
+		modelMap.addAttribute("count", count);
 		
-
-		return "survey/list";
+		return "prev/main";
 	}
-	
-	@RequestMapping(value = "/surveyForm", method = {RequestMethod.GET, RequestMethod.POST})
-	public String surveyForm(HttpServletRequest request, surveypool surveypool, 
-			ModelMap modelMap) {
-		
-		List<?> cdctlist  = surveypoolSvc.selectCdCtusfk();
-		modelMap.addAttribute("cdctlist", cdctlist);
-
-
-		return "survey/detail";
-	}
-	
-	@RequestMapping(value = "/surveyRead", method = {RequestMethod.GET, RequestMethod.POST})
-	public String surveyRead(HttpServletRequest request,  surveypool surveypool, 
-			ModelMap modelMap) {
-
-
-		String sn = request.getParameter("sn");
-		surveypool = surveypoolSvc.selectByPrimaryKey2(Integer.parseInt(sn));
-		
-		String ctudsn = "";
-		ctudsn = surveypoolSvc.selectOneCtSn(Integer.parseInt(sn));
-		
-		List<?> cdctlist  = surveypoolSvc.selectCdCtusfk();
-		modelMap.addAttribute("cdctlist", cdctlist);
-
-		modelMap.addAttribute("surveypool", surveypool);
-		
-		System.out.println(" ctudsn ------------------- " + ctudsn );
-		
-		modelMap.addAttribute("ctudsn", ctudsn);
-
-		return "survey/detail";
-	}
-	
-	@RequestMapping(value = "/surveyDelete", method = {RequestMethod.GET, RequestMethod.POST})
-	public String surveyDel(HttpServletRequest request,  surveypool surveypool, 
-			ModelMap modelMap) {
-
-
-		String sn = request.getParameter("sn");
-		surveypoolSvc.deleteSvy(Integer.parseInt(sn));
-		
-		
-
-		return "redirect:surveyList";
-	}
-	
-	@RequestMapping(value = "/surveySave", method = {RequestMethod.GET, RequestMethod.POST})
-	public String surveySave( surveypoolExample example, 
-			HttpServletRequest request,  surveypool surveypool,   
-			ModelMap modelMap, RedirectAttributes redirectAttributes) {
-
-		String ctudsn = "";
-		ctudsn = request.getParameter("ctudsn");
-		
-		String svyMaxSn = "";
-		
-		
-		if ( surveypool.getSn() == null ) {
-
-			surveypoolSvc.insert(surveypool);
-			
-			svyMaxSn = surveypoolSvc.selMaxSn();
-			
-			
-			
-			
-			surveypool svy2 = new surveypool();
-			
-			svy2.setSvyno(svyMaxSn);
-			
-			svy2.setCtudsn(ctudsn);
-			
-			
-			System.out.println(" svy2.getSvyno() ------------------- " + svy2.getSvyno() );
-			
-			surveypoolSvc.insertCtCdSN(svy2);
-			
-		
-		} else { 
-			surveypoolSvc.updateByPrimaryKey2(surveypool);
-			
-			
-			surveypool svy2 = new surveypool();
-			
-			svy2.setSvyno(String.valueOf(surveypool.getSn()));
-			svy2.setCtudsn(ctudsn);
-			
-			surveypoolSvc.updateCtCdSN(svy2);
-			
-		}
-
-		redirectAttributes.addAttribute("svtype", surveypool.getSvtype());
-		return "redirect:surveyList";
-		
-
-
-	}
-
-	
-	
-	@RequestMapping(value = "/surveypoolForm", method = {RequestMethod.GET, RequestMethod.POST})
-	public String surveypoolForm(HttpServletRequest request, surveypool surveypool, surveypool survey, 
-			ModelMap modelMap) {
-
-		
-		survey = surveypoolSvc.selectByPrimaryKey2(Integer.parseInt(surveypool.getSvyno()));
-		modelMap.addAttribute("survey", survey);
-		return "surveypool/detail";
-	}
-	
-	
-	
-	
 
 	@RequestMapping(value = "/surveypoolList")
-	public String surveypoolList(HttpServletRequest request,surveypoolExample example, ModelMap modelMap) {
-
+	public String surveypoolList(HttpServletRequest request, surveypoolExample example, ModelMap modelMap) {
 		
-		List<?> listrel3  = surveypoolSvc.selectListSvy();
-		modelMap.addAttribute("listrel3", listrel3);
+		
 
+		@SuppressWarnings("unused")
 		String svyno = "";
-		if ( request.getParameter("svyno") != null ) { 
+		if (request.getParameter("svyno") != null) {
 			svyno = request.getParameter("svyno");
 
 		}
 		
+		List<Survey> surveyList = surveySvc.getAllSurveyList();
 		
+		example.pageCalculate(surveypoolSvc.countByExample(example)); 
 		
-		example.pageCalculate( surveypoolSvc.countByExample(example) ); // startRow, endRow
-		
-		
+		List<?> listview = surveypoolSvc.selectByExample(example);
 
-		List<?> listview  = surveypoolSvc.selectByExample(example);
-
+		modelMap.addAttribute("surveyList", surveyList);
 		modelMap.addAttribute("listview", listview);
 		modelMap.addAttribute("searchVO", example);
-		
 
 		return "surveypool/list";
 	}
 
+	@RequestMapping(value = "/surveypoolForm")
+	public String surveypoolForm(HttpServletRequest request, surveypool surveypool, Survey survey, ModelMap modelMap) {
+		List<Survey> surveyList = surveySvc.getAllSurveyList();
 
-	@RequestMapping(value = "/surveypoolSave", method = {RequestMethod.GET, RequestMethod.POST})
-	public String surveypoolSave( surveypoolExample example, 
-			HttpServletRequest request,  surveypool surveypool,   
-			ModelMap modelMap, RedirectAttributes redirectAttributes) {
 
-		if ( surveypool.getSn() == null ) {
-			surveypoolSvc.insertSvypool(surveypool);
-		
-		
-		} else { 
-			surveypoolSvc.updateByPrimaryKey(surveypool);
-			
-		}
+		modelMap.addAttribute("surveyList", surveyList);
+
+		return "surveypool/form";
+	}
+
+	@RequestMapping(value = "/surveypoolAdd", method = RequestMethod.POST)
+	public String surveypoolAdd(surveypool surveypool, RedirectAttributes redirectAttributes) {
+
+		surveypoolSvc.insertSvypool(surveypool);
 
 		redirectAttributes.addAttribute("svyno", surveypool.getSvyno());
 		return "redirect:surveypoolList";
-		
-
 
 	}
 
+	@RequestMapping(value = "/surveypoolSave", method = RequestMethod.POST)
+	public String surveypoolSave(surveypool surveypool, RedirectAttributes redirectAttributes) {
+		surveypoolSvc.updateBySn(surveypool);
 
+		redirectAttributes.addAttribute("svyno", surveypool.getSvyno());
 
+		return "redirect:surveypoolList";
+	}
 
-	@RequestMapping(value = "/surveypoolRead", method = {RequestMethod.GET, RequestMethod.POST})
-	public String surveypoolRead(HttpServletRequest request,  surveypool surveypool, surveypool survey, 
-			ModelMap modelMap) {
+	@RequestMapping(value = "/surveypoolRead")
+	public String surveypoolRead(HttpServletRequest request, surveypool surveypool, Survey survey, ModelMap modelMap) {
 
+		UsercodeExample usercodeExample = new UsercodeExample();
+		usercodeExample.setCode2("설문");
+
+		List<UsercodeVO> usercodeList = usercodeSvc.getUsercodeListByCode2(usercodeExample);
 
 		String sn = request.getParameter("sn");
 		surveypool = surveypoolSvc.selectByPrimaryKey(Integer.parseInt(sn));
-		
-		survey = surveypoolSvc.selectByPrimaryKey2(Integer.parseInt(surveypool.getSvyno()));
-		modelMap.addAttribute("survey", survey);
+		survey = surveySvc.getSurvey(Integer.parseInt(surveypool.getSvyno()));
 
+		ArrayList<SurveyBogi> tempList = new ArrayList<>();
+		ArrayList<SurveyBogi> bogiList = new ArrayList<>();
+
+		try {
+			Class<?> surveypoolClass = Class.forName("com.ultarischool.surveypool.surveypool");
+			Method methods[] = surveypoolClass.getDeclaredMethods();
+
+			for (int i = 0; i < methods.length; i++) {
+				String findMethod = methods[i].getName();
+				
+				for (int j = 0; j < 20; j++) {
+					int index = j + 1;
+					if (findMethod.equals("getBogi" + index)) {
+						if (methods[i].invoke(surveypool) != null) {
+							SurveyBogi surveyBogi = new SurveyBogi();
+							String bogi = (String) methods[i].invoke(surveypool);
+
+							surveyBogi.setIndex(index);
+							surveyBogi.setBogi(bogi);
+
+							for (int k = 0; k < methods.length; k++) {
+
+								if (methods[k].getName().equals("getBogi" + index + "type")) {
+									String bogiType = (String) methods[k].invoke(surveypool);
+
+									surveyBogi.setBogiType(bogiType);
+								
+									tempList.add(surveyBogi);
+									
+									continue;
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			for(int i=0; i< tempList.size(); i++) {
+				for(int j=0; j<tempList.size(); j++) {
+					if(i == tempList.get(j).getIndex()-1) {
+						bogiList.add(tempList.get(j));
+					}	
+				}
+			}
+			
+			System.out.println(bogiList);
+
+		} catch (ClassNotFoundException e) {
+			System.out.println("클래스를 찾을 수 없습니다.");
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		modelMap.addAttribute("survey", survey);
 		modelMap.addAttribute("surveypool", surveypool);
+		modelMap.addAttribute("bogiList", bogiList);
+		modelMap.addAttribute("usercodeList", usercodeList);
 
 		return "surveypool/detail";
 	}
 
+	@RequestMapping(value = "/surveypoolDelete", method = RequestMethod.POST)
+	public String surveypoolDelete(HttpServletRequest request) {
+		String sn = request.getParameter("sn");
+		
+		surveypoolSvc.deleteByPrimaryKey(Integer.parseInt(sn));
 
-
+		return "redirect:surveypoolList";
+	}
 }

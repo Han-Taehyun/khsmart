@@ -4,12 +4,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <html>
-<body onload="reloadp()">
+<body >
 <script>
 function reloadp(){
 	alert('작업을 완료 하였습니다.');
 	parent.location.reload();
 }
+reloadp();
 </script>
 </body>
 </html>

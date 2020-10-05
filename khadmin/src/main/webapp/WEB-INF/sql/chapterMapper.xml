@@ -108,7 +108,7 @@
 		resultType="com.ultarischool.chapter.ChapterVO">
 		SELECT ch.sn, co.sn coid, ch.title AS chaptitle, co.title AS
 		cotitle,
-		ch.ord, ch.runtime,prv,mp4url
+		ch.ord, ch.runtime,prv,ch.mp4url
 		FROM chapter AS ch
 		JOIN course AS co
 		ON

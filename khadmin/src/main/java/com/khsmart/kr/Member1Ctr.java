@@ -15,7 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -240,6 +240,7 @@ public class Member1Ctr {
 
 		int rows = sheet.getPhysicalNumberOfRows();
 
+		@SuppressWarnings("unused")
 		String rtnVal = "0";
 
 		for (rowindex = 0; rowindex < rows; rowindex++) {
@@ -335,6 +336,7 @@ public class Member1Ctr {
 
 		int rows = sheet.getPhysicalNumberOfRows();
 
+		@SuppressWarnings("unused")
 		String rtnVal = "0";
 
 		for (rowindex = 0; rowindex < rows; rowindex++) {
@@ -429,6 +431,7 @@ public class Member1Ctr {
 
 		int rows = sheet.getPhysicalNumberOfRows();
 
+		@SuppressWarnings("unused")
 		String rtnVal = "0";
 
 		for (rowindex = 0; rowindex < rows; rowindex++) {

@@ -11,14 +11,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ultarischool.chapter.ChapterExample;
+import com.ultarischool.chapter.ChapterSvc;
 import com.ultarischool.chapter.ChapterVO;
 
 import edumgt.common.util.FileUtil;
+
 
 @Controller
 public class CourseCtr {
 	@Autowired
 	CourseSvc courseSvc;
+	
+	@Autowired
+	ChapterSvc chapterSvc;
 
 	@RequestMapping(value = "/PackCosForm")
 	public String PackCosForm(HttpServletRequest request, ChapterExample example, ModelMap modelMap, CourseVO cvo) {
@@ -62,10 +67,16 @@ public class CourseCtr {
 	}
 
 	@RequestMapping(value = "/courseList")
-	public String courseList(CourseExample courseExample, ModelMap modelMap) {
-		List<CourseVO> courseList = courseSvc.selectAllCourse(courseExample);
+	public String courseList(HttpServletRequest request,CourseExample courseExample, ModelMap modelMap) {
+		
+		String orderKeyword = "";
+		if (request.getParameter("orderKeyword") != null) {
+			orderKeyword = request.getParameter("orderKeyword");
+		}
+		courseExample.setOrderKeyword(orderKeyword);
 
 		courseExample.pageCalculate(courseSvc.countAllCourse(courseExample));
+		List<CourseVO> courseList = courseSvc.selectAllCourse(courseExample);
 
 		modelMap.addAttribute("courseList", courseList);
 		modelMap.addAttribute("searchVO", courseExample);
@@ -88,9 +99,8 @@ public class CourseCtr {
 
 		modelMap.addAttribute("pkgList", pkgList);
 
-		List<CourseVO> courseList = courseSvc.selectAllCoursePkg(courseExample);
-
 		courseExample.pageCalculate(courseSvc.countAllCoursePkg(courseExample));
+		List<CourseVO> courseList = courseSvc.selectAllCoursePkg(courseExample);
 
 		modelMap.addAttribute("courseList", courseList);
 		modelMap.addAttribute("searchVO", courseExample);
@@ -99,12 +109,27 @@ public class CourseCtr {
 	}
 
 	@RequestMapping(value = "/CosUserList")
-	public String CosUserList(CourseExample courseExample, ModelMap modelMap) {
-		List<CourseVO> courseList = courseSvc.selectAllCourseUser(courseExample);
+	public String CosUserList(HttpServletRequest request, CourseExample courseExample, ModelMap modelMap) {
+		
+		String code2 = "0";
+		if (request.getParameter("code2") != null) {
+			code2 = request.getParameter("code2");
+
+		}
+
+		courseExample.setCode2(code2);
+		
+		
+		List<ChapterVO> courseList = chapterSvc.selListCourse();
+
+		modelMap.addAttribute("courseList", courseList);
+		
+		
+		List<CourseVO> courseserList = courseSvc.selectAllCourseUser(courseExample);
 
 		courseExample.pageCalculate(courseSvc.countAllCourseUser(courseExample));
 
-		modelMap.addAttribute("courseList", courseList);
+		modelMap.addAttribute("courseserList", courseserList);
 		modelMap.addAttribute("searchVO", courseExample);
 
 		return "course/list2";
@@ -112,9 +137,10 @@ public class CourseCtr {
 
 	@RequestMapping(value = "/PkgUserList")
 	public String PkgUserList(CourseExample courseExample, ModelMap modelMap) {
-		List<CourseVO> courseList = courseSvc.selectAllPkgUser(courseExample);
+		
 
 		courseExample.pageCalculate(courseSvc.countAllPkgUser(courseExample));
+		List<CourseVO> courseList = courseSvc.selectAllPkgUser(courseExample);
 
 		modelMap.addAttribute("courseList", courseList);
 		modelMap.addAttribute("searchVO", courseExample);
@@ -137,9 +163,10 @@ public class CourseCtr {
 
 	@RequestMapping(value = "/PackageList")
 	public String PackageList(CourseExample courseExample, ModelMap modelMap) {
-		List<CourseVO> courseList = courseSvc.selectAllPackage(courseExample);
+		
 
 		courseExample.pageCalculate(courseSvc.countAllPackage(courseExample));
+		List<CourseVO> courseList = courseSvc.selectAllPackage(courseExample);
 
 		modelMap.addAttribute("courseList", courseList);
 		modelMap.addAttribute("searchVO", courseExample);
@@ -166,6 +193,36 @@ public class CourseCtr {
 
 		return "course/pkgForm";
 	}
+	
+	@RequestMapping(value = "/CosUserForm")
+	public String CosUserForm(CourseExample courseExample, ModelMap modelMap, CourseVO cvo) {
+
+		List<ChapterVO> courseList = chapterSvc.selListCourse();
+
+		modelMap.addAttribute("courseList", courseList);
+
+		return "course/CosUserForm";
+	}
+	
+	@RequestMapping(value = "/vwpopupuser")
+	public String vwstpopup(CourseExample courseExample, ModelMap modelMap, CourseVO cvo) {
+
+		
+
+		return "course/vwpopupuser";
+	}
+	
+	
+	
+	@RequestMapping(value = "/CosUserSave")
+	public String CosUserSave(CourseExample courseExample, ModelMap modelMap, CourseVO cvo,RedirectAttributes redirect) {
+
+		courseSvc.insCosUserAdmin(cvo);
+		
+		redirect.addAttribute("code2", cvo.getCourseid());  
+
+		return "redirect:CosUserList";
+	}
 
 	@RequestMapping(value = "/pkgSave")
 	public String pkgSave(HttpServletRequest request, CourseExample courseExample, ModelMap modelMap, CourseVO cvo,
@@ -187,6 +244,10 @@ public class CourseCtr {
 		if (request.getParameter("sn") != null) {
 			sn = request.getParameter("sn");
 		}
+		
+		if ( cvo.getCotag1().indexOf("XXX") > 0 ) cvo.setCotag1("");
+		if ( cvo.getCotag2().indexOf("XXX") > 0 ) cvo.setCotag2("");
+		if ( cvo.getCotag3().indexOf("XXX") > 0 ) cvo.setCotag3("");
 
 		if ("0".equals(sn)) {
 			courseSvc.insertPkg(cvo);
@@ -195,7 +256,7 @@ public class CourseCtr {
 		}
 
 		
-		return "redirect:PackCosList";
+		return "redirect:PackageList";
 	}
 
 	@RequestMapping(value = "/PackCosSave")
@@ -275,6 +336,15 @@ public class CourseCtr {
 		if (!cvo.getCosimg3file().isEmpty() && (cvo.getCosimg3file().getSize() > 10)) {
 			cvo.setCosimg3(fs.saveImgFile(cvo.getCosimg3file(), cvo.getCosimg3()));
 		}
+		
+		if ( cvo.getCotag1().indexOf("XXX") > 0 ) cvo.setCotag1("");
+		if ( cvo.getCotag2().indexOf("XXX") > 0 ) cvo.setCotag2("");
+		if ( cvo.getCotag3().indexOf("XXX") > 0 ) cvo.setCotag3("");
+		
+		if ( cvo.getCotarget1().indexOf("XXX") > 0 ) cvo.setCotarget1("");
+		if ( cvo.getCotarget2().indexOf("XXX") > 0 ) cvo.setCotarget2("");
+		if ( cvo.getCotarget3().indexOf("XXX") > 0 ) cvo.setCotarget3("");
+		
 
 		String sn = "0";
 		if (request.getParameter("sn") != null) {
@@ -284,6 +354,8 @@ public class CourseCtr {
 		if ("0".equals(sn)) {
 			courseSvc.insertCourse(cvo);
 		} else {
+			
+						
 			courseSvc.updateCourse(cvo);
 		}
 
@@ -324,6 +396,11 @@ public class CourseCtr {
 		modelMap.addAttribute("seltgc3", seltgc3);
 
 		modelMap.addAttribute("selctt", selctt);
+		
+		
+		
+		
+		
 
 		return "course/courseForm";
 	}
@@ -353,4 +430,7 @@ public class CourseCtr {
 
 		return "course/pkgForm";
 	}
+	
+	
+	
 }

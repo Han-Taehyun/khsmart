@@ -46,6 +46,8 @@
 										<th>태그</th>
 										
 										<th>강좌노출방식</th>
+										
+										<th>연동강좌 수</th>
 
 
 									</tr>
@@ -66,6 +68,8 @@
 											<td><c:out value="${listview.cmstag}" /></td>
 											
 											<td><c:out value="${listview.cmstypename}" /></td>
+											
+											<td>${listview.cscnt}</td>
 
 
 										</tr>

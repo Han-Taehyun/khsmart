@@ -57,6 +57,9 @@
 
 											<th>분류명</th>
 											<th>강좌명</th>
+											
+											<th>배치순서</th>
+											
 											<th>기준단가</th>
 											<th>등록강의수</th>
 											<th>수강생수</th>
@@ -73,6 +76,9 @@
 
 												<td><c:out value="${list.large}" /></td>
 												<td>${list.title}</td>
+												
+												<td>${list.ord} 번째</td>
+												
 												<td><fmt:formatNumber value="${list.price}"
 														pattern="\#,###" /></td>
 												<td>${list.cpcnt}</td>

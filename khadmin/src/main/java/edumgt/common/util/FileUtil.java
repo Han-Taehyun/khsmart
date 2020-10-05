@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 
+@SuppressWarnings("unused")
 @Controller
 public class FileUtil {
 	

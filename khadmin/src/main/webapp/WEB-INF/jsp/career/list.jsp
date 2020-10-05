@@ -20,8 +20,8 @@
 					<h2 class="title pull-left">FAQ</h2>
 					<div class="actions panel_actions pull-right">
 						<ul class="list-unstyled">
-							<li style="float: left;"><input type="checkbox"
-								name="searchType" value="question"
+							<li style="float: left;">
+							<input type="checkbox" name="searchType" value="question"
 								<c:if test="${fn:indexOf(searchVO.searchType, 'question') != -1}">checked="checked"</c:if> />
 								<label class="chkselect" for="searchType1">질문</label>&nbsp;&nbsp;
 
@@ -76,7 +76,7 @@
 
 											<td><c:out value="${listview.faqhdr}" /></td>
 											<td><c:out value="${listview.odrno}" /></td>
-											<td><c:out value="${listview.question}" /></td>
+											<td><a href="careerRead?sn=${listview.sn}">${listview.question}</a></td>
 											<td><c:out value="${listview.mp4url}" /></td>
 											<td><c:out value="${listview.ytburl}" /></td>
 
@@ -113,10 +113,6 @@
 				</div>
 			</section>
 		</div>
-
-
-
-
 
 	</section>
 </section>

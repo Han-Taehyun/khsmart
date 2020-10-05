@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="khsmart.kr">
+
+
+	<select id="selectMileList" resultType="com.khsmart.kr.MileVO"
+		parameterType="edumgt.common.util.SearchVO">
+
+		SELECT
+		sn,userid,POINT,wdate,memo,courseid,ptype,ptypename,sumpoint,username
+		FROM
+		vwusermile
+
+		ORDER BY wdate
+
+
+		LIMIT ${rowStart-1}, 10
+	</select>
+
+	<insert id="insertMile" parameterType="com.khsmart.kr.MileVO">
+		INSERT INTO mile ( userid,
+		point, wdate, memo, courseid, ptype )
+
+		VALUES (
+
+		#{userid},
+		#{point},
+		CURRENT_TIMESTAMP,
+		#{memo},
+		#{courseid},
+
+		#{ptype}
+		)
+
+	</insert>
+
+	<update id="updateMile" parameterType="com.khsmart.kr.MileVO">
+
+		UPDATE mile
+
+		SET userid =
+		#{userid},
+		point = #{point},
+		memo = #{memo},
+		courseid =
+		#{courseid},
+
+		ptype
+		= #{ptype}
+
+		WHERE sn=#{sn}
+	</update>
+
+	<select id="selectMile" parameterType="String"
+		resultType="com.khsmart.kr.MileVO">
+		SELECT
+		sn,userid,POINT,wdate,memo,courseid,ptype,ptypename,sumpoint,username
+		FROM
+		vwusermile
+
+		WHERE sn=#{sn}
+	</select>
+
+	<delete id="deleteMileOne" parameterType="String">
+		delete from mile
+		WHERE
+		CAST(cu_no AS CHAR ) = #{cu_no}
+	</delete>
+
+	<select id="selectMileCount" resultType="Integer"
+		parameterType="edumgt.common.util.SearchVO">
+		SELECT COUNT(*) FROM vwusermile
+
+	</select>
+
+
+
+
+</mapper>
+

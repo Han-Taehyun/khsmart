@@ -6,6 +6,25 @@ import java.util.List;
 import edumgt.common.util.PageVO;
 
 public class surveypoolExample extends  PageVO{
+	
+	private Integer isvyno;
+	public Integer getIsvyno() {
+		return isvyno;
+	}
+
+	public void setIsvyno(Integer isvyno) {
+		this.isvyno = isvyno;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
+	private String uuid;
     
 	
 	public String getSvtype() {

@@ -6,38 +6,42 @@
 <jsp:include page="/WEB-INF/jsp/common/userinfo.jsp" />
 <jsp:include page="/WEB-INF/jsp/common/menu.jsp" />
 
-<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START --> 
-        <link href="/design/assets/plugins/calendar/fullcalendar.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="/design/assets/plugins/icheck/skins/minimal/minimal.css" rel="stylesheet" type="text/css" media="screen"/>        <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END --> 
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
+<link href="/design/assets/plugins/calendar/fullcalendar.css"
+	rel="stylesheet" type="text/css" media="screen" />
+<link href="/design/assets/plugins/icheck/skins/minimal/minimal.css"
+	rel="stylesheet" type="text/css" media="screen" />
+<!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 
 
-            <section id="main-content" class=" ">
-                <section class="wrapper" style='margin-top:60px;display:inline-block;width:100%;
-                padding:15px 0 0 15px;'>
-
-
-
-                    <div class="col-lg-12">
-                        <section class="box nobox">
-                            <div class="content-body">
-                            
-							
-                                <div class="row">
-								
-
-                                    <div id='calendar' class="col-md-12 col-sm-9 col-xs-9"></div>
-
-                                </div>
-                            </div>
-                        </section></div>
+<section id="main-content" class=" ">
+	<section class="wrapper"
+		style='margin-top: 60px; display: inline-block; width: 100%; padding: 15px 0 0 15px;'>
 
 
 
-                </section>
-            </section>
-  
-            
-            
+		<div class="col-lg-12">
+			<section class="box nobox">
+				<div class="content-body">
+
+
+					<div class="row">
+
+
+						<div id='calendar' class="col-md-12 col-sm-9 col-xs-9"></div>
+
+					</div>
+				</div>
+			</section>
+		</div>
+
+
+
+	</section>
+</section>
+
+
+
 
 
 
@@ -45,29 +49,43 @@
 <script src="/assets/js/jquery-1.11.2.min.js" type="text/javascript"></script>
 <script src="/assets/js/jquery.form.js" type="text/javascript"></script>
 <script src="/assets/js/jquery.easing.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/bootstrap/js/bootstrap.min.js"
+	type="text/javascript"></script>
 <script src="/assets/plugins/pace/pace.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/viewport/viewportchecker.js" type="text/javascript"></script>
+<script src="/assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"
+	type="text/javascript"></script>
+<script src="/assets/plugins/viewport/viewportchecker.js"
+	type="text/javascript"></script>
 <!-- CORE JS FRAMEWORK - END -->
 
 
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - START -->
-<script src="/assets/plugins/datepicker/js/datepicker.js" type="text/javascript"></script> 
-<script src="/assets/plugins/inputmask/jquery.inputmask.bundle.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/autonumeric/autoNumeric.js" type="text/javascript"></script>
+<script src="/assets/plugins/datepicker/js/datepicker.js"
+	type="text/javascript"></script>
+<script src="/assets/plugins/inputmask/jquery.inputmask.bundle.min.js"
+	type="text/javascript"></script>
+<script src="/assets/plugins/autonumeric/autoNumeric.js"
+	type="text/javascript"></script>
 
 <!--  script src="/assets/plugins/bootstrap3-wysihtml5/js/bootstrap3-wysihtml5.js" type="text/javascript"></script -->
 
-<script src="/assets/plugins/bootstrap3-wysihtml5/js/bootstrap3-wysihtml5.all.js" type="text/javascript"></script>
-<script src="/assets/plugins/bootstrap3-wysihtml5/locales/bootstrap-wysihtml5.ko-KR.js" type="text/javascript"></script>
+<script
+	src="/assets/plugins/bootstrap3-wysihtml5/js/bootstrap3-wysihtml5.all.js"
+	type="text/javascript"></script>
+<script
+	src="/assets/plugins/bootstrap3-wysihtml5/locales/bootstrap-wysihtml5.ko-KR.js"
+	type="text/javascript"></script>
 
 
-		<script src="/assets/plugins/calendar/moment.min.js" type="text/javascript"></script>
-        <script src="/assets/plugins/jquery-ui/smoothness/jquery-ui.min.js" type="text/javascript"></script>
-        <script src="/assets/plugins/calendar/fullcalendar.min.js" type="text/javascript"></script>
-        <script src="/assets/plugins/icheck/icheck.min.js" type="text/javascript"></script>
-        
+<script src="/assets/plugins/calendar/moment.min.js"
+	type="text/javascript"></script>
+<script src="/assets/plugins/jquery-ui/smoothness/jquery-ui.min.js"
+	type="text/javascript"></script>
+<script src="/assets/plugins/calendar/fullcalendar.min.js"
+	type="text/javascript"></script>
+<script src="/assets/plugins/icheck/icheck.min.js"
+	type="text/javascript"></script>
+
 <!-- OTHER SCRIPTS INCLUDED ON THIS PAGE - END -->
 
 
@@ -78,7 +96,8 @@
 
 
 <!-- Sidebar Graph - START -->
-<script src="/assets/plugins/sparkline-chart/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="/assets/plugins/sparkline-chart/jquery.sparkline.min.js"
+	type="text/javascript"></script>
 <script src="/assets/js/chart-sparkline.js" type="text/javascript"></script>
 <!-- Sidebar Graph - END -->
 
@@ -714,8 +733,8 @@ window.open("newcal?ymd="+_a, "_blank", "toolbar=no,scrollbars=yes,resizable=yes
 
 
 
-        
-        
+
+
 
 
 

@@ -22,6 +22,20 @@ public class UsertSvc implements com.ultarischool.usert.usertMapper {
 	public List<UsertVO> selectByUsertypecode(usertExample example) {
 		return sqlSession.selectList("selectByUsertypecode", example);
 	}
+	
+	public List<UsertVO> selUserLike(String userid) {
+		return sqlSession.selectList("selUserLike", userid);
+	}
+	
+	public List<UsertVO> selVwcosinfo(String userid) {
+		return sqlSession.selectList("selVwcosinfo", userid);
+	}
+	
+	public List<UsertVO> selTtLecList(String userid) {
+		return sqlSession.selectList("selTtLecList", userid);
+	}
+	
+	
 
 	public int selectCountByUsertypecode(usertExample example) {
 		return sqlSession.selectOne("selectCountByUsertypecode", example);
@@ -33,6 +47,10 @@ public class UsertSvc implements com.ultarischool.usert.usertMapper {
 
 	public List<usert> selectBnkCode() {
 		return sqlSession.selectList("selectBnkCode");
+	}
+	
+	public List<UsertVO> selectUserStSrch(String param) {
+		return sqlSession.selectList("selectUserStSrch",param);
 	}
 
 	@Override

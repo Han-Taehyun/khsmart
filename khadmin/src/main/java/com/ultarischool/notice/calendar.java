@@ -1,5 +1,6 @@
 package com.ultarischool.notice;
 import org.springframework.web.multipart.MultipartFile;
+@SuppressWarnings("unused")
 public class calendar {
 	private String price = "";
 

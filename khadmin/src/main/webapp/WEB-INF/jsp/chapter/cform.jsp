@@ -9,7 +9,8 @@
 <form name="form1" action="chapterSave" method="post"
 	enctype="multipart/form-data">
 
-	<input name="sn" type="hidden" value="${cvo.sn}">
+	<input name="sn" type="hidden" value="${cvo.sn}"> <input
+		name="memo" type="hidden" value="">
 
 
 	<section id="main-content" class=" ">
@@ -22,11 +23,7 @@
 				<section class="box ">
 					<header class="panel_header">
 						<h2 class="title pull-left">강의 입력</h2>
-						<div class="actions panel_actions pull-right">
-							<i class="box_toggle fa fa-chevron-down"></i> <i
-								class="box_setting fa fa-cog" data-toggle="modal"
-								href="#section-settings"></i> <i class="box_close fa fa-times"></i>
-						</div>
+						<div class="actions panel_actions pull-right"></div>
 					</header>
 					<div class="content-body">
 						<div class="row">
@@ -56,17 +53,7 @@
 											</tr>
 
 
-											<tr>
 
-
-												<td class="tdl" style="width: 15%">강의소개</td>
-
-												<td style="width: 85%" colspan="3"><textarea
-														name="memo"
-														style="width: 100%; height: 130px; font-size: 13px; line-height: 15px; padding: 5px;">${cvo.memo}</textarea>
-
-												</td>
-											</tr>
 
 											<tr>
 
@@ -86,7 +73,7 @@
 
 											<tr>
 
-												<td class="tdl" style="width: 15%">RUNTIME(초)</td>
+												<td class="tdl" style="width: 15%">RUNTIME(분)</td>
 												<td style="width: 35%"><input name="runtime"
 													type="text" value="${cvo.runtime}" class="form-control"
 													style="width: 120px" maxlength="3"
@@ -169,10 +156,7 @@
 			document.form1.title.focus();
 		} else {
 
-			if (document.form1.memo.value == '') {
-				alert('설명을 입력하세요');
-				document.form1.memo.focus();
-			} else {
+			
 
 				if (document.form1.ord.value == '') {
 					alert('순서를 입력하세요');
@@ -190,7 +174,7 @@
 						
 					}
 				}
-			}
+			
 		}
 	}
 

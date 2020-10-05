@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="khsmart.surveypool">
+	<resultMap id="BaseResultMap"
+		type="com.khsmart.surveypool.surveypoolnml">
+
+		<id column="sn" jdbcType="INTEGER" property="sn" />
+
+		<result column="svname" jdbcType="VARCHAR" property="svname" />
+		<result column="svtype" jdbcType="VARCHAR" property="svtype" />
+		<result column="svmemo" jdbcType="VARCHAR" property="svmemo" />
+
+		<result column="svyno" jdbcType="VARCHAR" property="svyno" />
+		<result column="odrno" jdbcType="VARCHAR" property="odrno" />
+
+		<result column="title" jdbcType="VARCHAR" property="title" />
+		<result column="type1" jdbcType="VARCHAR" property="type1" />
+		<result column="bogi1" jdbcType="VARCHAR" property="bogi1" />
+		<result column="bogi2" jdbcType="VARCHAR" property="bogi2" />
+		<result column="bogi3" jdbcType="VARCHAR" property="bogi3" />
+		<result column="bogi4" jdbcType="VARCHAR" property="bogi4" />
+		<result column="bogi5" jdbcType="VARCHAR" property="bogi5" />
+		<result column="bogi1jum" jdbcType="INTEGER"
+			property="bogi1jum" />
+		<result column="bogi2jum" jdbcType="INTEGER"
+			property="bogi2jum" />
+		<result column="bogi3jum" jdbcType="INTEGER"
+			property="bogi3jum" />
+		<result column="bogi4jum" jdbcType="INTEGER"
+			property="bogi4jum" />
+		<result column="bogi5jum" jdbcType="INTEGER"
+			property="bogi5jum" />
+
+		<result column="svytypename" jdbcType="VARCHAR"
+			property="svytypename" />
+
+	</resultMap>
+	<sql id="Example_Where_Clause">
+
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+
+	<sql id="Base_Column_List">
+
+		sn, title, type1, bogi1, bogi2, bogi3, bogi4, bogi5, bogi6,
+		bogi7,
+		bogi8, bogi9, bogi10, bogi11, bogi12, bogi13, bogi14, bogi15,
+		bogi16,
+		bogi17, bogi18, bogi19, bogi20,
+		bogi1type, bogi2type, bogi3type,
+		bogi4type, bogi5type, bogi6type, bogi7type,
+		bogi8type, bogi9type,
+		bogi10type, bogi11type, bogi12type, bogi13type,
+		bogi14type, bogi15type,
+		bogi16type, bogi17type, bogi18type, bogi19type, bogi20type,
+		bogi1jum,
+		bogi2jum,
+		bogi3jum,
+		bogi4jum, bogi5jum, svyno, odrno
+
+
+	</sql>
+
+	<select id="selectByExampleSpNml"
+		parameterType="com.khsmart.surveypool.surveypoolExampleNml"
+		resultMap="BaseResultMap">
+
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+
+
+		FROM surveypool
+
+		where svyno =
+		#{svyno,jdbcType=INTEGER}
+
+		order by odrno
+
+		LIMIT ${rowStart-1}, 10
+	</select>
+
+	<select id="selectByExampleSp2"
+		parameterType="com.khsmart.surveypool.surveypoolExampleNml"
+		resultMap="BaseResultMap">
+
+		select
+		sn,svname,svtype,svmemo
+		,codename svytypename,smcnt
+
+		FROM survey
+		JOIN usercode uc ON uc.code = survey.svtype
+
+		left outer join
+		( SELECT
+		svyno,COUNT(*) smcnt from surveypool GROUP BY svyno ) spsm
+		on
+		spsm.svyno = survey.sn
+
+		where 1=1
+
+		<if test="svtype != null and svtype != ''">
+			and svtype = #{svtype,jdbcType=VARCHAR}
+		</if>
+
+
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		LIMIT ${rowStart-1}, 10
+	</select>
+
+
+	<select id="selectListSvType" resultMap="BaseResultMap">
+
+		SELECT CODE svtype,
+		codename svytypename FROM usercode WHERE CODE2 = '설문'
+
+
+
+	</select>
+
+	<select id="selectListSvy" resultMap="BaseResultMap">
+
+		select
+		sn,svname
+		from survey
+
+	</select>
+
+
+	<select id="selectVwResHumanList"
+		parameterType="java.lang.Integer"
+		resultType="com.khsmart.surveypool.surveypoolnml">
+		SELECT distinct uuid,username,email,substring(wdate,1,10) wdate FROM
+		vwsvyresponse WHERE resvyno = #{resvyno}
+	</select>
+
+
+
+	<select id="selectByPrimaryKeySp2"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+		select
+		sn,svname,svtype,svmemo
+		from survey
+		where sn = #{sn,jdbcType=INTEGER}
+	</select>
+
+	<delete id="deleteByPrimaryKeySp"
+		parameterType="java.lang.Integer">
+
+		delete from surveypool
+		where sn = #{sn,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExampleSp"
+		parameterType="com.khsmart.surveypool.surveypoolExampleNml">
+
+		delete from surveypool
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+
+	<insert id="insertSpNml"
+		parameterType="com.khsmart.surveypool.surveypoolnml">
+
+
+		insert into surveypool ( svyno, odrno, title, type1,
+		bogi1, bogi2, bogi3,
+		bogi4, bogi5, bogi1jum,
+		bogi2jum, bogi3jum,
+		bogi4jum,
+		bogi5jum)
+
+		values (
+
+		#{svyno,jdbcType=INTEGER},
+		#{odrno,jdbcType=VARCHAR},
+
+		#{title,jdbcType=VARCHAR},
+		#{type1,jdbcType=VARCHAR},
+		#{bogi1,jdbcType=VARCHAR},
+		#{bogi2,jdbcType=VARCHAR}, #{bogi3,jdbcType=VARCHAR},
+		#{bogi4,jdbcType=VARCHAR}, #{bogi5,jdbcType=VARCHAR},5, 4, 3, 2, 1)
+
+	</insert>
+
+	<insert id="insertSp2"
+		parameterType="com.khsmart.surveypool.surveypoolnml">
+
+		insert into survey ( svtype, svname,
+		svmemo )
+		values (
+		#{svtype,jdbcType=VARCHAR}, #{svname,jdbcType=VARCHAR},
+		#{svmemo,jdbcType=VARCHAR} )
+	</insert>
+
+
+	<insert id="insertSelectiveSp"
+		parameterType="com.khsmart.surveypool.surveypoolnml">
+
+		insert into surveypool
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sn != null">
+				sn,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="type1 != null">
+				type1,
+			</if>
+			<if test="bogi1 != null">
+				bogi1,
+			</if>
+			<if test="bogi2 != null">
+				bogi2,
+			</if>
+			<if test="bogi3 != null">
+				bogi3,
+			</if>
+			<if test="bogi4 != null">
+				bogi4,
+			</if>
+			<if test="bogi5 != null">
+				bogi5,
+			</if>
+			<if test="bogi1jum != null">
+				bogi1jum,
+			</if>
+			<if test="bogi2jum != null">
+				bogi2jum,
+			</if>
+			<if test="bogi3jum != null">
+				bogi3jum,
+			</if>
+			<if test="bogi4jum != null">
+				bogi4jum,
+			</if>
+			<if test="bogi5jum != null">
+				bogi5jum,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sn != null">
+				#{sn,jdbcType=INTEGER},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="type1 != null">
+				#{type1,jdbcType=VARCHAR},
+			</if>
+			<if test="bogi1 != null">
+				#{bogi1,jdbcType=VARCHAR},
+			</if>
+			<if test="bogi2 != null">
+				#{bogi2,jdbcType=VARCHAR},
+			</if>
+			<if test="bogi3 != null">
+				#{bogi3,jdbcType=VARCHAR},
+			</if>
+			<if test="bogi4 != null">
+				#{bogi4,jdbcType=VARCHAR},
+			</if>
+			<if test="bogi5 != null">
+				#{bogi5,jdbcType=VARCHAR},
+			</if>
+			<if test="bogi1jum != null">
+				#{bogi1jum,jdbcType=INTEGER},
+			</if>
+			<if test="bogi2jum != null">
+				#{bogi2jum,jdbcType=INTEGER},
+			</if>
+			<if test="bogi3jum != null">
+				#{bogi3jum,jdbcType=INTEGER},
+			</if>
+			<if test="bogi4jum != null">
+				#{bogi4jum,jdbcType=INTEGER},
+			</if>
+			<if test="bogi5jum != null">
+				#{bogi5jum,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="countByExampleSp"
+		parameterType="com.khsmart.surveypool.surveypoolExampleNml"
+		resultType="java.lang.Integer">
+
+		select count(*) from surveypool
+		where svyno =
+		#{svyno,jdbcType=INTEGER}
+	</select>
+
+	<select id="countByExampleSp2"
+		parameterType="com.khsmart.surveypool.surveypoolExampleNml"
+		resultType="java.lang.Integer">
+
+		select count(*) from survey
+
+		where 1=1
+
+		<if test="svtype != null and svtype != ''">
+			and svtype = #{svtype,jdbcType=VARCHAR}
+		</if>
+
+
+	</select>
+
+	<update id="updateByExampleSelectiveSp" parameterType="map">
+
+		update surveypool
+		<set>
+			<if test="record.sn != null">
+				sn = #{record.sn,jdbcType=INTEGER},
+			</if>
+			<if test="record.title != null">
+				title = #{record.title,jdbcType=VARCHAR},
+			</if>
+			<if test="record.type1 != null">
+				type1 = #{record.type1,jdbcType=VARCHAR},
+			</if>
+			<if test="record.bogi1 != null">
+				bogi1 = #{record.bogi1,jdbcType=VARCHAR},
+			</if>
+			<if test="record.bogi2 != null">
+				bogi2 = #{record.bogi2,jdbcType=VARCHAR},
+			</if>
+			<if test="record.bogi3 != null">
+				bogi3 = #{record.bogi3,jdbcType=VARCHAR},
+			</if>
+			<if test="record.bogi4 != null">
+				bogi4 = #{record.bogi4,jdbcType=VARCHAR},
+			</if>
+			<if test="record.bogi5 != null">
+				bogi5 = #{record.bogi5,jdbcType=VARCHAR},
+			</if>
+			<if test="record.bogi1jum != null">
+				bogi1jum = #{record.bogi1jum,jdbcType=INTEGER},
+			</if>
+			<if test="record.bogi2jum != null">
+				bogi2jum = #{record.bogi2jum,jdbcType=INTEGER},
+			</if>
+			<if test="record.bogi3jum != null">
+				bogi3jum = #{record.bogi3jum,jdbcType=INTEGER},
+			</if>
+			<if test="record.bogi4jum != null">
+				bogi4jum = #{record.bogi4jum,jdbcType=INTEGER},
+			</if>
+			<if test="record.bogi5jum != null">
+				bogi5jum = #{record.bogi5jum,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExampleSp" parameterType="map">
+
+		update surveypool
+		set sn = #{record.sn,jdbcType=INTEGER},
+		title =
+		#{record.title,jdbcType=VARCHAR},
+		type1 =
+		#{record.type1,jdbcType=VARCHAR},
+		bogi1 =
+		#{record.bogi1,jdbcType=VARCHAR},
+		bogi2 =
+		#{record.bogi2,jdbcType=VARCHAR},
+		bogi3 =
+		#{record.bogi3,jdbcType=VARCHAR},
+		bogi4 =
+		#{record.bogi4,jdbcType=VARCHAR},
+		bogi5 =
+		#{record.bogi5,jdbcType=VARCHAR},
+		bogi1jum =
+		#{record.bogi1jum,jdbcType=INTEGER},
+		bogi2jum =
+		#{record.bogi2jum,jdbcType=INTEGER},
+		bogi3jum =
+		#{record.bogi3jum,jdbcType=INTEGER},
+		bogi4jum =
+		#{record.bogi4jum,jdbcType=INTEGER},
+		bogi5jum =
+		#{record.bogi5jum,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelectiveSp"
+		parameterType="com.khsmart.surveypool.surveypoolnml">
+
+		update surveypool
+		<set>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="type1 != null">
+				type1 = #{type1,jdbcType=VARCHAR},
+			</if>
+			<if test="bogi1 != null">
+				bogi1 = #{bogi1,jdbcType=VARCHAR},
+			</if>
+			<if test="bogi2 != null">
+				bogi2 = #{bogi2,jdbcType=VARCHAR},
+			</if>
+			<if test="bogi3 != null">
+				bogi3 = #{bogi3,jdbcType=VARCHAR},
+			</if>
+			<if test="bogi4 != null">
+				bogi4 = #{bogi4,jdbcType=VARCHAR},
+			</if>
+			<if test="bogi5 != null">
+				bogi5 = #{bogi5,jdbcType=VARCHAR},
+			</if>
+			<if test="bogi1jum != null">
+				bogi1jum = #{bogi1jum,jdbcType=INTEGER},
+			</if>
+			<if test="bogi2jum != null">
+				bogi2jum = #{bogi2jum,jdbcType=INTEGER},
+			</if>
+			<if test="bogi3jum != null">
+				bogi3jum = #{bogi3jum,jdbcType=INTEGER},
+			</if>
+			<if test="bogi4jum != null">
+				bogi4jum = #{bogi4jum,jdbcType=INTEGER},
+			</if>
+			<if test="bogi5jum != null">
+				bogi5jum = #{bogi5jum,jdbcType=INTEGER},
+			</if>
+		</set>
+		where sn = #{sn,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateByPrimaryKeySp"
+		parameterType="com.khsmart.surveypool.surveypoolnml">
+
+		update surveypool
+		set title = #{title,jdbcType=VARCHAR},
+		type1 = #{type1,jdbcType=VARCHAR},
+		bogi1 = #{bogi1,jdbcType=VARCHAR},
+		bogi2 = #{bogi2,jdbcType=VARCHAR},
+		bogi3 = #{bogi3,jdbcType=VARCHAR},
+		bogi4 = #{bogi4,jdbcType=VARCHAR},
+		bogi5 = #{bogi5,jdbcType=VARCHAR},
+
+		odrno = #{odrno,jdbcType=VARCHAR},
+		svyno = #{svyno,jdbcType=INTEGER}
+
+		where sn = #{sn,jdbcType=INTEGER}
+
+	</update>
+
+	<update id="updateByPrimaryKeySp2"
+		parameterType="com.khsmart.surveypool.surveypoolnml">
+
+		update survey
+		set svname = #{svname,jdbcType=VARCHAR},
+		svtype = #{svtype,jdbcType=VARCHAR},
+		svmemo =
+		#{svmemo,jdbcType=VARCHAR}
+		where sn = #{sn,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="selectVwResponse"
+		resultType="com.khsmart.surveypool.surveypoolnml"
+		parameterType="com.khsmart.surveypool.surveypoolExampleNml">
+
+
+
+		SELECT distinct vwsvyresponse.resvyno,svname,rescnt FROM vwsvyresponse LEFT
+		OUTER JOIN
+		(
+		SELECT resvyno,COUNT(*) rescnt FROM (
+		SELECT distinct
+		resvyno,uuid FROM surveyresponse ) z GROUP BY resvyno
+		) z ON z.resvyno
+		= vwsvyresponse.resvyno
+
+		LIMIT ${rowStart-1}, 10
+	</select>
+
+	<select id="countVwResponse"
+		parameterType="com.khsmart.surveypool.surveypoolExampleNml"
+		resultType="java.lang.Integer">
+
+		SELECT COUNT(*) FROM (
+
+		SELECT distinct vwsvyresponse.resvyno,svname,rescnt FROM vwsvyresponse LEFT
+		OUTER JOIN
+		(
+		SELECT resvyno,COUNT(*) rescnt FROM (
+		SELECT distinct
+		resvyno,uuid FROM surveyresponse ) z GROUP BY resvyno
+		) z ON z.resvyno
+		= vwsvyresponse.resvyno
+
+		) zz
+	</select>
+
+
+	<select id="selectVwResponseOneTop"
+		resultType="com.khsmart.surveypool.surveypoolnml"
+		parameterType="com.khsmart.surveypool.surveypoolExampleNml">
+		SELECT distinct svname,email,username,uuid
+		,substring(wdate,1,10) wdate FROM vwsvyresponse
+		WHERE uuid = #{uuid}
+	</select>
+
+
+	<select id="selectVwResponseOne"
+		resultType="com.khsmart.surveypool.surveypoolnml"
+		parameterType="com.khsmart.surveypool.surveypoolExampleNml">
+
+
+		SELECT svname,title,resvyno,resodr,ans,email,username,wdate FROM
+		vwsvyresponse
+		WHERE uuid = #{uuid}
+		order by cast(resodr AS DECIMAL)
+
+	</select>
+
+	<select id="countVwResponseOne"
+		parameterType="com.khsmart.surveypool.surveypoolExampleNml"
+		resultType="java.lang.Integer">
+		SELECT count(*) FROM vwsvyresponse
+		WHERE uuid = #{uuid}
+	</select>
+
+
+
+	<select id="selectCdCtusfk"
+		resultType="com.khsmart.surveypool.surveypoolnml">
+
+
+
+
+
+	</select>
+
+	<select id="selectOneCtSn" parameterType="java.lang.Integer"
+		resultType="java.lang.String">
+		SELECT ctudsn FROM contactusdetailsurvey WHERE svyno =
+		#{sn,jdbcType=INTEGER}
+	</select>
+
+
+	<select id="selMaxSn" resultType="java.lang.String">
+		SELECT max(sn) sn FROM survey
+	</select>
+
+	<select id="deleteSvy" resultType="java.lang.Integer">
+		delete FROM survey where sn =
+		#{sn,jdbcType=INTEGER}
+	</select>
+
+
+	<insert id="dynamicSvyRes"
+		parameterType="com.khsmart.surveypool.surveypoolnml">
+
+		insert into surveyresponse
+		(resvyno,resodr,ans,uuid,wdate,username,email)
+		values
+		(#{hidsvyno},#{hidodr},#{hiduserans},#{hiduuid},current_timestamp,#{hidusername},#{hidemail})
+	</insert>
+
+
+	<update id="dynamicSvyResUp"
+		parameterType="com.khsmart.surveypool.surveypoolnml">
+
+		update surveyresponse set username = #{hidusername},
+		email = #{hidemail}
+		where uuid = #{hiduuid}
+	</update>
+
+
+
+</mapper>

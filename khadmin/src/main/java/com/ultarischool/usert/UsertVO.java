@@ -2,7 +2,47 @@ package com.ultarischool.usert;
 
 import java.util.Date;
 
+@SuppressWarnings("unused")
 public class UsertVO {
+	
+	
+	
+	private String typecode;
+	private String wdate;
+	public String getWdate() {
+		return wdate;
+	}
+
+	public void setWdate(String wdate) {
+		this.wdate = wdate;
+	}
+
+	public String getTypecode() {
+		return typecode;
+	}
+
+	public void setTypecode(String typecode) {
+		this.typecode = typecode;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	private String title;
+	private String price;
 
 	public String getCucnt() {
 		return cucnt;

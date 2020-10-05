@@ -40,7 +40,9 @@
 								</li>
 								<li style="float: left;">&nbsp;&nbsp;
 									<button type="button" class="btn btn-primary "
-										onclick="fn_formSubmit()">검색</button> <!--  button type="button" class="btn btn-orange" onclick="fn_formGo()">신규</button -->
+										onclick="fn_formSubmit()">검색</button> 
+										
+										
 
 								</li>
 
@@ -60,22 +62,22 @@
 										<tr>
 
 
-											<th style='width:6%'>#</th>
+											<th style='width:5%'>#</th>
 
 
-											<th style='width: 20%'>강좌명</th>
+											<th style='width: 16%'>강좌명</th>
 
-											<th style='width: 20%'>강의명</th>
+											<th style='width: 16%'>강의명</th>
 
 
 
-											<th style='width:6%'>아이디</th>
+											<th style='width:8%'>아이디</th>
 
-											<th style='width:6%'>수강시간(분)</th>
+											<th style='width:8%'>수강시간(분)</th>
 
-											<th style='width:6%'>강의 RunTime</th>
+											<th style='width:8%'>강의 RunTime</th>
 
-											<th style='width:6%'>권장 RunTime</th>
+											<th style='width:8%'>권장 RunTime</th>
 
 
 

@@ -6,27 +6,35 @@
 
 		<id column="sn" jdbcType="INTEGER" property="sn" />
 		<result column="userid" jdbcType="VARCHAR" property="userid" />
-
-		
-
 		<result column="username" jdbcType="VARCHAR"
 			property="username" />
-
 		<result column="userpw" jdbcType="VARCHAR" property="userpw" />
 		<result column="usertypecode" jdbcType="VARCHAR"
 			property="usertypecode" />
-		
+
 		<result column="email" jdbcType="VARCHAR" property="email" />
 		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
-		
+
 		<result column="birthyyyymmdd" jdbcType="VARCHAR"
 			property="birthyyyymmdd" />
-			
-			<result column="nickname" jdbcType="VARCHAR"
+
+		<result column="nickname" jdbcType="VARCHAR"
 			property="nickname" />
-			<result column="nickimg" jdbcType="VARCHAR"
-			property="nickimg" />
-		
+		<result column="nickimg" jdbcType="VARCHAR" property="nickimg" />
+
+		<result column="ucodeid" jdbcType="VARCHAR" property="ucodeid" />
+
+		<result column="code1" jdbcType="VARCHAR" property="code1" />
+
+		<result column="code2" jdbcType="VARCHAR" property="code2" />
+
+		<result column="code3" jdbcType="VARCHAR" property="code3" />
+
+		<result column="codename" jdbcType="VARCHAR"
+			property="codename" />
+
+
+
 
 	</resultMap>
 	<sql id="Example_Where_Clause">
@@ -100,7 +108,8 @@
 	<sql id="Base_Column_List">
 		sn, etcgoid, usertypecode, userid, userpw, username, email,
 		mobile,
-		birthyyyymmdd, lectnum, smsyn, emailyn, telyn, regdate, nickname, nickimg
+		birthyyyymmdd, lectnum, smsyn, emailyn, telyn, regdate,
+		nickname, nickimg
 	</sql>
 
 	<!--직원만 가져오기 -->
@@ -124,8 +133,7 @@
 		etcgo AS et
 		ON ut.etcgoid = et.sn
 		WHERE
-		ut.usertypecode NOT IN ("TT",
-		"ST")
+		ut.usertypecode NOT IN ("TT","ST")
 		<if test="searchKeyword != null and searchKeyword != ''">
 			AND ut.${searchType} LIKE
 			CONCAT('%',#{searchKeyword},'%')
@@ -134,34 +142,93 @@
 		LIMIT ${rowStart-1}, 10;
 	</select>
 
+	<select id="selTtLecList" parameterType="java.lang.String"
+		resultType="com.ultarischool.usert.UsertVO">
+		SELECT sn,typecode,title,price FROM course WHERE tutorid =
+		#{userid}
+	</select>
+
 
 	<select id="selectByUsertypecode"
 		parameterType="com.ultarischool.usert.usertExample"
 		resultType="com.ultarischool.usert.UsertVO">
 		SELECT ut.userid,username,email,mobile,ut.regdate, ut.sn
 
-		, (SELECT IFNULL(COUNT(*),0) FROM course WHERE course.tutorid =
+		,
+		(SELECT IFNULL(COUNT(*),0) FROM course WHERE course.tutorid =
 		ut.userid ) ttcnt
 
 		,ifnull(logindate,'-') logindate
-		,IFNULL(cucnt,'0') cucnt
+		,IFNULL(cucnt,'0')
+		cucnt
 
-		, (SELECT IFNULL(COUNT(*),0) FROM cosuserzzim WHERE cosuserzzim.userid
+		, (SELECT IFNULL(COUNT(*),0) FROM cosuserzzim WHERE
+		cosuserzzim.userid
 		= ut.userid ) zzcnt
 
 		FROM usert ut
 
 		LEFT OUTER JOIN
-		( SELECT userid,MAX(logindate) logindate FROM loginhis GROUP BY userid
-		) lh on lh.userid = ut.userid
+		(
+		SELECT userid,MAX(logindate) logindate FROM loginhis GROUP BY userid
+		)
+		lh on lh.userid = ut.userid
 
 
 		LEFT OUTER join
-		( SELECT userid,COUNT(*) cucnt FROM cosuser GROUP BY userid
+		( SELECT userid,COUNT(*)
+		cucnt FROM cosuser GROUP BY userid
 		) cu ON cu.userid = ut.userid
 
-		WHERE usertypecode like #{usertypecode,jdbcType=VARCHAR}
-		LIMIT ${rowStart-1}, 10;
+		WHERE
+		usertypecode like #{usertypecode,jdbcType=VARCHAR}
+		
+		
+		<if test='orderKeyword=="1"'>
+			ORDER BY username asc
+		</if>
+		<if test='orderKeyword=="2"'>
+			ORDER BY username desc
+		</if>
+		
+		<if test='orderKeyword=="3"'>
+			ORDER BY ut.regdate asc
+		</if>
+		<if test='orderKeyword=="4"'>
+			ORDER BY ut.regdate desc
+		</if>
+		
+		<if test='orderKeyword=="5"'>
+			ORDER BY email asc
+		</if>
+		<if test='orderKeyword=="6"'>
+			ORDER BY email desc
+		</if>
+		
+		<if test='orderKeyword=="7"'>
+			ORDER BY mobile asc
+		</if>
+		<if test='orderKeyword=="8"'>
+			ORDER BY mobile desc
+		</if>
+		
+		
+		<if test='orderKeyword=="9"'>
+			ORDER BY cucnt asc
+		</if>
+		<if test='orderKeyword=="10"'>
+			ORDER BY cucnt desc
+		</if>
+		
+		<if test='orderKeyword=="11"'>
+			ORDER BY zzcnt asc
+		</if>
+		<if test='orderKeyword=="12"'>
+			ORDER BY zzcnt desc
+		</if>
+		
+		
+		LIMIT ${rowStart-1},10
 	</select>
 
 
@@ -169,7 +236,8 @@
 		parameterType="com.ultarischool.usert.usertExample"
 		resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM ( SELECT userid FROM usert ut
-		WHERE usertypecode like #{usertypecode,jdbcType=VARCHAR} ) z
+		WHERE
+		usertypecode like #{usertypecode,jdbcType=VARCHAR} ) z
 	</select>
 
 	<select id="selectStaffBySn" parameterType="java.lang.Integer"
@@ -195,6 +263,36 @@
 		"ST") AND ut.sn = #{sn,
 		jdbcType=INTEGER};
 	</select>
+
+	<select id="selectUserStSrch" parameterType="java.lang.String"
+		resultType="com.ultarischool.usert.UsertVO">
+
+		select userid,username from usert where username like
+		concat('%',#{username},'%')
+
+	</select>
+
+	<select id="selUserLike" parameterType="java.lang.String"
+		resultType="com.ultarischool.usert.usert">
+
+		SELECT userid,ucodeid,CODE1,CODE2,CODE3,codename FROM
+		vwuserlike
+		where userid = #{userid}
+
+	</select>
+	
+	
+	<select id="selVwcosinfo" parameterType="java.lang.String"
+		resultType="com.ultarischool.usert.UsertVO">
+
+		SELECT title , wdate FROM
+		vwcosinfo
+		where userid = #{userid}
+
+	</select>
+
+
+
 
 	<select id="selectByExampleUsert"
 		parameterType="com.ultarischool.usert.usertExample"
@@ -264,153 +362,11 @@
 
 	</select>
 
-	<select id="selectByExampleUsert2"
-		parameterType="com.ultarischool.usert.usertExample"
-		resultMap="BaseResultMap">
-
-		select
-
-		usert.sn, userid,
-
-		etcgosn ,
-
-		( select elsname from etcgo where
-		etcgo.sn = usert.etcgosn ) elsname ,
-
-		userpw, username, usertype,
-		snstype, usyear, usban, usbun,
-		usert.email,
-		mobile, notiemail, notiesms,
-		birthyyyymmdd, tutortype, activearea, addr,
-		usimg, memo1,
-		bankimg,
-		usert.regimg, careerimg, etcdocu1, etcdocu2, bankacc, gradu, kocode,
-		utjcode1, utjcode2, utjcode3,
-
-		sppg3, spp3, sppsdate3, sppg2, spp2,
-		sppsdate2, sppg1, spp1, sppsdate1,
-
-		jobm3, jobg3, jobedate3, jobsdate3,
-		job3, jobm2, jobg2, jobedate2,
-		jobsdate2,
-		job2, jobm1, jobg1, jobedate1,
-		jobsdate1, job1, result3, result2, result1,
-		schedate1,
-		schedate2,
-		schedate3, schsdate1, schsdate2, schsdate3, grd3, grd2, grd1, sch3,
-		sch2,
-		sch1, tchjik, tchphone2,ttfile,ttppt,usert.zipcode
-
-		from usert left
-		outer JOIN etcgo ON etcgo.sn = usert.etcgosn
-
-		where usertype =
-		#{usertype,jdbcType=VARCHAR}
-
-		<if
-			test="searchKeyword!=null and searchKeyword!='' and searchType!=''">
-			<foreach item="item" index="index" collection="searchTypeArr"
-				separator=" OR " open="AND (" close=")">
-				${item} LIKE CONCAT('%',
-				#{searchKeyword},'%' )
-			</foreach>
-		</if>
-
-		LIMIT ${rowStart-1}, 10
-
-	</select>
-
-	<select id="selectAllUsert"
-		parameterType="com.ultarischool.usert.usert" resultMap="BaseResultMap">
-
-		select
-
-		sn,
-		userid,
-
-		schoolunivfk ,
-
-		''
-		elsname ,
-
-		userpw, username, usertype, snstype,
-		usyear, usban, usbun, email,
-		mobile, notiemail, notiesms,
-		birthyyyymmdd, tutortype, activearea, addr,
-		usimg, memo1,
-		bankimg,
-		regimg, careerimg, etcdocu1, etcdocu2, bankacc, gradu, kocode,
-		utjcode1, utjcode2, utjcode3,
-
-		sppg3, spp3, sppsdate3, sppg2, spp2,
-		sppsdate2, sppg1, spp1, sppsdate1,
-
-		jobm3, jobg3, jobedate3, jobsdate3,
-		job3, jobm2, jobg2, jobedate2,
-		jobsdate2,
-		job2, jobm1, jobg1, jobedate1,
-		jobsdate1, job1, result3, result2, result1,
-		schedate1,
-		schedate2,
-		schedate3, schsdate1, schsdate2, schsdate3, grd3, grd2, grd1, sch3,
-		sch2,
-		sch1, tchjik, tchphone2,ttfile,ttppt,zipcode
-
-		from usert
-
-		where
-		usertype = #{usertype,jdbcType=VARCHAR}
 
 
 
-	</select>
-
-	<select id="selectAllUsert2"
-		parameterType="com.ultarischool.usert.usert" resultMap="BaseResultMap">
-
-		select
-
-		sn,
-		userid,
-
-		etcgosn ,
-
-		( select elsname from etcgo where etcgo.sn =
-		usert.etcgosn ) elsname ,
-
-		userpw, username, usertype, snstype, usyear,
-		usban, usbun, email,
-		mobile, notiemail, notiesms, birthyyyymmdd,
-		tutortype, activearea,
-		addr, usimg, memo1,
-		bankimg, regimg, careerimg,
-		etcdocu1, etcdocu2, bankacc, gradu, kocode,
-		utjcode1, utjcode2,
-		utjcode3,
-
-		sppg3, spp3, sppsdate3, sppg2, spp2, sppsdate2, sppg1, spp1,
-		sppsdate1,
-
-		jobm3, jobg3, jobedate3, jobsdate3, job3, jobm2, jobg2,
-		jobedate2,
-		jobsdate2,
-		job2, jobm1, jobg1, jobedate1, jobsdate1, job1,
-		result3, result2, result1,
-		schedate1,
-		schedate2, schedate3, schsdate1,
-		schsdate2, schsdate3, grd3, grd2, grd1, sch3,
-		sch2,
-		sch1, tchjik,
-		tchphone2,ttfile,ttppt,zipcode
-
-		from usert
-
-		where usertype =
-		#{usertype,jdbcType=VARCHAR}
 
 
-
-	</select>
 
 	<select id="selectByPrimaryKeyUsert"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -418,8 +374,10 @@
 		select
 		sn, userid,
 
-		
-		userpw, username, usertypecode, email, mobile, birthyyyymmdd, nickname, nickimg
+
+		userpw,
+		username, usertypecode, email, mobile, birthyyyymmdd, nickname,
+		nickimg
 
 		from usert
 		where sn =
@@ -1450,165 +1408,17 @@
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
 	</update>
+
+
 	<update id="updateByExampleUsert" parameterType="map">
 
 		update usert
 		set sn = #{record.sn,jdbcType=INTEGER},
 		userid =
 		#{record.userid,jdbcType=VARCHAR},
-		schoolunivfk =
-		#{record.schoolunivfk,jdbcType=INTEGER},
+
 		userpw =
-		#{record.userpw,jdbcType=VARCHAR},
-		usertype =
-		#{record.usertype,jdbcType=VARCHAR},
-		snstype =
-		#{record.snstype,jdbcType=VARCHAR},
-		usyear =
-		#{record.usyear,jdbcType=VARCHAR},
-		usban =
-		#{record.usban,jdbcType=VARCHAR},
-		usbun =
-		#{record.usbun,jdbcType=VARCHAR},
-		email =
-		#{record.email,jdbcType=VARCHAR},
-		mobile =
-		#{record.mobile,jdbcType=VARCHAR},
-		notiemail =
-		#{record.notiemail,jdbcType=VARCHAR},
-		notiesms =
-		#{record.notiesms,jdbcType=VARCHAR},
-		birthyyyymmdd =
-		#{record.birthyyyymmdd,jdbcType=VARCHAR},
-		tutortype =
-		#{record.tutortype,jdbcType=VARCHAR},
-		activearea =
-		#{record.activearea,jdbcType=VARCHAR},
-		addr =
-		#{record.addr,jdbcType=VARCHAR},
-		usimg =
-		#{record.usimg,jdbcType=VARCHAR},
-		memo1 =
-		#{record.memo1,jdbcType=VARCHAR},
-		bankimg =
-		#{record.bankimg,jdbcType=VARCHAR},
-		regimg =
-		#{record.regimg,jdbcType=VARCHAR},
-		careerimg =
-		#{record.careerimg,jdbcType=VARCHAR},
-		etcdocu1 =
-		#{record.etcdocu1,jdbcType=VARCHAR},
-
-		username =
-		#{record.username,jdbcType=VARCHAR},
-		bankacc =
-		#{record.bankacc,jdbcType=VARCHAR},
-		gradu =
-		#{record.gradu,jdbcType=VARCHAR},
-
-		kocode =
-		#{record.kocode,jdbcType=VARCHAR},
-		utjcode1 =
-		#{record.utjcode1,jdbcType=VARCHAR},
-		utjcode2 =
-		#{record.utjcode2,jdbcType=VARCHAR},
-		utjcode3 =
-		#{record.utjcode3,jdbcType=VARCHAR},
-
-		etcdocu2 =
-		#{record.etcdocu2,jdbcType=VARCHAR},
-		sppg3 =
-		#{record.sppg3,jdbcType=VARCHAR},
-		spp3 =
-		#{record.spp3,jdbcType=VARCHAR},
-		sppsdate3 =
-		#{record.sppsdate3,jdbcType=VARCHAR},
-		sppg2 =
-		#{record.sppg2,jdbcType=VARCHAR},
-		spp2 =
-		#{record.spp2,jdbcType=VARCHAR},
-		sppsdate2 =
-		#{record.sppsdate2,jdbcType=VARCHAR},
-		sppg1 =
-		#{record.sppg1,jdbcType=VARCHAR},
-		spp1 =
-		#{record.spp1,jdbcType=VARCHAR},
-		sppsdate1 =
-		#{record.sppsdate1,jdbcType=VARCHAR},
-		jobm3 =
-		#{record.jobm3,jdbcType=VARCHAR},
-		jobg3 =
-		#{record.jobg3,jdbcType=VARCHAR},
-		jobedate3 =
-		#{record.jobedate3,jdbcType=VARCHAR},
-		jobsdate3 =
-		#{record.jobsdate3,jdbcType=VARCHAR},
-		job3 =
-		#{record.job3,jdbcType=VARCHAR},
-		jobm2 =
-		#{record.jobm2,jdbcType=VARCHAR},
-		jobg2 =
-		#{record.jobg2,jdbcType=VARCHAR},
-		jobedate2 =
-		#{record.jobedate2,jdbcType=VARCHAR},
-		jobsdate2 =
-		#{record.jobsdate2,jdbcType=VARCHAR},
-		job2 =
-		#{record.job2,jdbcType=VARCHAR},
-		jobm1 =
-		#{record.jobm1,jdbcType=VARCHAR},
-		jobg1 =
-		#{record.jobg1,jdbcType=VARCHAR},
-		jobedate1 =
-		#{record.jobedate1,jdbcType=VARCHAR},
-		jobsdate1 =
-		#{record.jobsdate1,jdbcType=VARCHAR},
-		job1 =
-		#{record.job1,jdbcType=VARCHAR},
-		result3 =
-		#{record.result3,jdbcType=VARCHAR},
-		result2 =
-		#{record.result2,jdbcType=VARCHAR},
-		result1 =
-		#{record.result1,jdbcType=VARCHAR},
-		schedate1 =
-		#{record.schedate1,jdbcType=VARCHAR},
-		schedate2 =
-		#{record.schedate2,jdbcType=VARCHAR},
-		schedate3 =
-		#{record.schedate3,jdbcType=VARCHAR},
-		schsdate1 =
-		#{record.schsdate1,jdbcType=VARCHAR},
-		schsdate2 =
-		#{record.schsdate2,jdbcType=VARCHAR},
-		schsdate3 =
-		#{record.schsdate3,jdbcType=VARCHAR},
-		grd3 =
-		#{record.grd3,jdbcType=VARCHAR},
-		grd2 =
-		#{record.grd2,jdbcType=VARCHAR},
-		grd1 =
-		#{record.grd1,jdbcType=VARCHAR},
-		sch3 =
-		#{record.sch3,jdbcType=VARCHAR},
-		sch2 =
-		#{record.sch2,jdbcType=VARCHAR},
-
-		tchjik =
-		#{record.tchjik,jdbcType=VARCHAR},
-		tchphone2 =
-		#{record.tchphone2,jdbcType=VARCHAR},
-
-		ttfile =
-		#{record.ttfile,jdbcType=VARCHAR},
-		ttppt =
-		#{record.ttppt,jdbcType=VARCHAR},
-
-		zipcode =
-		#{record.zipcode,jdbcType=VARCHAR},
-
-		sch1 =
-		#{record.sch1,jdbcType=VARCHAR}
+		#{record.userpw,jdbcType=VARCHAR}
 
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />

@@ -17,14 +17,14 @@
 
 	<context:component-scan base-package="com" />
 
-	
+
 	<bean id="dataSource"
 		class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
 
 		p:driverClassName="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"
-		p:url="jdbc:log4jdbc:mysql://13.125.124.240/khsmart" p:username="edumgt"
-		p:password="khsmart9741!" p:initialSize="2" p:maxActive="30"
-		p:maxIdle="10" p:minIdle="3" p:maxWait="30000"
+		p:url="jdbc:log4jdbc:mysql://13.125.124.240/khsmart"
+		p:username="edumgt" p:password="khsmart9741!" p:initialSize="2"
+		p:maxActive="30" p:maxIdle="10" p:minIdle="3" p:maxWait="30000"
 		p:removeAbandoned="true" p:removeAbandonedTimeout="30"
 		p:validationQuery="SELECT 1" />
 
